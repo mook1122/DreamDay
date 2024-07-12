@@ -52,6 +52,10 @@ const Menu = styled.nav`
       cursor: pointer;
     }
   }
+
+  @media (max-width:650px) {
+    display: none;
+  }
 `;
 
 function Header() {
