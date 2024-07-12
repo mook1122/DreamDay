@@ -1,11 +1,12 @@
 import './App.css';
-import { Routes, Route, Link, useNavigate } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 import { Footer, Header } from './Route/Layout'
 import {Main} from './Route/Main'
+import {Invitation} from './Route/Invitation'
 
 function App() {
-
+  const location = useLocation();
   let navigate = useNavigate()
 
   return (
@@ -16,11 +17,11 @@ function App() {
       <Routes>
 
         <Route path='/' element={ <Main></Main> } />
+        <Route path='/invitation' element={ <Invitation></Invitation>} />
 
       </Routes>
 
-      <Footer></Footer>
-
+      {location.pathname !== '/invitation' && <Footer />}
 
 
     </div>

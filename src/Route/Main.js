@@ -1,10 +1,12 @@
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { useState, useEffect } from 'react';
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
-
+import { motion, useAnimation } from 'framer-motion';
 
 const BannerTitle = styled.div`
 
@@ -22,6 +24,24 @@ font-family: "Nanum Brush Script", cursive;
     font-size: 40px;
   }
 `;
+
+const AnimatedLetter = styled(motion.span)`
+  display: inline-block;
+  opacity: 0;
+  white-space: pre; // 공백을 유지하도록 설정
+  font-family: "Nanum Brush Script", cursive; // 폰트 스타일을 각 글자에 적용
+`;
+
+const textVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+    },
+  }),
+};
 
 
 const Banner = styled.div`
@@ -126,87 +146,114 @@ const BasicFont = styled.p`
 font-size: 18px;
 color: ${props => props.color};
 
+@media (max-width:1000px) {
+  font-size: 15px;
+}
+
 `;
 
 function Main() {
 
-    let navigate = useNavigate()
+  let navigate = useNavigate()
 
-    return (
+  const controls = useAnimation();
 
-        <>
+  useEffect(() => {
+    controls.start((i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1, duration: 0.6 },
+    }));
+  }, [controls]);
 
-            <BannerTitle>
-                일생에 가장 아름다운 순간
-            </BannerTitle>
+  const title = "일생에 가장 아름다운 순간";
+  const letters = title.split("");
 
-            <Banner>
+  return (
 
-                <BannerItem>
-                    <div>
-                        <img src={process.env.PUBLIC_URL + `/img/banner.jpg`}></img>
-                    </div>
+    <>
 
-                    <div>
-                        <LargeFont weight='bold'>
-                            무료로 만들어보세요!
-                        </LargeFont>
+      <BannerTitle>
+        {letters.map((letter, index) => (
+          <AnimatedLetter
+            key={index}
+            custom={index}
+            initial="hidden"
+            animate={controls}
+            variants={textVariants}
+          >
+            {letter}
+          </AnimatedLetter>
+        ))}
+      </BannerTitle>
 
-                        <LargeFont>
-                            샘플을 찾아보고
-                        </LargeFont>
+      <Banner>
 
-                        <LargeFont weight='bold'>
-                            마음에 드는 청첩장을 골라보세요.
-                        </LargeFont>
+        <BannerItem>
+          <div>
+            <img src={process.env.PUBLIC_URL + `/img/banner.jpg`}></img>
+          </div>
 
-                        <br></br>
-                        <br></br>
+          <div>
+            <LargeFont weight='bold'>
+              무료로 만들어보세요!
+            </LargeFont>
 
-                        <BasicFont color='gray'>
-                            일생에 가장 아름다운 날, <br></br>
-                            드림데이에서 모바일 청첩장을 만들어보세요!
-                        </BasicFont>
+            <LargeFont>
+              샘플을 찾아보고
+            </LargeFont>
 
-                        <br></br>
+            <LargeFont weight='bold'>
+              마음에 드는 청첩장을 골라보세요.
+            </LargeFont>
 
-                        <div style={{ display: 'flex', width: '100%' }}>
+            <br></br>
+            <br></br>
 
-                            <Btn bg='#F7E600' onClick={() => { navigate('/invitation') }}>
-                                <FontAwesomeIcon icon={faPencil} />
-                                지금 바로 제작하기
-                            </Btn>
+            <BasicFont color='gray'>
+              일생에 가장 아름다운 날, <br></br>
+              드림데이에서 모바일 청첩장을 만들어보세요!
+            </BasicFont>
 
-                            <Btn bg='#C0C0C0'>
-                                <FontAwesomeIcon icon={faLink} />
-                                샘플보기
-                            </Btn>
+            <br></br>
 
-                        </div>
+            <div style={{ display: 'flex', width: '100%' }}>
 
-                        <br></br>
+              <Btn bg='#F7E600' onClick={() => { navigate('/invitation') }}>
+                <FontAwesomeIcon icon={faPencil} />
+                지금 바로 제작하기
+              </Btn>
 
-                        <BasicFont color='gray'>
-                            가장 아름다운 순간을 만들다.
-                        </BasicFont>
+              <Btn bg='#C0C0C0'>
+                <FontAwesomeIcon icon={faLink} />
+                샘플보기
+              </Btn>
 
-                    </div>
+            </div>
 
+            <br></br>
 
+            <BasicFont color='gray'>
+              가장 아름다운 순간을 만들다.
+            </BasicFont>
 
-
-
-
-                </BannerItem>
-
-            </Banner>
-
-
-        </>
-
+          </div>
 
 
-    );
+
+
+
+
+        </BannerItem>
+
+      </Banner>
+
+
+    </>
+
+
+
+  );
 }
 
-export {Main};
+export { Main };

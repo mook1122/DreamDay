@@ -5,7 +5,7 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 const HeaderNav = styled.header`
   width: 100%;
   background-color: white;
-
+  z-index: 100;
   position: sticky;
   top: 0;
   left: 0;
