@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import { useState } from 'react';
 import { createGlobalStyle } from 'styled-components'
 
+import ThemeSection from '../section/Theme';
+import BasicInfoSection from '../section/Info';
+
 const GlobalStyle = createGlobalStyle`
 #root {
     height: 100%;
@@ -25,68 +28,72 @@ height: 85%;
 margin-top: 15px;
 
 
-div:first-child , div:nth-child(2) {
-    margin: 20px;
-    border-radius: 10px;
-    height: 100%;
-
-}
 
 `;
 
 const Sample = styled.div`
-
+margin: 20px;
+height: 100%;
 width: 400px;
+border-radius: 10px;
 background-color: ${props => props.bg};
-overflow-y: scroll;
 
 `;
 
 const Selector = styled.div`
 
-    background-color: white;
-
+    margin: 20px;
+    height: 100%;
+    border: 2px solid black;
     width: 600px;
+    padding: 10px; // 지워야함
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    > div {
+        width: 100%;
+    }
 
 `;
 
+
 function Invitation() {
+    const [bg, setBg] = useState('white');
 
-    let [bg, setBg] = useState('white')
+    const [openSections, setOpenSections] = useState({
+        theme: false,
+        mainScreen: false,
+        basicInfo: false,
+        calendar: false
+    });
 
-    const handleRedClick = () => {
-        setBg('red');
+    const toggleSection = (section) => {
+        setOpenSections({
+            ...openSections,
+            [section]: !openSections[section]
+        });
     };
-
 
     return (
         <>
-
-            <GlobalStyle>
-
-            </GlobalStyle>
-
             <Container>
-
                 <Sample bg={bg}>
-
+                    {/* 샘플 컴포넌트 내용 */}
                 </Sample>
 
-
                 <Selector>
-
-                    <button onClick={handleRedClick}>빨강</button>
-                    <button>파랑</button>
-
+                    <ThemeSection bg={bg} setBg={setBg} openSection={openSections.theme} toggleSection={() => toggleSection('theme')} />
+                        <br></br>
+                    <BasicInfoSection openSection={openSections.basicInfo} toggleSection={() => toggleSection('basicInfo')} />
+                    {/* <MainScreenSection openSection={openSections.mainScreen} toggleSection={() => toggleSection('mainScreen')} />
+                    <CalendarSection openSection={openSections.calendar} toggleSection={() => toggleSection('calendar')} /> */}
                 </Selector>
-
             </Container>
-
-
-
         </>
-    )
-
+    );
 }
+
 
 export { Invitation };

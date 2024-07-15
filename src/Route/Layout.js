@@ -31,7 +31,7 @@ const Title = styled.h1`
   font-family: "Gugi", sans-serif;
   font-weight: 400;
   font-style: normal;
-
+  font-size: 30px;
   cursor: pointer;
 
   img {
