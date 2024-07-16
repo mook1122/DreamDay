@@ -36,7 +36,7 @@ app.get('/api/post/image', async (req, res) => {
         aws.config.update({
             accessKeyId: process.env.ACCESS_KEY,
             secretAccessKey: process.env.SECRET_KEY,
-            region: 'ap-northeast-2',
+            region: process.env.REGION,
             signatureVersion: 'v4',
         });
 
