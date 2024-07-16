@@ -5,6 +5,7 @@ import { createGlobalStyle } from 'styled-components'
 
 import ThemeSection from '../section/Theme';
 import BasicInfoSection from '../section/Info';
+import MainView from '../section/MainView'
 
 const GlobalStyle = createGlobalStyle`
 #root {
@@ -79,6 +80,22 @@ const Selector = styled.div`
 const SampleHeader = styled.div`
 `;
 
+const MainImgBox = styled.div`
+
+border: 2px solid black;
+width: 100%;
+height: 100%;
+height: 300px;
+max-height: 400px;
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+`;
+
+
 const SampleTitle = styled.div`
 
 color: ${props => props.titleColor};
@@ -131,10 +148,16 @@ function Invitation() {
                         <br></br>
                         <br></br>
 
+                        <MainImgBox>
+                            <img src={process.env.PUBLIC_URL + `/img/logo.png`} ></img>
+                        </MainImgBox>
+
+                        <br></br>
+                        <br></br>
+
                         <p>이름작성 , 이름작성 결혼합니다.</p>
 
                         {/* 이미지칸 생성 해야함 */}
-                        <br></br>
                         <br></br>
                         <br></br>
                         <p>2024. 07. 15. Monday 12:00 PM</p>
@@ -161,10 +184,11 @@ function Invitation() {
                         openSection={openSections.theme} toggleSection={() => toggleSection('theme')} />
                     <br></br>
                     <BasicInfoSection
-                        titleColor={titleColor} setTitleColor={setTitleColor}
                         openSection={openSections.basicInfo} toggleSection={() => toggleSection('basicInfo')} />
-                    {/* <MainScreenSection openSection={openSections.mainScreen} toggleSection={() => toggleSection('mainScreen')} />
-                    <CalendarSection openSection={openSections.calendar} toggleSection={() => toggleSection('calendar')} /> */}
+                    <br></br>
+
+                    <MainView openSection={openSections.mainScreen} toggleSection={() => toggleSection('mainScreen')} />
+                    {/* <CalendarSection openSection={openSections.calendar} toggleSection={() => toggleSection('calendar')} /> */}
                 </Selector>
             </Container>
         </>

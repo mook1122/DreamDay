@@ -21,7 +21,8 @@ const DetailItem = styled.div`
     width: 100%;
     max-height: ${props => (props.show ? '500px' : '0')};
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
+    transition: max-height ${props => (props.show ? '0.5s ease-in-out' : '0s ease-in-out')};
+
 `;
 
 

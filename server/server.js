@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
 const { MongoClient } = require('mongodb')
-
+const aws = require('aws-sdk');
+require('dotenv').config();
+const cors = require('cors');
+app.use(cors());
 
 app.listen(8080, () => {
     console.log('http://localhost:8080 에서 서버 실행중')
@@ -10,6 +13,7 @@ app.listen(8080, () => {
 
 let db
 const url = 'mongodb+srv://skdo223:apsode1@cluster0.udjmfja.mongodb.net/?retryWrites=true&w=majority'
+
 new MongoClient(url).connect().then((client) => {
     console.log('DB연결성공')
     db = client.db('dreamday')
@@ -24,3 +28,37 @@ new MongoClient(url).connect().then((client) => {
 app.get('/', (요청, 응답) => {
     응답.send('반갑다')
 })
+
+console.log('ACCESS_KEY:', process.env.ACCESS_KEY);
+console.log('SECRET_KEY:', process.env.SECRET_KEY);
+console.log('BUCKET_NAME:', process.env.BUCKET_NAME);
+
+
+
+
+
+app.get('/api/post/image', async (req, res) => {
+    try {
+        aws.config.update({
+            accessKeyId: process.env.ACCESS_KEY,
+            secretAccessKey: process.env.SECRET_KEY,
+            region: 'ap-northeast-2',
+            signatureVersion: 'v4',
+        });
+
+        const s3 = new aws.S3();
+        const url = await s3.createPresignedPost({
+            Bucket: process.env.BUCKET_NAME,
+            Fields: { key: req.query.file },
+            Expires: 60, // seconds
+            Conditions: [
+                ['content-length-range', 0, 1048576], // 파일 용량 1MB 까지 제한
+            ],
+        });
+
+        res.status(200).json(url);
+    } catch (error) {
+        console.error('Error creating presigned URL:', error);
+        res.status(500).json({ error: 'Error creating presigned URL' });
+    }
+});
