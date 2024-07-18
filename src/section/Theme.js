@@ -15,7 +15,9 @@ const ToggleBar = styled.div`
     }
 `;
 
-const DetailItem = styled.div`
+const DetailItem = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['show'].includes(prop),
+})`
     border-top: 1px solid #eee;
     background-color: white;
     width: 100%;
@@ -54,7 +56,7 @@ const ColorOption = styled.label`
     }
 `;
 
-function ThemeSection({ bg, setBg, titleColor, setTitleColor, openSection, toggleSection }) {
+function ThemeSection({ bg, setBg, titlecolor, setTitlecolor, openSection, toggleSection }) {
     
     return (
         <div>
@@ -62,7 +64,7 @@ function ThemeSection({ bg, setBg, titleColor, setTitleColor, openSection, toggl
                 <p>{openSection ? '▲ 테마' : '▼ 테마'}</p>
             </ToggleBar>
 
-            <DetailItem $show={openSection}>
+            <DetailItem show={openSection}>
 
                 <div>
                     <p>배경 색상</p>
@@ -118,7 +120,7 @@ function ThemeSection({ bg, setBg, titleColor, setTitleColor, openSection, toggl
                             id="black"
                             name="theme"
                             value="black"
-                            onChange={() => setTitleColor('black')}
+                            onChange={() => setTitlecolor('black')}
                             style={{ display: 'none' }}
                         />
                         <ColorOption color="black" htmlFor="black" />
@@ -128,7 +130,7 @@ function ThemeSection({ bg, setBg, titleColor, setTitleColor, openSection, toggl
                             id="#F8C3C3"
                             name="theme"
                             value="#F8C3C3"
-                            onChange={() => setTitleColor('#F8C3C3')}
+                            onChange={() => setTitlecolor('#F8C3C3')}
                             style={{ display: 'none' }}
                         />
                         <ColorOption color="#F8C3C3" htmlFor="#F8C3C3" />
@@ -138,7 +140,7 @@ function ThemeSection({ bg, setBg, titleColor, setTitleColor, openSection, toggl
                             id="#BE9164"
                             name="theme"
                             value="#BE9164"
-                            onChange={() => setTitleColor('#BE9164')}
+                            onChange={() => setTitlecolor('#BE9164')}
                             style={{ display: 'none' }}
                         />
                         <ColorOption color="#BE9164" htmlFor="#BE9164" />
@@ -148,7 +150,7 @@ function ThemeSection({ bg, setBg, titleColor, setTitleColor, openSection, toggl
                             id="#CFA7B4"
                             name="theme"
                             value="#CFA7B4"
-                            onChange={() => setTitleColor('#CFA7B4')}
+                            onChange={() => setTitlecolor('#CFA7B4')}
                             style={{ display: 'none' }}
                         />
                         <ColorOption color="#CFA7B4" htmlFor="#CFA7B4" />

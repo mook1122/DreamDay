@@ -16,7 +16,9 @@ const ToggleBar = styled.div`
     }
 `;
 
-const DetailItem = styled.div`
+const DetailItem = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['show'].includes(prop),
+})`
     border-top: 1px solid #eee;
     background-color: white;
     width: 100%;
@@ -73,7 +75,7 @@ function MainView({ openSection, toggleSection, previewUrl ,setPreviewUrl }) {
                 <p>{openSection ? '▲ 대표 사진' : '▼ 대표 사진'}</p>
             </ToggleBar>
 
-            <DetailItem $show={openSection}>
+            <DetailItem show={openSection}>
                 <div>
                     <p>사진</p>
                     <input

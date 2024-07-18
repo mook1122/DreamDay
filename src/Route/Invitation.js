@@ -32,7 +32,9 @@ margin-top: 15px;
 
 `;
 
-const Sample = styled.div`
+const Sample = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['bg'].includes(prop),
+})`
 margin: 20px;
 height: 100%;
 width: 400px;
@@ -96,9 +98,11 @@ img {
 `;
 
 
-const SampleTitle = styled.div`
+const SampleTitle = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['titlecolor'].includes(prop),
+})`
 
-color: ${props => props.titleColor};
+color: ${props => props.titlecolor};
 
 
 * {
@@ -117,7 +121,7 @@ function Invitation() {
 
 
     const [bg, setBg] = useState('#FAFAFA');
-    const [titleColor, setTitleColor] = useState('black');
+    const [titlecolor, setTitlecolor] = useState('black');
     const [previewUrl, setPreviewUrl] = useState('123');
 
     // console.log(previewUrl);
@@ -138,12 +142,15 @@ function Invitation() {
     };
 
 
-    const Upload = () =>{
-        setTotaldata(bg,titleColor,previewUrl)
+    const Upload = () => {
+        setTotaldata({
+            bg: bg,
+            titlecolor: titlecolor,
+            previewUrl: previewUrl
+        });
         console.log(totaldata);
         console.log(123);
     }
-    
 
     return (
         <>
@@ -151,12 +158,12 @@ function Invitation() {
             <GlobalStyle></GlobalStyle>
 
             <Container>
-                <Sample $bg={bg}>
+                <Sample bg={bg}>
                     {/* 샘플 컴포넌트 내용 */}
 
                     <SampleHeader>
 
-                        <SampleTitle $titleColor={titleColor}>
+                        <SampleTitle titlecolor={titlecolor}>
                             <p style={{ fontWeight: 'bold' }}>THE MARRIAGE</p>
                         </SampleTitle>
                         <br></br>
@@ -187,7 +194,7 @@ function Invitation() {
                     <br></br>
                     <br></br>
 
-                    <SampleTitle $titleColor={titleColor}>
+                    <SampleTitle titlecolor={titlecolor}>
                         <p style={{ fontSize: '11px' }}>I N V I T A T I ON</p>
                         <br></br>
                         <p style={{ fontWeight: 'bold' }}>소중한 분들을 초대 합니다.</p>
@@ -198,7 +205,7 @@ function Invitation() {
 
                 <Selector>
                     <ThemeSection bg={bg} setBg={setBg}
-                        titleColor={titleColor} setTitleColor={setTitleColor}
+                        titlecolor={titlecolor} setTitlecolor={setTitlecolor}
                         openSection={openSections.theme} toggleSection={() => toggleSection('theme')} />
                     <br></br>
                     <BasicInfoSection
@@ -206,13 +213,13 @@ function Invitation() {
                     <br></br>
 
                     <MainView
-                    previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}
-                    openSection={openSections.mainScreen} toggleSection={() => toggleSection('mainScreen')} />
+                        previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}
+                        openSection={openSections.mainScreen} toggleSection={() => toggleSection('mainScreen')} />
                     {/* <CalendarSection openSection={openSections.calendar} toggleSection={() => toggleSection('calendar')} /> */}
                 </Selector>
 
 
-                <button onClick={()=>{Upload()}}>테스트 저장</button>
+                <button onClick={() => { Upload() }}>테스트 저장</button>
             </Container>
         </>
     );
