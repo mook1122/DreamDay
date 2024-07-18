@@ -53,12 +53,6 @@ overflow: scroll;
   /* Hide scrollbar for IE, Edge, and Firefox */
   -ms-overflow-style: none;  /* Internet Explorer and Edge */
   scrollbar-width: none;  /* Firefox */
-/* 
-* {
-    font-family: "Nanum Myeongjo", serif;
-  font-weight: 400;
-  font-style: normal;
-} */
 
 
 `;
@@ -115,18 +109,37 @@ color: ${props => props.titlecolor};
 
 function Invitation() {
 
+    // 임시 저장하기
     const [totaldata, setTotaldata] = useState()
 
-    console.log(totaldata);
+    // console.log(totaldata);
+    const Upload = () => {
+        setTotaldata({
+            bg: bg,
+            titlecolor: titlecolor,
+            previewUrl: previewUrl,
+            man: man
+        });
+        console.log(totaldata);
+        console.log(123);
+    }
 
 
+    // 테마 백그라운드 컬러
     const [bg, setBg] = useState('#FAFAFA');
+    // 테마 강조 컬러
     const [titlecolor, setTitlecolor] = useState('black');
+
+    // 신랑,신부 기본 정보
+    const [man, setMan] = useState('')
+    const [manfather, setManfather] = useState('')
+    const [manmom, setManmom] = useState('')
+
+
+    // 대표 이미지 url
     const [previewUrl, setPreviewUrl] = useState('123');
 
-    // console.log(previewUrl);
-    // console.log(bg);
-
+    // 아코디언 섹션
     const [openSections, setOpenSections] = useState({
         theme: false,
         mainScreen: false,
@@ -141,16 +154,6 @@ function Invitation() {
         });
     };
 
-
-    const Upload = () => {
-        setTotaldata({
-            bg: bg,
-            titlecolor: titlecolor,
-            previewUrl: previewUrl
-        });
-        console.log(totaldata);
-        console.log(123);
-    }
 
     return (
         <>
@@ -180,7 +183,7 @@ function Invitation() {
                         <br></br>
                         <br></br>
 
-                        <p>이름작성 , 이름작성 결혼합니다.</p>
+                        <p>{man} , 이름작성 결혼합니다.</p>
 
                         {/* 이미지칸 생성 해야함 */}
                         <br></br>
@@ -208,7 +211,9 @@ function Invitation() {
                         titlecolor={titlecolor} setTitlecolor={setTitlecolor}
                         openSection={openSections.theme} toggleSection={() => toggleSection('theme')} />
                     <br></br>
+                    
                     <BasicInfoSection
+                        man={man} setMan={setMan}
                         openSection={openSections.basicInfo} toggleSection={() => toggleSection('basicInfo')} />
                     <br></br>
 
