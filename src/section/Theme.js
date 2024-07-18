@@ -62,7 +62,7 @@ function ThemeSection({ bg, setBg, titleColor, setTitleColor, openSection, toggl
                 <p>{openSection ? '▲ 테마' : '▼ 테마'}</p>
             </ToggleBar>
 
-            <DetailItem show={openSection}>
+            <DetailItem $show={openSection}>
 
                 <div>
                     <p>배경 색상</p>

@@ -110,8 +110,18 @@ color: ${props => props.titleColor};
 `;
 
 function Invitation() {
+
+    const [totaldata, setTotaldata] = useState()
+
+    console.log(totaldata);
+
+
     const [bg, setBg] = useState('#FAFAFA');
     const [titleColor, setTitleColor] = useState('black');
+    const [previewUrl, setPreviewUrl] = useState('123');
+
+    // console.log(previewUrl);
+    // console.log(bg);
 
     const [openSections, setOpenSections] = useState({
         theme: false,
@@ -127,18 +137,26 @@ function Invitation() {
         });
     };
 
+
+    const Upload = () =>{
+        setTotaldata(bg,titleColor,previewUrl)
+        console.log(totaldata);
+        console.log(123);
+    }
+    
+
     return (
         <>
 
             <GlobalStyle></GlobalStyle>
 
             <Container>
-                <Sample bg={bg}>
+                <Sample $bg={bg}>
                     {/* 샘플 컴포넌트 내용 */}
 
                     <SampleHeader>
 
-                        <SampleTitle titleColor={titleColor}>
+                        <SampleTitle $titleColor={titleColor}>
                             <p style={{ fontWeight: 'bold' }}>THE MARRIAGE</p>
                         </SampleTitle>
                         <br></br>
@@ -148,8 +166,8 @@ function Invitation() {
                         <br></br>
                         <br></br>
 
-                        <MainImgBox>
-                            <img src={process.env.PUBLIC_URL + `/img/logo.png`} ></img>
+                        <MainImgBox >
+                            <img src={previewUrl} ></img>
                         </MainImgBox>
 
                         <br></br>
@@ -169,7 +187,7 @@ function Invitation() {
                     <br></br>
                     <br></br>
 
-                    <SampleTitle titleColor={titleColor}>
+                    <SampleTitle $titleColor={titleColor}>
                         <p style={{ fontSize: '11px' }}>I N V I T A T I ON</p>
                         <br></br>
                         <p style={{ fontWeight: 'bold' }}>소중한 분들을 초대 합니다.</p>
@@ -187,9 +205,14 @@ function Invitation() {
                         openSection={openSections.basicInfo} toggleSection={() => toggleSection('basicInfo')} />
                     <br></br>
 
-                    <MainView openSection={openSections.mainScreen} toggleSection={() => toggleSection('mainScreen')} />
+                    <MainView
+                    previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}
+                    openSection={openSections.mainScreen} toggleSection={() => toggleSection('mainScreen')} />
                     {/* <CalendarSection openSection={openSections.calendar} toggleSection={() => toggleSection('calendar')} /> */}
                 </Selector>
+
+
+                <button onClick={()=>{Upload()}}>테스트 저장</button>
             </Container>
         </>
     );

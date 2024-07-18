@@ -33,7 +33,7 @@ function BasicInfoSection({ openSection, toggleSection }) {
                 <p>{openSection ? '▲ 기본 정보' : '▼ 기본 정보'}</p>
             </ToggleBar>
 
-            <DetailItem show={openSection}>
+            <DetailItem $show={openSection}>
                 {/* 입력 필드 등 */}
                 <h1>안녕하세요</h1>
             </DetailItem>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios'
 
@@ -34,36 +34,38 @@ const DetailItem = styled.div`
 `;
 
 
-async function Imgupload(file) {
-    let filename = encodeURIComponent(file.name);
-    let res = await axios.get(`http://localhost:8080/api/post/image?file=${filename}`); // 절대 경로 사용
-    const url = res.data;
-    const formData = new FormData();
+// async function Imgupload(file) {
+//     let filename = encodeURIComponent(file.name);
+//     let res = await axios.get(`http://localhost:8080/api/post/image?file=${filename}`); // 절대 경로 사용
+//     const url = res.data;
+//     const formData = new FormData();
 
-    Object.keys(url.fields).forEach(key => {
-        formData.append(key, url.fields[key]);
-    });
-    formData.append('file', file);
+//     Object.keys(url.fields).forEach(key => {
+//         formData.append(key, url.fields[key]);
+//     });
+//     formData.append('file', file);
 
-    await axios.post(url.url, formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    });
+//     await axios.post(url.url, formData, {
+//         headers: {
+//             'Content-Type': 'multipart/form-data'
+//         }
+//     });
 
-    return url.url + '/' + url.fields.key;
-}
+//     return url.url + '/' + url.fields.key;
+// }
 
-function BasicInfoSection({ openSection, toggleSection }) {
-    const handleImageChange = async (e) => {
+function MainView({ openSection, toggleSection, previewUrl ,setPreviewUrl }) {
+
+
+    const handleImageChange = (e) => {
         if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-
-            // Upload the image
-            const uploadedUrl = await Imgupload(file);
-            console.log(uploadedUrl); // 콘솔에 URL 출력
+            const selectedFile = e.target.files[0];
+            setPreviewUrl(URL.createObjectURL(selectedFile)); // 이미지 미리보기 URL 생성
         }
     };
+
+    // console.log(previewUrl);
+
 
     return (
         <div>
@@ -71,7 +73,7 @@ function BasicInfoSection({ openSection, toggleSection }) {
                 <p>{openSection ? '▲ 대표 사진' : '▼ 대표 사진'}</p>
             </ToggleBar>
 
-            <DetailItem show={openSection}>
+            <DetailItem $show={openSection}>
                 <div>
                     <p>사진</p>
                     <input
@@ -84,4 +86,7 @@ function BasicInfoSection({ openSection, toggleSection }) {
         </div>
     );
 }
-export default BasicInfoSection;
+
+
+
+export default MainView;
