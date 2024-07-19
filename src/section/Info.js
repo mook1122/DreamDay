@@ -70,7 +70,7 @@ const Bar = styled.span`
 
 
 
-function BasicInfoSection({ openSection, toggleSection, setMan }) {
+function BasicInfoSection({ openSection, toggleSection, man, manState, manDeceasedCheck, womanState , womanDeceasedCheck }) {
 
 
     return (
@@ -89,7 +89,7 @@ function BasicInfoSection({ openSection, toggleSection, setMan }) {
                         <input
                             type='text'
                             id='name_box'
-                            onChange={(e) => { setMan(e.target.value) }}
+                            onChange={(e) => manState('me', e.target.value)}
                         />
                     </div>
 
@@ -99,13 +99,14 @@ function BasicInfoSection({ openSection, toggleSection, setMan }) {
                             type='text'
                             id='name_box'
                             placeholder='성함(OOO)'
-                            onChange={(e) => { setMan(e.target.value) }}
+                            onChange={(e) => manState('father', e.target.value)}
                         />
 
 
                         <input
                             type='checkbox'
                             id='check'
+                            onChange={(e) => manDeceasedCheck('fatherDeceased', e.target.checked)}
                         />
                         &nbsp;故
                     </div>
@@ -116,12 +117,13 @@ function BasicInfoSection({ openSection, toggleSection, setMan }) {
                             type='text'
                             id='name_box'
                             placeholder='성함(OOO)'
-                            onChange={(e) => { setMan(e.target.value) }}
+                            onChange={(e) => manState('mom', e.target.value)}
                         />
 
                         <input
                             type='checkbox'
                             id='check'
+                            onChange={(e) => manDeceasedCheck('momDeceased', e.target.checked)}
                         />
                         &nbsp;故
                     </div>
@@ -135,7 +137,7 @@ function BasicInfoSection({ openSection, toggleSection, setMan }) {
                         <input
                             type='text'
                             id='name_box'
-                            onChange={(e) => { setMan(e.target.value) }}
+                            onChange={(e) => womanState('me', e.target.value)}
                         />
                     </div>
 
@@ -145,13 +147,14 @@ function BasicInfoSection({ openSection, toggleSection, setMan }) {
                             type='text'
                             id='name_box'
                             placeholder='성함(OOO)'
-                            onChange={(e) => { setMan(e.target.value) }}
+                            onChange={(e) => womanState('father', e.target.value)}
                         />
 
 
                         <input
                             type='checkbox'
                             id='check'
+                            onChange={(e) => womanDeceasedCheck('fatherDeceased', e.target.checked)}
                         />
                         &nbsp;故
                     </div>
@@ -162,12 +165,13 @@ function BasicInfoSection({ openSection, toggleSection, setMan }) {
                             type='text'
                             id='name_box'
                             placeholder='성함(OOO)'
-                            onChange={(e) => { setMan(e.target.value) }}
+                            onChange={(e) => womanState('mom', e.target.value)}
                         />
 
                         <input
                             type='checkbox'
                             id='check'
+                            onChange={(e) => womanDeceasedCheck('momDeceased', e.target.checked)}
                         />
                         &nbsp;故
                     </div>

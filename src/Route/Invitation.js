@@ -67,6 +67,18 @@ const Selector = styled.div`
     flex-direction: column;
     align-items: center;
 
+    overflow: scroll;
+
+  /* Hide scrollbar for WebKit-based browsers (e.g., Chrome, Safari) */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+
     > div {
         width: 100%;
     }
@@ -131,9 +143,51 @@ function Invitation() {
     const [titlecolor, setTitlecolor] = useState('black');
 
     // 신랑,신부 기본 정보
-    const [man, setMan] = useState('')
-    const [manfather, setManfather] = useState('')
-    const [manmom, setManmom] = useState('')
+    const [man, setMan] = useState({
+        me: '',
+        father: '',
+        mom: '',
+        fatherDeceased: '',
+        momDeceased: ''
+
+    });
+
+    const manState = (field, value) => {
+        setMan(manSpread => ({
+            ...manSpread,
+            [field]: value
+        }));
+    };
+
+    const manDeceasedCheck = (field, checked) => {
+        setMan(manSpread => ({
+            ...manSpread,
+            [field]: checked ? '故' : ''
+        }));
+    };
+
+    const [woman, setWoman] = useState({
+        me: '',
+        father: '',
+        mom: '',
+        fatherDeceased: '',
+        momDeceased: ''
+    });
+
+    const womanState = (field, value) => {
+        setWoman(womanSpread => ({
+            ...womanSpread,
+            [field]: value
+        }));
+    };
+
+    const womanDeceasedCheck = (field, checked) => {
+        setWoman(womanSpread => ({
+            ...womanSpread,
+            [field]: checked ? '故' : ''
+        }));
+    };
+
 
 
     // 대표 이미지 url
@@ -183,7 +237,7 @@ function Invitation() {
                         <br></br>
                         <br></br>
 
-                        <p>{man} , 이름작성 결혼합니다.</p>
+                        <p>{man.me} , {woman.me} 결혼합니다.</p>
 
                         {/* 이미지칸 생성 해야함 */}
                         <br></br>
@@ -211,9 +265,10 @@ function Invitation() {
                         titlecolor={titlecolor} setTitlecolor={setTitlecolor}
                         openSection={openSections.theme} toggleSection={() => toggleSection('theme')} />
                     <br></br>
-                    
+
+
                     <BasicInfoSection
-                        man={man} setMan={setMan}
+                        manState={manState} womanState={womanState} manDeceasedCheck={manDeceasedCheck}
                         openSection={openSections.basicInfo} toggleSection={() => toggleSection('basicInfo')} />
                     <br></br>
 
