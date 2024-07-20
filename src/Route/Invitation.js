@@ -6,6 +6,7 @@ import { createGlobalStyle } from 'styled-components'
 import ThemeSection from '../section/Theme';
 import BasicInfoSection from '../section/Info';
 import MainView from '../section/MainView'
+import IntroMent from '../section/IntroMent'
 
 const GlobalStyle = createGlobalStyle`
 #root {
@@ -89,18 +90,15 @@ const SampleHeader = styled.div`
 `;
 
 const MainImgBox = styled.div`
+  /* border: 2px solid black; */
+  width: 100%;
+  height: 100%;
 
-border: 2px solid black;
-width: 100%;
-height: 100%;
-height: 300px;
-max-height: 400px;
-
-img {
+  img {
     width: 100%;
     height: 100%;
-}
-
+    max-height: 450px;
+  }
 `;
 
 
@@ -198,7 +196,7 @@ function Invitation() {
         theme: false,
         mainScreen: false,
         basicInfo: false,
-        calendar: false
+        intro: false
     });
 
     const toggleSection = (section) => {
@@ -268,14 +266,16 @@ function Invitation() {
 
 
                     <BasicInfoSection
-                        manState={manState} womanState={womanState} manDeceasedCheck={manDeceasedCheck}
+                        manState={manState} womanState={womanState} manDeceasedCheck={manDeceasedCheck} womanDeceasedCheck={womanDeceasedCheck}
                         openSection={openSections.basicInfo} toggleSection={() => toggleSection('basicInfo')} />
                     <br></br>
 
                     <MainView
                         previewUrl={previewUrl} setPreviewUrl={setPreviewUrl}
                         openSection={openSections.mainScreen} toggleSection={() => toggleSection('mainScreen')} />
-                    {/* <CalendarSection openSection={openSections.calendar} toggleSection={() => toggleSection('calendar')} /> */}
+                    <br></br>
+                    
+                    <IntroMent openSection={openSections.intro} toggleSection={() => toggleSection('intro')} />
                 </Selector>
 
 
