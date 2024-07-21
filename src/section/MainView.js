@@ -33,30 +33,46 @@ const DetailItem = styled.div.withConfig({
 
     }
 
+    p {
+        width:80px;
+    }
+
 `;
 
 
-// async function Imgupload(file) {
-//     let filename = encodeURIComponent(file.name);
-//     let res = await axios.get(`http://localhost:8080/api/post/image?file=${filename}`); // 절대 경로 사용
-//     const url = res.data;
-//     const formData = new FormData();
+const ImageUploadWrapper = styled.div`
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border: 1px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 
-//     Object.keys(url.fields).forEach(key => {
-//         formData.append(key, url.fields[key]);
-//     });
-//     formData.append('file', file);
+  input[type="file"] {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+  }
 
-//     await axios.post(url.url, formData, {
-//         headers: {
-//             'Content-Type': 'multipart/form-data'
-//         }
-//     });
+  &::before {
+    content: '+';
+    font-size: 36px;
+    color: #ccc;
+    text-align: center;
+    position: absolute;
+  }
 
-//     return url.url + '/' + url.fields.key;
-// }
-
-function MainView({ openSection, toggleSection, previewUrl ,setPreviewUrl }) {
+  &:hover {
+    border-color: #999;
+  }
+`;
+function MainView({ openSection, toggleSection, previewUrl, setPreviewUrl }) {
 
 
     const handleImageChange = (e) => {
@@ -78,11 +94,13 @@ function MainView({ openSection, toggleSection, previewUrl ,setPreviewUrl }) {
             <DetailItem show={openSection}>
                 <div>
                     <p>사진</p>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                    />
+                    <ImageUploadWrapper>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                        />
+                    </ImageUploadWrapper>
                 </div>
             </DetailItem>
         </div>
@@ -92,3 +110,24 @@ function MainView({ openSection, toggleSection, previewUrl ,setPreviewUrl }) {
 
 
 export default MainView;
+
+
+// async function Imgupload(file) {
+//     let filename = encodeURIComponent(file.name);
+//     let res = await axios.get(`http://localhost:8080/api/post/image?file=${filename}`); // 절대 경로 사용
+//     const url = res.data;
+//     const formData = new FormData();
+
+//     Object.keys(url.fields).forEach(key => {
+//         formData.append(key, url.fields[key]);
+//     });
+//     formData.append('file', file);
+
+//     await axios.post(url.url, formData, {
+//         headers: {
+//             'Content-Type': 'multipart/form-data'
+//         }
+//     });
+
+//     return url.url + '/' + url.fields.key;
+// }
