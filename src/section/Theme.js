@@ -56,8 +56,11 @@ const ColorOption = styled.label`
     }
 `;
 
-function ThemeSection({ bg, setBg, titlecolor, setTitlecolor, openSection, toggleSection }) {
-    
+function ThemeSection({ setBg, setTitlecolor, openSection, toggleSection }) {
+
+    const backgroundColors = ['#FAFAFA', '#FEF7F7', '#F2ECE6', '#F1EDEE'];
+    const titleColors = ['black', '#F8C3C3', '#BE9164', '#CFA7B4'];
+
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
@@ -65,100 +68,43 @@ function ThemeSection({ bg, setBg, titlecolor, setTitlecolor, openSection, toggl
             </ToggleBar>
 
             <DetailItem show={openSection}>
-
                 <div>
                     <p>배경 색상</p>
                     <div style={{ marginLeft: '15px' }}>
-                        <input
-                            type="radio"
-                            id="#FAFAFA"
-                            name="theme"
-                            value="#FAFAFA"
-                            onChange={() => setBg('#FAFAFA')}
-                            style={{ display: 'none' }}
-                        />
-                        <ColorOption color="#FAFAFA" htmlFor="#FAFAFA" />
-
-                        <input
-                            type="radio"
-                            id="#FEF7F7"
-                            name="theme"
-                            value="#FEF7F7"
-                            onChange={() => setBg('#FEF7F7')}
-                            style={{ display: 'none' }}
-                        />
-                        <ColorOption color="#FEF7F7" htmlFor="#FEF7F7" />
-
-                        <input
-                            type="radio"
-                            id="#F2ECE6"
-                            name="theme"
-                            value="#F2ECE6"
-                            onChange={() => setBg('#F2ECE6')}
-                            style={{ display: 'none' }}
-                        />
-                        <ColorOption color="#F2ECE6" htmlFor="#F2ECE6" />
-
-                        <input
-                            type="radio"
-                            id="#F1EDEE"
-                            name="theme"
-                            value="#F1EDEE"
-                            onChange={() => setBg('#F1EDEE')}
-                            style={{ display: 'none' }}
-                        />
-                        <ColorOption color="#F1EDEE" htmlFor="#F1EDEE" />
-
+                        {backgroundColors.map((color) => (
+                            <React.Fragment key={color}>
+                                <input
+                                    type="radio"
+                                    id={color}
+                                    name="theme"
+                                    value={color}
+                                    onChange={() => setBg(color)}
+                                    style={{ display: 'none' }}
+                                />
+                                <ColorOption color={color} htmlFor={color} />
+                            </React.Fragment>
+                        ))}
                     </div>
                 </div>
 
                 <div>
                     <p>강조 색상</p>
                     <div style={{ marginLeft: '15px' }}>
-                        <input
-                            type="radio"
-                            id="black"
-                            name="theme"
-                            value="black"
-                            onChange={() => setTitlecolor('black')}
-                            style={{ display: 'none' }}
-                        />
-                        <ColorOption color="black" htmlFor="black" />
-
-                        <input
-                            type="radio"
-                            id="#F8C3C3"
-                            name="theme"
-                            value="#F8C3C3"
-                            onChange={() => setTitlecolor('#F8C3C3')}
-                            style={{ display: 'none' }}
-                        />
-                        <ColorOption color="#F8C3C3" htmlFor="#F8C3C3" />
-
-                        <input
-                            type="radio"
-                            id="#BE9164"
-                            name="theme"
-                            value="#BE9164"
-                            onChange={() => setTitlecolor('#BE9164')}
-                            style={{ display: 'none' }}
-                        />
-                        <ColorOption color="#BE9164" htmlFor="#BE9164" />
-
-                        <input
-                            type="radio"
-                            id="#CFA7B4"
-                            name="theme"
-                            value="#CFA7B4"
-                            onChange={() => setTitlecolor('#CFA7B4')}
-                            style={{ display: 'none' }}
-                        />
-                        <ColorOption color="#CFA7B4" htmlFor="#CFA7B4" />
-
+                        {titleColors.map((color) => (
+                            <React.Fragment key={color}>
+                                <input
+                                    type="radio"
+                                    id={color}
+                                    name="theme"
+                                    value={color}
+                                    onChange={() => setTitlecolor(color)}
+                                    style={{ display: 'none' }}
+                                />
+                                <ColorOption color={color} htmlFor={color} />
+                            </React.Fragment>
+                        ))}
                     </div>
                 </div>
-
-
             </DetailItem>
         </div>
     );
