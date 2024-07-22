@@ -7,6 +7,8 @@ import ThemeSection from '../section/Theme';
 import BasicInfoSection from '../section/Info';
 import MainView from '../section/MainView'
 import IntroMent from '../section/IntroMent'
+import DateSection from '../section/Date'
+import CalendarCompo from '../section/Calendar';
 
 const GlobalStyle = createGlobalStyle`
 #root {
@@ -223,7 +225,7 @@ function Invitation() {
 간직하겠습니다.`);
     }, []);
 
-    console.log(introcontent);
+    // console.log(introcontent);
 
     // 대표 이미지 url
     const [previewUrl, setPreviewUrl] = useState('');
@@ -233,7 +235,8 @@ function Invitation() {
         theme: false,
         mainScreen: false,
         basicInfo: false,
-        intro: false
+        intro: false,
+        date: false
     });
 
     const toggleSection = (section) => {
@@ -241,6 +244,12 @@ function Invitation() {
             ...openSections,
             [section]: !openSections[section]
         });
+    };
+
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const handleDateChange = (e) => {
+        setSelectedDate(new Date(e.target.value));
     };
 
 
@@ -307,6 +316,9 @@ function Invitation() {
                         {introcontent}
                     </SampleContent>
 
+                    <CalendarCompo selectedDate={selectedDate} />
+
+
 
                 </Sample>
 
@@ -330,6 +342,11 @@ function Invitation() {
                     <IntroMent
                         introtitle={introtitle} setIntrotitle={setIntrotitle} introcontent={introcontent} setIntrocontent={setIntrocontent}
                         openSection={openSections.intro} toggleSection={() => toggleSection('intro')} />
+                    <br></br>
+
+                    <DateSection
+                        selectedDate={selectedDate} handleDateChange={handleDateChange}
+                        openSection={openSections.date} toggleSection={() => toggleSection('date')} />
 
                 </Selector>
 

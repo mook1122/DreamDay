@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import CalendarCompo from './Calendar';
 
 const ToggleBar = styled.div`
     background-color: white;
@@ -25,22 +26,39 @@ const DetailItem = styled.div.withConfig({
     overflow: hidden;
     transition: max-height ${props => (props.show ? '0.5s ease-in-out' : '0s ease-in-out')};
 
+    > div {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
+        p {
+            width: 80px;
+        }
+    }
 `;
 
+const DateSection = ({ openSection, toggleSection , selectedDate , handleDateChange}) => {
 
-function BasicInfoSection({ openSection, toggleSection }) {
+
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection ? '▲ 기본 정보' : '▼ 기본 정보'}</p>
+                <p>{openSection ? '▲ 예식 일시' : '▼ 예식 일시'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>
-                {/* 입력 필드 등 */}
-                <h1>안녕하세요</h1>
+                <div>
+                    <p>예식일</p>
+                    <input
+                        type='date'
+                        value={selectedDate.toISOString().split('T')[0]}
+                        onChange={handleDateChange}
+                    />
+                </div>
+
             </DetailItem>
         </div>
     );
-}
+};
 
-export default BasicInfoSection;
+export default DateSection;
