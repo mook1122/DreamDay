@@ -227,6 +227,80 @@ function Invitation() {
 
     // console.log(introcontent);
 
+    // 예식 일시
+
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [totalDate, setTotalDate] = useState({
+        year: '',
+        month: '',
+        day: '',
+        weekdays: '',
+        Kr_weekdays: '',
+        hour: '12',
+        minute: '00',
+        midday: '낮',
+    });
+
+    useEffect(() => {
+        updateTotalDate(selectedDate);
+    }, [selectedDate]);
+
+    const handleDateChange = (e) => {
+        setSelectedDate(new Date(e.target.value));
+    };
+
+    const updateTotalDate = (date) => {
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        const weekdaysArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const krWeekdaysArray = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+        const weekdays = weekdaysArray[date.getDay()];
+        const Kr_weekdays = krWeekdaysArray[date.getDay()];
+
+        setTotalDate(i => ({
+            ...i,
+            year: year,
+            month: month,
+            day: day,
+            weekdays: weekdays,
+            Kr_weekdays: Kr_weekdays
+        }));
+    };
+
+    const handleChangeHour = (e) => {
+        console.log(e.target.value);
+        const newHour = e.target.value;
+
+        if (newHour < 12) {
+            setTotalDate(i => ({
+                ...i,
+                hour: newHour,
+                midday: '오전'
+            }));
+        } else if (newHour > 12) {
+            setTotalDate(i => ({
+                ...i,
+                hour: newHour - 12,
+                midday: '오후'
+            }));
+        } else if (newHour == 12) {
+            setTotalDate(i => ({
+                ...i,
+                hour: newHour,
+                midday: '낮'
+            }));
+        }
+        console.log(totalDate);
+    };
+
+    const handleChangeMinute = (e) => {
+        setTotalDate(i => ({
+            ...i,
+            minute: e.target.value
+        }))
+    };
+
     // 대표 이미지 url
     const [previewUrl, setPreviewUrl] = useState('');
 
@@ -246,13 +320,6 @@ function Invitation() {
         });
     };
 
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
-    const handleDateChange = (e) => {
-        setSelectedDate(new Date(e.target.value));
-    };
-
-
     return (
         <>
 
@@ -269,7 +336,7 @@ function Invitation() {
                         </SampleTitle>
                         <br></br>
 
-                        <h1>날짜 표기 해야함</h1>
+                        <h1>{totalDate.year}.{totalDate.month}.{totalDate.day}</h1>
 
                         <br></br>
                         <br></br>
@@ -291,11 +358,9 @@ function Invitation() {
 
                         <p>{man.me} , {woman.me} 결혼합니다.</p>
 
-                        {/* 이미지칸 생성 해야함 */}
                         <br></br>
                         <br></br>
-                        <p>2024. 07. 15. Monday 12:00 PM</p>
-                        {/* 날짜 API이용해서 바꿔야함 */}
+                        <p>{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}:{totalDate.minute}</p>
                     </SampleHeader>
 
                     <br></br>
@@ -315,6 +380,11 @@ function Invitation() {
                     <SampleContent>
                         {introcontent}
                     </SampleContent>
+
+                    <br></br>
+                    <br></br>
+
+
 
                     <CalendarCompo selectedDate={selectedDate} />
 
@@ -345,7 +415,8 @@ function Invitation() {
                     <br></br>
 
                     <DateSection
-                        selectedDate={selectedDate} handleDateChange={handleDateChange}
+                        selectedDate={selectedDate}
+                        handleDateChange={handleDateChange} handleChangeHour={handleChangeHour} handleChangeMinute={handleChangeMinute}
                         openSection={openSections.date} toggleSection={() => toggleSection('date')} />
 
                 </Selector>

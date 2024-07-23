@@ -7,6 +7,12 @@ const CalendarContainer = styled.div`
     justify-content: center;
     margin-top: 20px;
 
+    font-size: 14px;
+    font-weight: 100;
+
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+
     table {
         border-collapse: collapse;
     }
@@ -30,7 +36,7 @@ const CalendarContainer = styled.div`
     }
 
     .selected {
-        background-color: #ff7f7f;
+        background-color: #F8C3C3;
         border-radius: 50%;
         color: white;
     }
@@ -79,7 +85,7 @@ const CalendarCompo = ({ selectedDate }) => {
             <table>
                 <thead>
                     <tr>
-                        <th>일</th>
+                        <th style={{color:'#F8C3C3'}}>일</th>
                         <th>월</th>
                         <th>화</th>
                         <th>수</th>

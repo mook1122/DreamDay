@@ -37,7 +37,25 @@ const DetailItem = styled.div.withConfig({
     }
 `;
 
-const DateSection = ({ openSection, toggleSection , selectedDate , handleDateChange}) => {
+const DateInput = styled.input`
+        width: 120px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid gray;
+        margin-right: 20px;
+        border-radius: 4px;
+`;
+
+const TimeSelect = styled.select`
+        width: 100px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid gray;
+        margin-right: 20px;
+        border-radius: 4px;
+`;
+
+const DateSection = ({ openSection, toggleSection, selectedDate, handleDateChange, handleChangeMinute, handleChangeHour }) => {
 
 
     return (
@@ -49,11 +67,49 @@ const DateSection = ({ openSection, toggleSection , selectedDate , handleDateCha
             <DetailItem show={openSection}>
                 <div>
                     <p>예식일</p>
-                    <input
+                    <DateInput
                         type='date'
                         value={selectedDate.toISOString().split('T')[0]}
                         onChange={handleDateChange}
                     />
+                </div>
+
+                <div>
+                    <p>예식시간</p>
+                    <TimeSelect onChange={handleChangeHour}>
+                        <option value='7'>오전 7시</option>
+                        <option value='8'>오전 8시</option>
+                        <option value='9'>오전 9시</option>
+                        <option value='10'>오전 10시</option>
+                        <option value='11'>오전 11시</option>
+                        <option value='12' >낮 12시</option>
+                        <option value='13'>오후 1시</option>
+                        <option value='14'>오후 2시</option>
+                        <option value='15'>오후 3시</option>
+                        <option value='16'>오후 4시</option>
+                        <option value='17'>오후 5시</option>
+                        <option value='18'>오후 6시</option>
+                        <option value='19'>오후 7시</option>
+                        <option value='20'>오후 8시</option>
+                        <option value='21'>오후 9시</option>
+                        <option value='22'>오후 10시</option>
+                        <option value='23'>오후 11시</option>
+                    </TimeSelect>
+
+                    <TimeSelect onChange={handleChangeMinute}>
+                        <option value='0' >00분</option>
+                        <option value='05'>05분</option>
+                        <option value='10'>10분</option>
+                        <option value='15'>15분</option>
+                        <option value='20'>20분</option>
+                        <option value='25'>25분</option>
+                        <option value='30'>30분</option>
+                        <option value='35'>35분</option>
+                        <option value='40'>40분</option>
+                        <option value='45'>45분</option>
+                        <option value='50'>50분</option>
+                        <option value='55'>55분</option>
+                    </TimeSelect>
                 </div>
 
             </DetailItem>
