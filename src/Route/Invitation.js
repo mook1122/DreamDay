@@ -89,10 +89,10 @@ const Selector = styled.div`
 `;
 
 const SampleHeader = styled.div`
+
 `;
 
 const MainImgBox = styled.div`
-  /* border: 2px solid black; */
   width: 100%;
   height: 100%;
 
@@ -129,12 +129,41 @@ color: ${props => props.titlecolor};
 }
 `;
 
+const HeaderDate = styled.p`
+    font-size: 30px;
+    font-family: "Crimson Pro", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+
+`;
+
 const SampleContent = styled.p`
     white-space: pre-line;
     line-height: 2;
     font-size: 14px;
 
     color: #585858;
+`;
+
+const UnderBar = styled.div`
+
+    width: 50px;
+    border-bottom: 1px solid #eee;
+
+`;
+
+const CalendarDate = styled.p`
+    font-size: 22px;
+    color: #544f4f;
+    /* font-family: 'gowun Dodum", sans-serif'; */
+`;
+const CalendarTime = styled.p`
+    font-size: 15px;
+    color: #544f4f;
+    margin-top: 10px;
+    /* font-family: 'gowun Dodum", sans-serif'; */
+    
 `;
 
 
@@ -162,7 +191,7 @@ function Invitation() {
 
     // 신랑,신부 기본 정보
     const [man, setMan] = useState({
-        me: '김OO',
+        me: '김드림',
         father: '',
         mom: '',
         fatherDeceased: '',
@@ -185,7 +214,7 @@ function Invitation() {
     };
 
     const [woman, setWoman] = useState({
-        me: '이OO',
+        me: '이데이',
         father: '',
         mom: '',
         fatherDeceased: '',
@@ -336,7 +365,9 @@ function Invitation() {
                         </SampleTitle>
                         <br></br>
 
-                        <h1>{totalDate.year}.{totalDate.month}.{totalDate.day}</h1>
+                        <HeaderDate>
+                            {totalDate.year} / {totalDate.month} / {totalDate.day}
+                        </HeaderDate>
 
                         <br></br>
                         <br></br>
@@ -356,11 +387,12 @@ function Invitation() {
                         <br></br>
                         <br></br>
 
-                        <p>{man.me} , {woman.me} 결혼합니다.</p>
+                        <p style={{ fontSize: '20px', fontStyle: 'normal', fontFamily: 'gowun Dodum, sans-serif' }}>{man.me}&nbsp;&nbsp;·&nbsp;&nbsp;{woman.me}</p>
 
                         <br></br>
-                        <br></br>
-                        <p>{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}:{totalDate.minute}</p>
+                        <p
+                            style={{ fontSize: '16px', fontStyle: 'normal', fontFamily: 'gowun Dodum, sans-serif' }}
+                        >{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}:{totalDate.minute}</p>
                     </SampleHeader>
 
                     <br></br>
@@ -369,7 +401,7 @@ function Invitation() {
                     <br></br>
 
                     <SampleTitle titlecolor={titlecolor}>
-                        <p style={{ fontSize: '11px' }}>I N V I T A T I ON</p>
+                        <p style={{ fontSize: '11px' }}>I N V I T A T I O N</p>
                         <br></br>
                         <p style={{ fontWeight: 'bold' }}>{introtitle}</p>
                         <br></br>
@@ -383,9 +415,16 @@ function Invitation() {
 
                     <br></br>
                     <br></br>
+                    <br></br>
 
 
-
+                    <CalendarDate>
+                        {totalDate.year}.{totalDate.month}.{totalDate.day}
+                    </CalendarDate>
+                    
+                    <CalendarTime>
+                            {totalDate.Kr_weekdays} {totalDate.midday} {totalDate.hour}시
+                    </CalendarTime>
                     <CalendarCompo selectedDate={selectedDate} />
 
 
