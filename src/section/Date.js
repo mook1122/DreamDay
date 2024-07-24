@@ -44,6 +44,19 @@ const DateInput = styled.input`
         border: 1px solid gray;
         margin-right: 20px;
         border-radius: 4px;
+
+        -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    &::-webkit-clear-button,
+    &::-webkit-inner-spin-button {
+        display: none;
+    }
+    &::-webkit-calendar-picker-indicator {
+        position: relative;
+        left: 0;
+    }
 `;
 
 const TimeSelect = styled.select`
@@ -69,7 +82,7 @@ const DateSection = ({ openSection, toggleSection, selectedDate, handleDateChang
                     <p>예식일</p>
                     <DateInput
                         type='date'
-                        value={selectedDate.toISOString().split('T')[0]}
+                        // value={selectedDate.toISOString().split('T')[0]}
                         onChange={handleDateChange}
                     />
                 </div>

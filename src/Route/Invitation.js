@@ -9,6 +9,7 @@ import MainView from '../section/MainView'
 import IntroMent from '../section/IntroMent'
 import DateSection from '../section/Date'
 import CalendarCompo from '../section/Calendar';
+import Location from '../section/Location';
 
 const GlobalStyle = createGlobalStyle`
 #root {
@@ -339,7 +340,8 @@ function Invitation() {
         mainScreen: false,
         basicInfo: false,
         intro: false,
-        date: false
+        date: false,
+        location : false
     });
 
     const toggleSection = (section) => {
@@ -421,9 +423,9 @@ function Invitation() {
                     <CalendarDate>
                         {totalDate.year}.{totalDate.month}.{totalDate.day}
                     </CalendarDate>
-                    
+
                     <CalendarTime>
-                            {totalDate.Kr_weekdays} {totalDate.midday} {totalDate.hour}시
+                        {totalDate.Kr_weekdays} {totalDate.midday} {totalDate.hour}시
                     </CalendarTime>
                     <CalendarCompo selectedDate={selectedDate} />
 
@@ -457,6 +459,10 @@ function Invitation() {
                         selectedDate={selectedDate}
                         handleDateChange={handleDateChange} handleChangeHour={handleChangeHour} handleChangeMinute={handleChangeMinute}
                         openSection={openSections.date} toggleSection={() => toggleSection('date')} />
+                    <br></br>
+
+                    <Location
+                        openSection={openSections.location} toggleSection={() => toggleSection('location')} />
 
                 </Selector>
 
