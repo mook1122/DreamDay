@@ -22,9 +22,9 @@ const DetailItem = styled.div.withConfig({
     border-top: 1px solid #eee;
     background-color: white;
     width: 100%;
-    max-height: ${props => (props.show ? '500px' : '0')};
+    max-height: ${props => (props.show === 'on' ? '500px' : '0')};
     overflow: hidden;
-    transition: max-height ${props => (props.show ? '0.5s ease-in-out' : '0s ease-in-out')};
+    transition: max-height ${props => (props.show === 'on' ? '0.5s ease-in-out' : '0s ease-in-out')};
 
 
     > div {
@@ -60,7 +60,7 @@ function Location({ openSection, toggleSection, totallocation, setTotallocation,
     };
 
     const handleAddressSearch = () => {
-        setShowMap(true);
+        setShowMap('on');
         new window.daum.Postcode({
             oncomplete: function(data) {
                 const addr = data.address;

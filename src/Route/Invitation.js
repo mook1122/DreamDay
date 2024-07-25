@@ -172,7 +172,7 @@ const MapContainer = styled.div`
 width: 100%;
     height: 300px;
     margin-top: 10px;
-    display: ${props => (props.show ? 'block' : 'none')};
+    display: ${props => (props.show === 'on' ? 'block' : 'none')};
 `;
 
 function Invitation() {
@@ -180,18 +180,18 @@ function Invitation() {
 
     // 아코디언 섹션
     const [openSections, setOpenSections] = useState({
-        theme: false,
-        mainScreen: false,
-        basicInfo: false,
-        intro: false,
-        date: false,
-        location: false
+        theme: 'off',
+        mainScreen: 'off',
+        basicInfo: 'off',
+        intro: 'off',
+        date: 'off',
+        location: 'off'
     });
 
     const toggleSection = (section) => {
         setOpenSections({
             ...openSections,
-            [section]: !openSections[section]
+            [section]: openSections[section] === 'off' ? 'on' : 'off'
         });
     };
 
@@ -323,7 +323,7 @@ function Invitation() {
         x: ''
     })
 
-    const [showMap, setShowMap] = useState(false);
+    const [showMap, setShowMap] = useState('off');
 
     const mapContainer = useRef(null);
 
