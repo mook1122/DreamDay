@@ -68,7 +68,40 @@ const TimeSelect = styled.select`
         border-radius: 4px;
 `;
 
-const DateSection = ({ openSection, toggleSection, selectedDate, handleDateChange, handleChangeMinute, handleChangeHour }) => {
+const DateSection = ({ openSection, toggleSection, selectedDate ,totalDate , setTotalDate , handleDateChange }) => {
+
+    const handleChangeHour = (e) => {
+        console.log(e.target.value);
+        const newHour = e.target.value;
+
+        if (newHour < 12) {
+            setTotalDate(i => ({
+                ...i,
+                hour: newHour,
+                midday: '오전'
+            }));
+        } else if (newHour > 12) {
+            setTotalDate(i => ({
+                ...i,
+                hour: newHour - 12,
+                midday: '오후'
+            }));
+        } else if (newHour == 12) {
+            setTotalDate(i => ({
+                ...i,
+                hour: newHour,
+                midday: '낮'
+            }));
+        }
+        console.log(totalDate);
+    };
+
+    const handleChangeMinute = (e) => {
+        setTotalDate(i => ({
+            ...i,
+            minute: e.target.value
+        }))
+    };
 
 
     return (

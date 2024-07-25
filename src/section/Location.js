@@ -42,26 +42,13 @@ const DetailItem = styled.div.withConfig({
     
 `;
 
-
-
-function Location({ openSection, toggleSection }) {
-
-    const [totallocation, setTotallocation] = useState({
-        title: '오시는 길',
-        location: '',
-        hall: '',
-        floor: '',
-        tel: ''
-    })
-
+function Location({ openSection, toggleSection, totallocation, setTotallocation }) {
     const handleLocationTitle = (e) => {
         setTotallocation(i => ({
             ...i,
             title: e.target.value
-        }))
-
-        console.log(totallocation);
-    }
+        }));
+    };
 
     return (
         <div>
@@ -73,22 +60,19 @@ function Location({ openSection, toggleSection }) {
                 <div>
                     <p>제목</p>
                     <input
-                        placeholder='오시는 길'
+                        placeholder='ex) 오시는 길'
                         type='text'
+                        value={totallocation.title}
                         onChange={handleLocationTitle}
                     />
                 </div>
-
-                <br></br>
-
+                <br />
                 <div>
                     <p>주소</p>
- 
                 </div>
             </DetailItem>
         </div>
     );
 }
-
 
 export default Location;

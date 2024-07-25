@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components'
 
+
 import ThemeSection from '../section/Theme';
 import BasicInfoSection from '../section/Info';
 import MainView from '../section/MainView'
@@ -170,19 +171,23 @@ const CalendarTime = styled.p`
 
 function Invitation() {
 
-    // 임시 저장하기
-    const [totaldata, setTotaldata] = useState()
 
-    const Upload = () => {
-        setTotaldata({
-            bg: bg,
-            titlecolor: titlecolor,
-            previewUrl: previewUrl,
-            man: man
+    // 아코디언 섹션
+    const [openSections, setOpenSections] = useState({
+        theme: false,
+        mainScreen: false,
+        basicInfo: false,
+        intro: false,
+        date: false,
+        location: false
+    });
+
+    const toggleSection = (section) => {
+        setOpenSections({
+            ...openSections,
+            [section]: !openSections[section]
         });
-        console.log(totaldata);
-        console.log(123);
-    }
+    };
 
 
     // 테마 백그라운드 컬러
@@ -235,6 +240,9 @@ function Invitation() {
             [field]: checked ? '故' : ''
         }));
     };
+
+    // 대표 이미지 url
+    const [previewUrl, setPreviewUrl] = useState('');
 
 
     // 인사말 
@@ -298,58 +306,16 @@ function Invitation() {
         }));
     };
 
-    const handleChangeHour = (e) => {
-        console.log(e.target.value);
-        const newHour = e.target.value;
+    // 예식 장소
+    const [totallocation, setTotallocation] = useState({
+        title: '오시는 길',
+        location: '',
+        hall: '',
+        floor: '',
+        tel: ''
+    })
 
-        if (newHour < 12) {
-            setTotalDate(i => ({
-                ...i,
-                hour: newHour,
-                midday: '오전'
-            }));
-        } else if (newHour > 12) {
-            setTotalDate(i => ({
-                ...i,
-                hour: newHour - 12,
-                midday: '오후'
-            }));
-        } else if (newHour == 12) {
-            setTotalDate(i => ({
-                ...i,
-                hour: newHour,
-                midday: '낮'
-            }));
-        }
-        console.log(totalDate);
-    };
 
-    const handleChangeMinute = (e) => {
-        setTotalDate(i => ({
-            ...i,
-            minute: e.target.value
-        }))
-    };
-
-    // 대표 이미지 url
-    const [previewUrl, setPreviewUrl] = useState('');
-
-    // 아코디언 섹션
-    const [openSections, setOpenSections] = useState({
-        theme: false,
-        mainScreen: false,
-        basicInfo: false,
-        intro: false,
-        date: false,
-        location : false
-    });
-
-    const toggleSection = (section) => {
-        setOpenSections({
-            ...openSections,
-            [section]: !openSections[section]
-        });
-    };
 
     return (
         <>
@@ -429,6 +395,18 @@ function Invitation() {
                     </CalendarTime>
                     <CalendarCompo selectedDate={selectedDate} />
 
+                    <br></br>
+                    <br></br>
+                    <br></br>
+
+                    <SampleTitle titlecolor={titlecolor}>
+                        <p style={{ fontSize: '11px' }}>L O C A T I O N</p>
+                        <br></br>
+                        <p style={{ fontWeight: 'bold' }}>{totallocation.title}</p>
+                        <br></br>
+                        <br></br>
+
+                    </SampleTitle>
 
 
                 </Sample>
@@ -457,12 +435,18 @@ function Invitation() {
 
                     <DateSection
                         selectedDate={selectedDate}
-                        handleDateChange={handleDateChange} handleChangeHour={handleChangeHour} handleChangeMinute={handleChangeMinute}
+                        totalDate={totalDate} setTotalDate={setTotalDate}
+                        handleDateChange={handleDateChange}
+                        // handleChangeHour={handleChangeHour} handleChangeMinute={handleChangeMinute}
                         openSection={openSections.date} toggleSection={() => toggleSection('date')} />
                     <br></br>
 
                     <Location
-                        openSection={openSections.location} toggleSection={() => toggleSection('location')} />
+                        openSection={openSections.location}
+                        toggleSection={() => toggleSection('location')}
+                        totallocation={totallocation}
+                        setTotallocation={setTotallocation}
+                    />
 
                 </Selector>
 
