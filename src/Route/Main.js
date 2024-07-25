@@ -200,11 +200,11 @@ function Main() {
             </LargeFont>
 
             <LargeFont>
-              샘플을 찾아보고
+              회원가입 없이
             </LargeFont>
 
             <LargeFont weight='bold'>
-              마음에 드는 청첩장을 골라보세요.
+              나만의 청첩장을 만들어보세요.
             </LargeFont>
 
             <br></br>
