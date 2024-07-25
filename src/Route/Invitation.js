@@ -317,8 +317,8 @@ function Invitation() {
         title: '오시는 길',
         location: '',
         address: '',
+        hall_name: '',
         hall: '',
-        floor: '',
         tel: '',
         x: ''
     })
@@ -440,12 +440,28 @@ function Invitation() {
                         <p style={{ fontSize: '11px' }}>L O C A T I O N</p>
                         <br></br>
                         <p style={{ fontWeight: 'bold' }}>{totallocation.title}</p>
-                        <br></br>
 
 
                     </SampleTitle>
+
+                    <br></br>
+                    <p>{totallocation.hall_name} {totallocation.hall}</p>
                     <p>{totallocation.location}</p>
+                    <br></br>
+                    {
+                        totallocation.tel === ''
+                            ?
+                            <p>
+                                {/* Tel. {totallocation.tel} */}
+                            </p>
+                            :
+                            <p>
+                                Tel. {totallocation.tel}
+                            </p>
+                    }
+
                     <MapContainer ref={mapContainer} show={showMap}></MapContainer>
+
 
 
                 </Sample>
