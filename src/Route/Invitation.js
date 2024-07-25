@@ -1,6 +1,6 @@
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components'
 
 
@@ -168,6 +168,12 @@ const CalendarTime = styled.p`
     
 `;
 
+const MapContainer = styled.div`
+width: 100%;
+    height: 300px;
+    margin-top: 10px;
+    display: ${props => (props.show ? 'block' : 'none')};
+`;
 
 function Invitation() {
 
@@ -310,11 +316,42 @@ function Invitation() {
     const [totallocation, setTotallocation] = useState({
         title: '오시는 길',
         location: '',
+        address: '',
         hall: '',
         floor: '',
-        tel: ''
+        tel: '',
+        x: ''
     })
 
+    const [showMap, setShowMap] = useState(false);
+
+    const mapContainer = useRef(null);
+
+    useEffect(() => {
+        if (totallocation.location) {
+            const mapOption = {
+                center: new window.daum.maps.LatLng(37.537187, 127.005476),
+                level: 5
+            };
+            const map = new window.daum.maps.Map(mapContainer.current, mapOption);
+            const geocoder = new window.daum.maps.services.Geocoder();
+            const marker = new window.daum.maps.Marker({
+                position: new window.daum.maps.LatLng(37.537187, 127.005476),
+                map: map
+            });
+
+            geocoder.addressSearch(totallocation.address, function (results, status) {
+                if (status === window.daum.maps.services.Status.OK) {
+                    const result = results[0];
+                    const coords = new window.daum.maps.LatLng(result.y, result.x);
+                    map.setCenter(coords);
+                    marker.setPosition(coords);
+
+                }
+            });
+        }
+        console.log(totallocation);
+    }, [totallocation]);
 
 
     return (
@@ -404,9 +441,11 @@ function Invitation() {
                         <br></br>
                         <p style={{ fontWeight: 'bold' }}>{totallocation.title}</p>
                         <br></br>
-                        <br></br>
+
 
                     </SampleTitle>
+                    <p>{totallocation.location}</p>
+                    <MapContainer ref={mapContainer} show={showMap}></MapContainer>
 
 
                 </Sample>
@@ -446,6 +485,7 @@ function Invitation() {
                         toggleSection={() => toggleSection('location')}
                         totallocation={totallocation}
                         setTotallocation={setTotallocation}
+                        setShowMap={setShowMap}
                     />
 
                 </Selector>

@@ -1,8 +1,6 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { Map, MapMarker } from "react-kakao-maps-sdk";
-// import useKakaoLoader from "./useKakaoLoader"
 
 const ToggleBar = styled.div`
     background-color: white;
@@ -39,16 +37,42 @@ const DetailItem = styled.div.withConfig({
         }
     }
 
+    input {
+        width: 200px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid gray;
+        margin-right: 20px;
+        border-radius: 4px;
+    }
     
 `;
 
-function Location({ openSection, toggleSection, totallocation, setTotallocation }) {
+
+function Location({ openSection, toggleSection, totallocation, setTotallocation, setShowMap }) {
+
+
     const handleLocationTitle = (e) => {
         setTotallocation(i => ({
             ...i,
             title: e.target.value
         }));
     };
+
+    const handleAddressSearch = () => {
+        setShowMap(true);
+        new window.daum.Postcode({
+            oncomplete: function(data) {
+                const addr = data.address;
+                setTotallocation(i => ({
+                    ...i,
+                    location: addr,
+                    address: addr
+                }));
+            }
+        }).open();
+    };
+
 
     return (
         <div>
@@ -66,9 +90,15 @@ function Location({ openSection, toggleSection, totallocation, setTotallocation 
                         onChange={handleLocationTitle}
                     />
                 </div>
-                <br />
                 <div>
                     <p>주소</p>
+                    <input
+                        type="text"
+                        placeholder="주소"
+                        value={totallocation.address}
+                        readOnly
+                    />
+                    <button onClick={handleAddressSearch}>주소 검색</button>
                 </div>
             </DetailItem>
         </div>
