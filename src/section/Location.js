@@ -107,7 +107,7 @@ function Location({ openSection, toggleSection, totallocation, setTotallocation,
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection ? '▲ 예식 장소' : '▼ 예식 장소'}</p>
+                <p>{openSection === 'off'? '▲ 예식 장소' : '▼ 예식 장소'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>

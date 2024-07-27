@@ -129,6 +129,15 @@ color: ${props => props.titlecolor};
   font-weight: 400;
   font-style: normal;
 }
+
+.en_title {
+    font-size: 12px;
+}
+
+.kr_title {
+    font-weight:bold;
+    font-size:18px;
+}
 `;
 
 const HeaderDate = styled.p`
@@ -137,6 +146,20 @@ const HeaderDate = styled.p`
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+
+`;
+
+const HeaderInfo = styled.div`
+
+* {
+    /* font-family: 'gowun Dodum", sans-serif'; */
+    font-style: normal;
+}
+
+.header_info_name {
+    font-weight: 600;
+    font-size: 18px;
+}
 
 `;
 
@@ -174,6 +197,29 @@ width: 100%;
     margin-top: 10px;
     display: ${props => (props.show === 'on' ? 'block' : 'none')};
 `;
+
+const LocationContainer = styled.div`
+
+   * {
+    /* font-family: 'gowun Dodum", sans-serif'; */
+   }
+
+   line-height: 1.5;
+   color: #888888;
+
+   .location_hall {
+    font-size: 17px;
+    color: #000000;
+    font-weight: bold;
+   }
+
+   .location_tel {
+    font-size: 14px;
+   }
+
+`;
+
+
 
 function Invitation() {
 
@@ -366,7 +412,7 @@ function Invitation() {
                     <SampleHeader>
 
                         <SampleTitle titlecolor={titlecolor}>
-                            <p style={{ fontWeight: 'bold' }}>THE MARRIAGE</p>
+                            <p className='kr_title'>THE MARRIAGE</p>
                         </SampleTitle>
                         <br></br>
 
@@ -392,12 +438,14 @@ function Invitation() {
                         <br></br>
                         <br></br>
 
-                        <p style={{ fontSize: '20px', fontStyle: 'normal', fontFamily: 'gowun Dodum, sans-serif' }}>{man.me}&nbsp;&nbsp;·&nbsp;&nbsp;{woman.me}</p>
+                        <HeaderInfo>
+                            <p className='header_info_name'>{man.me}&nbsp;&nbsp;·&nbsp;&nbsp;{woman.me}</p>
 
-                        <br></br>
-                        <p
-                            style={{ fontSize: '16px', fontStyle: 'normal', fontFamily: 'gowun Dodum, sans-serif' }}
-                        >{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}:{totalDate.minute}</p>
+                            <br></br>
+                            <p
+                                className='header_info-location'
+                            >{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}:{totalDate.minute}</p>
+                        </HeaderInfo>
                     </SampleHeader>
 
                     <br></br>
@@ -406,9 +454,9 @@ function Invitation() {
                     <br></br>
 
                     <SampleTitle titlecolor={titlecolor}>
-                        <p style={{ fontSize: '11px' }}>I N V I T A T I O N</p>
+                        <p className='en_title'>I N V I T A T I O N</p>
                         <br></br>
-                        <p style={{ fontWeight: 'bold' }}>{introtitle}</p>
+                        <p className='kr_title'>{introtitle}</p>
                         <br></br>
                         <br></br>
 
@@ -437,30 +485,33 @@ function Invitation() {
                     <br></br>
 
                     <SampleTitle titlecolor={titlecolor}>
-                        <p style={{ fontSize: '11px' }}>L O C A T I O N</p>
+                        <p className='en_title'>L O C A T I O N</p>
                         <br></br>
-                        <p style={{ fontWeight: 'bold' }}>{totallocation.title}</p>
+                        <p className='kr_title'>{totallocation.title}</p>
 
 
                     </SampleTitle>
 
-                    <br></br>
-                    <p>{totallocation.hall_name} {totallocation.hall}</p>
-                    <p>{totallocation.location}</p>
-                    <br></br>
-                    {
-                        totallocation.tel === ''
-                            ?
-                            <p>
-                                {/* Tel. {totallocation.tel} */}
-                            </p>
-                            :
-                            <p>
-                                Tel. {totallocation.tel}
-                            </p>
-                    }
+                    <LocationContainer>
 
-                    <MapContainer ref={mapContainer} show={showMap}></MapContainer>
+                        <br></br>
+                        <p className='location_hall' >{totallocation.hall_name} {totallocation.hall}</p>
+                        <p>{totallocation.location}</p>
+                        <br></br>
+                        {
+                            totallocation.tel === ''
+                                ?
+                                <p>
+                                </p>
+                                :
+                                <p className='location_tel' >
+                                    Tel. {totallocation.tel}
+                                </p>
+                        }
+
+                        <MapContainer ref={mapContainer} show={showMap}></MapContainer>
+                    </LocationContainer>
+
 
 
 
