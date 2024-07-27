@@ -11,6 +11,7 @@ import IntroMent from '../section/IntroMent'
 import DateSection from '../section/Date'
 import CalendarCompo from '../section/Calendar';
 import Location from '../section/Location';
+import TelSection from '../section/TelNumber';
 
 const GlobalStyle = createGlobalStyle`
 #root {
@@ -32,6 +33,11 @@ align-items: center;
 
 height: 85%;
 margin-top: 15px;
+
+@media(max-width:1100px) {
+/* flex-direction: column; */
+
+}
 
 
 
@@ -256,7 +262,8 @@ function Invitation() {
         basicInfo: 'off',
         intro: 'off',
         date: 'off',
-        location: 'off'
+        location: 'off',
+        tel: 'off',
     });
 
     const toggleSection = (section) => {
@@ -354,6 +361,7 @@ function Invitation() {
         hour: '12',
         minute: '00',
         midday: '낮',
+        dDay: ''
     });
 
     useEffect(() => {
@@ -373,14 +381,22 @@ function Invitation() {
         const weekdays = weekdaysArray[date.getDay()];
         const Kr_weekdays = krWeekdaysArray[date.getDay()];
 
+        // 현재 날짜와 선택된 날짜의 차이 계산
+        const today = new Date();
+        const timeDiff = date.getTime() - today.getTime();
+        const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
         setTotalDate(i => ({
             ...i,
             year: year,
             month: month,
             day: day,
             weekdays: weekdays,
-            Kr_weekdays: Kr_weekdays
+            Kr_weekdays: Kr_weekdays,
+            dDay: dayDiff
         }));
+
+        console.log(totalDate);
     };
 
     // 예식 장소
@@ -421,9 +437,22 @@ function Invitation() {
                 }
             });
         }
-        console.log(totallocation);
+        // console.log(totallocation);
     }, [totallocation]);
 
+
+    // 연락처
+
+    const [telNumber, setTelNumber] = useState({
+        groom: '',
+        groomFather: '',
+        groomMother: '',
+        bride: '',
+        brideFather: '',
+        brideMother: ''
+    });
+
+    // console.log(telNumber);
 
     return (
         <>
@@ -507,12 +536,12 @@ function Invitation() {
                     <FamilyBox>
                         <p>
                             <span className='family_name'>
-                                {man.fatherDeceased+man.father} {man.momDeceased+man.mom}</span> 의 아들 <span className='family_name'>{man.me}
+                                {man.fatherDeceased + man.father} {man.momDeceased + man.mom}</span> 의 아들 <span className='family_name'>{man.me}
                             </span>
                         </p>
                         <p>
                             <span className='family_name'>
-                                {woman.fatherDeceased+woman.father} {woman.momDeceased+woman.mom}</span> 의 &nbsp;&nbsp;딸&nbsp;&nbsp; <span className='family_name'>{woman.me}
+                                {woman.fatherDeceased + woman.father} {woman.momDeceased + woman.mom}</span> 의 &nbsp;&nbsp;딸&nbsp;&nbsp; <span className='family_name'>{woman.me}
                             </span>
                         </p>
                     </FamilyBox>
@@ -532,6 +561,9 @@ function Invitation() {
                         {totalDate.Kr_weekdays} {totalDate.midday} {totalDate.hour}시
                     </CalendarTime>
                     <CalendarCompo selectedDate={selectedDate} />
+                    <br></br>
+
+                    <p>{man.me+','+woman.me+'의 결혼식이'+totalDate.dDay}일 남았습니다.</p>
 
                     <br></br>
                     <br></br>
@@ -606,6 +638,13 @@ function Invitation() {
                         totallocation={totallocation}
                         setTotallocation={setTotallocation}
                         setShowMap={setShowMap}
+                    />
+                    <br></br>
+
+                    <TelSection
+                        openSection={openSections.tel}
+                        toggleSection={() => toggleSection('tel')}
+                        setTelNumber={setTelNumber}
                     />
 
                 </Selector>
