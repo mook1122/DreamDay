@@ -76,7 +76,7 @@ function BasicInfoSection({ openSection, toggleSection, man, manState, manDeceas
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection ? '▲ 기본 정보' : '▼ 기본 정보'}</p>
+                <p>{openSection === 'off' ? '▲ 기본 정보' : '▼ 기본 정보'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>

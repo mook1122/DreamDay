@@ -107,7 +107,7 @@ const DateSection = ({ openSection, toggleSection, selectedDate ,totalDate , set
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection ? '▲ 예식 일시' : '▼ 예식 일시'}</p>
+                <p>{openSection === 'off' ? '▲ 예식 일시' : '▼ 예식 일시'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>

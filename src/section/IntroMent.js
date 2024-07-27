@@ -76,7 +76,7 @@ function IntroMent({ openSection, toggleSection , introtitle, setIntrotitle , in
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection ? '▲ 인사말' : '▼ 인사말'}</p>
+                <p>{openSection === 'off' ? '▲ 인사말' : '▼ 인사말'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>

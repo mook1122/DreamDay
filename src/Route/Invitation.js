@@ -147,6 +147,7 @@ const HeaderDate = styled.p`
   font-weight: 400;
   font-style: normal;
 
+
 `;
 
 const HeaderInfo = styled.div`
@@ -161,6 +162,11 @@ const HeaderInfo = styled.div`
     font-size: 18px;
 }
 
+.header_info_location {
+    color: #888888;
+    font-size: 15px;
+}
+
 `;
 
 const SampleContent = styled.p`
@@ -173,9 +179,28 @@ const SampleContent = styled.p`
 
 const UnderBar = styled.div`
 
-    width: 50px;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 15px;
+> div {
+    width: 70px;
     border-bottom: 1px solid #eee;
+}
 
+`;
+
+const FamilyBox = styled.div`
+
+    color: #777777;
+    font-size: 15px;
+    line-height: 1.5;
+
+.family_name {
+    font-size: 16px;
+    color: #444444;
+}
 `;
 
 const CalendarDate = styled.p`
@@ -420,6 +445,8 @@ function Invitation() {
                             {totalDate.year} / {totalDate.month} / {totalDate.day}
                         </HeaderDate>
 
+                        {/* <p>{totalDate.weekdays}</p> */}
+
                         <br></br>
                         <br></br>
 
@@ -443,8 +470,11 @@ function Invitation() {
 
                             <br></br>
                             <p
-                                className='header_info-location'
-                            >{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}:{totalDate.minute}</p>
+                                className='header_info_location'
+                            >{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}:{totalDate.minute}
+                                <br></br>
+                                {totallocation.hall_name} {totallocation.hall}
+                            </p>
                         </HeaderInfo>
                     </SampleHeader>
 
@@ -466,6 +496,29 @@ function Invitation() {
                         {introcontent}
                     </SampleContent>
 
+                    <UnderBar>
+                        <div></div>
+                    </UnderBar>
+
+                    <br></br>
+                    <br></br>
+
+
+                    <FamilyBox>
+                        <p>
+                            <span className='family_name'>
+                                {man.fatherDeceased+man.father} {man.momDeceased+man.mom}</span> 의 아들 <span className='family_name'>{man.me}
+                            </span>
+                        </p>
+                        <p>
+                            <span className='family_name'>
+                                {woman.fatherDeceased+woman.father} {woman.momDeceased+woman.mom}</span> 의 &nbsp;&nbsp;딸&nbsp;&nbsp; <span className='family_name'>{woman.me}
+                            </span>
+                        </p>
+                    </FamilyBox>
+
+
+                    <br></br>
                     <br></br>
                     <br></br>
                     <br></br>

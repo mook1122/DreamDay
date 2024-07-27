@@ -88,7 +88,7 @@ function MainView({ openSection, toggleSection, previewUrl, setPreviewUrl }) {
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection ? '▲ 대표 사진' : '▼ 대표 사진'}</p>
+                <p>{openSection === 'off' ? '▲ 대표 사진' : '▼ 대표 사진'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>

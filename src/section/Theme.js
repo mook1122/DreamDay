@@ -64,7 +64,7 @@ function ThemeSection({ setBg, setTitlecolor, openSection, toggleSection }) {
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection ? '▲ 테마' : '▼ 테마'}</p>
+                <p>{openSection === 'off' ? '▲ 테마' : '▼ 테마'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>
