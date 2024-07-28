@@ -239,19 +239,10 @@ function Main() {
 
           </div>
 
-
-
-
-
-
         </BannerItem>
 
       </Banner>
-
-
     </>
-
-
 
   );
 }

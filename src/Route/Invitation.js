@@ -2,6 +2,8 @@ import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useState, useRef, useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 
 import ThemeSection from '../section/Theme';
@@ -53,6 +55,7 @@ border-radius: 10px;
 background-color: ${props => props.bg};
 padding: 30px;
 text-align: center;
+position:relative;
 
 overflow: scroll;
 
@@ -250,7 +253,70 @@ const LocationContainer = styled.div`
 
 `;
 
+const TelBox = styled.div`
 
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+
+> div {
+width: 150px;
+height: 50px;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+border-radius: 20px;
+background-color: #888888;
+color: white;
+cursor: pointer;
+position: absolute;
+
+}
+
+`;
+
+const TelModal = styled.div`
+  width: 100%;
+  height: 100%;
+  top: ${props => (props.top + 'px')};
+  left: 0;
+  position: absolute;
+  background-color: rgba(56, 44, 48, .84); 
+  display: ${props => (props.show === 'on' ? 'flex' : 'none')};
+  transition: .5s opacity;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1000;
+
+  color: white;
+  font-size: 18px;
+
+  .close_btn{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .telinfo{
+    margin: 30px;
+    text-align: left;
+  }
+
+  .dottedline {
+    width: 100%;
+    border-top: 1px dashed #eee;
+    margin: 10px 0 10px 0;
+}
+.tel_flex_box div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+`;
 
 function Invitation() {
 
@@ -289,20 +355,6 @@ function Invitation() {
 
     });
 
-    const manState = (field, value) => {
-        setMan(manSpread => ({
-            ...manSpread,
-            [field]: value
-        }));
-    };
-
-    const manDeceasedCheck = (field, checked) => {
-        setMan(manSpread => ({
-            ...manSpread,
-            [field]: checked ? '故' : ''
-        }));
-    };
-
     const [woman, setWoman] = useState({
         me: '이데이',
         father: '',
@@ -311,31 +363,13 @@ function Invitation() {
         momDeceased: ''
     });
 
-    const womanState = (field, value) => {
-        setWoman(womanSpread => ({
-            ...womanSpread,
-            [field]: value
-        }));
-    };
-
-    const womanDeceasedCheck = (field, checked) => {
-        setWoman(womanSpread => ({
-            ...womanSpread,
-            [field]: checked ? '故' : ''
-        }));
-    };
-
     // 대표 이미지 url
     const [previewUrl, setPreviewUrl] = useState('');
 
 
     // 인사말 
-    const [introtitle, setIntrotitle] = useState('');
-    const [introcontent, setIntrocontent] = useState('');
-
-    useEffect(() => {
-        setIntrotitle('소중한 분들을 초대합니다.');
-        setIntrocontent(`저희 두 사람의 작은 만남이
+    const [introtitle, setIntrotitle] = useState('소중한 분들을 초대합니다.');
+    const [introcontent, setIntrocontent] = useState(`저희 두 사람의 작은 만남이
 사랑의 결실을 이루어
 소중한 결혼식을 올리게 되었습니다.
             
@@ -345,9 +379,6 @@ function Invitation() {
 오로지 믿음과 사랑을 약속하는 날
 오셔서 축복해 주시면 더 없는 기쁨으로
 간직하겠습니다.`);
-    }, []);
-
-    // console.log(introcontent);
 
     // 예식 일시
 
@@ -452,7 +483,23 @@ function Invitation() {
         brideMother: ''
     });
 
-    // console.log(telNumber);
+    const [telModal, setTelModal] = useState('off')
+    const [modalScroll, setModalScroll] = useState('0')
+    const handleModal = () => {
+        const scrollElement = document.getElementById('sample').scrollTop;
+
+        if (telModal === 'off') {
+            setTelModal('on');
+            setModalScroll(scrollElement);
+            document.getElementById('sample').style.overflowY = 'hidden';
+            console.log(typeof scrollElement);
+            console.log(scrollElement);
+        } else {
+            setTelModal('off');
+            document.getElementById('sample').style.overflowY = 'scroll';
+        }
+    };
+
 
     return (
         <>
@@ -460,7 +507,7 @@ function Invitation() {
             <GlobalStyle></GlobalStyle>
 
             <Container>
-                <Sample bg={bg}>
+                <Sample bg={bg} id='sample'>
                     {/* 샘플 컴포넌트 내용 */}
 
                     <SampleHeader>
@@ -549,6 +596,55 @@ function Invitation() {
 
                     <br></br>
                     <br></br>
+
+                    {
+                        telNumber.groom === 'f' ?
+                            <TelBox></TelBox>
+                            :
+                            <TelBox>
+                                <div onClick={handleModal}>
+                                    <FontAwesomeIcon icon={faPhone} /> &nbsp; 연락하기
+                                </div>
+                            </TelBox>
+                    }
+
+                    <TelModal show={telModal} top={modalScroll}>
+
+                        <div className='close_btn'>x</div>
+
+                        <div>
+                            <p>CONTACT</p>
+                            <p>연락하기</p>
+                        </div>
+
+                        <div className='telinfo'>
+                            <p>신랑측 <span>GROOM</span></p>
+                            <div className='dottedline'></div>
+                            <div className='tel_flex_box'>
+                                <div>
+                                    <span>신랑</span>
+                                    <span>{man.me}</span>
+                                    <span><FontAwesomeIcon icon={faPhone} /></span>
+                                </div>
+                                <br></br>
+                                <div>
+                                    <span>신랑 아버지</span>
+                                    <span>{man.father}</span>
+                                    <span><FontAwesomeIcon icon={faPhone} /></span>
+                                </div>
+                                <br></br>
+
+                                <div>
+                                    <span>신랑 어머니</span>
+                                    <span>{man.mom}</span>
+                                    <span><FontAwesomeIcon icon={faPhone} /></span>
+                                </div>
+                            </div>
+                        </div>
+                    </TelModal>
+
+                    <br></br>
+                    <br></br>
                     <br></br>
                     <br></br>
 
@@ -563,7 +659,7 @@ function Invitation() {
                     <CalendarCompo selectedDate={selectedDate} />
                     <br></br>
 
-                    <p>{man.me+','+woman.me+'의 결혼식이'+totalDate.dDay}일 남았습니다.</p>
+                    <p>{man.me + ',' + woman.me + '의 결혼식이' + totalDate.dDay}일 남았습니다.</p>
 
                     <br></br>
                     <br></br>
@@ -610,7 +706,7 @@ function Invitation() {
 
 
                     <BasicInfoSection
-                        manState={manState} womanState={womanState} manDeceasedCheck={manDeceasedCheck} womanDeceasedCheck={womanDeceasedCheck}
+                        setMan={setMan} setWoman={setWoman}
                         openSection={openSections.basicInfo} toggleSection={() => toggleSection('basicInfo')} />
                     <br></br>
 

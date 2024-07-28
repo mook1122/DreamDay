@@ -70,7 +70,35 @@ const Bar = styled.span`
 
 
 
-function BasicInfoSection({ openSection, toggleSection, man, manState, manDeceasedCheck, womanState , womanDeceasedCheck }) {
+function BasicInfoSection({ openSection, toggleSection, man, setMan, setWoman }) {
+
+    const manState = (field, value) => {
+        setMan(manSpread => ({
+            ...manSpread,
+            [field]: value
+        }));
+    };
+
+    const manDeceasedCheck = (field, checked) => {
+        setMan(manSpread => ({
+            ...manSpread,
+            [field]: checked ? '故' : ''
+        }));
+    };
+
+    const womanState = (field, value) => {
+        setWoman(womanSpread => ({
+            ...womanSpread,
+            [field]: value
+        }));
+    };
+
+    const womanDeceasedCheck = (field, checked) => {
+        setWoman(womanSpread => ({
+            ...womanSpread,
+            [field]: checked ? '故' : ''
+        }));
+    };
 
 
     return (
