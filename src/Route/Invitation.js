@@ -14,6 +14,7 @@ import DateSection from '../section/Date'
 import CalendarCompo from '../section/Calendar';
 import Location from '../section/Location';
 import TelSection from '../section/TelNumber';
+import TelModal from '../Component/TelModal';
 
 const GlobalStyle = createGlobalStyle`
 #root {
@@ -278,45 +279,6 @@ position: absolute;
 
 `;
 
-const TelModal = styled.div`
-  width: 100%;
-  height: 100%;
-  top: ${props => (props.top + 'px')};
-  left: 0;
-  position: absolute;
-  background-color: rgba(56, 44, 48, .84); 
-  display: ${props => (props.show === 'on' ? 'flex' : 'none')};
-  transition: .5s opacity;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 1000;
-
-  color: white;
-  font-size: 18px;
-
-  .close_btn{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-  }
-
-  .telinfo{
-    margin: 30px;
-    text-align: left;
-  }
-
-  .dottedline {
-    width: 100%;
-    border-top: 1px dashed #eee;
-    margin: 10px 0 10px 0;
-}
-.tel_flex_box div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-`;
 
 function Invitation() {
 
@@ -598,7 +560,7 @@ function Invitation() {
                     <br></br>
 
                     {
-                        telNumber.groom === 'f' ?
+                        telNumber.groom === '' ?
                             <TelBox></TelBox>
                             :
                             <TelBox>
@@ -608,40 +570,10 @@ function Invitation() {
                             </TelBox>
                     }
 
-                    <TelModal show={telModal} top={modalScroll}>
-
-                        <div className='close_btn'>x</div>
-
-                        <div>
-                            <p>CONTACT</p>
-                            <p>연락하기</p>
-                        </div>
-
-                        <div className='telinfo'>
-                            <p>신랑측 <span>GROOM</span></p>
-                            <div className='dottedline'></div>
-                            <div className='tel_flex_box'>
-                                <div>
-                                    <span>신랑</span>
-                                    <span>{man.me}</span>
-                                    <span><FontAwesomeIcon icon={faPhone} /></span>
-                                </div>
-                                <br></br>
-                                <div>
-                                    <span>신랑 아버지</span>
-                                    <span>{man.father}</span>
-                                    <span><FontAwesomeIcon icon={faPhone} /></span>
-                                </div>
-                                <br></br>
-
-                                <div>
-                                    <span>신랑 어머니</span>
-                                    <span>{man.mom}</span>
-                                    <span><FontAwesomeIcon icon={faPhone} /></span>
-                                </div>
-                            </div>
-                        </div>
-                    </TelModal>
+                    <TelModal
+                        man={man} telModal={telModal} modalScroll={modalScroll} telNumber={telNumber} woman={woman}
+                        handleModal={handleModal}
+                    />
 
                     <br></br>
                     <br></br>
