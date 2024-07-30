@@ -15,6 +15,7 @@ import CalendarCompo from '../section/Calendar';
 import Location from '../section/Location';
 import TelSection from '../section/TelNumber';
 import TelModal from '../Component/TelModal';
+import AccountSection from '../section/Account';
 
 const GlobalStyle = createGlobalStyle`
 #root {
@@ -292,6 +293,7 @@ function Invitation() {
         date: 'off',
         location: 'off',
         tel: 'off',
+        account : 'off'
     });
 
     const toggleSection = (section) => {
@@ -601,8 +603,6 @@ function Invitation() {
                         <p className='en_title'>L O C A T I O N</p>
                         <br></br>
                         <p className='kr_title'>{totallocation.title}</p>
-
-
                     </SampleTitle>
 
                     <LocationContainer>
@@ -626,6 +626,11 @@ function Invitation() {
                     </LocationContainer>
 
 
+                    <SampleTitle titlecolor={titlecolor}>
+                        <p className='en_title'>A C C O U N T</p>
+                        <br></br>
+                        <p className='kr_title'>마음 전하실곳</p>
+                    </SampleTitle>
 
 
                 </Sample>
@@ -673,6 +678,12 @@ function Invitation() {
                         openSection={openSections.tel}
                         toggleSection={() => toggleSection('tel')}
                         setTelNumber={setTelNumber}
+                    />
+                    <br></br>
+
+                    <AccountSection
+                        openSection={openSections.account}
+                        toggleSection={() => toggleSection('account')}
                     />
 
                 </Selector>

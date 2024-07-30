@@ -26,82 +26,259 @@ const DetailItem = styled.div.withConfig({
     overflow: hidden;
     transition: max-height ${props => (props.show === 'on' ? '0.5s ease-in-out' : '0s ease-in-out')};
 
-    > div {
+    .inputbox {
         display: flex;
-        align-items: center;
         padding: 10px;
-
     }
 
     p {
         width:80px;
     }
+    
+    .dottedline {
+    width: 95%;
+    margin-left:2.5%;
+    border-top: 1px dashed #eee;
+    margin: 10px 0 10px 0;
+
+    }
+        #title_box {
+        width: 370px;
+        height: 27px;
+        padding: 5px;
+        border: 1px solid gray;
+        margin-right: 20px;
+        border-radius: 2px;
+
+    }
+
+    #title_box:focus {
+        outline: 1px solid black;
+    }
+
+    #content_box {
+        width: 370px;
+        height:100px;
+        padding: 5px;
+        border: 1px solid gray;
+        margin-right: 20px;
+        overflow:scroll;
+
+    }
+
+    #content_box:focus {
+        outline: 1px solid black;
+    }
 
 `;
 
+const AccountBox = styled.div`
 
-const ImageUploadWrapper = styled.div`
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border: 1px dashed #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+display: flex;
+justify-content: flex-start;
+align-items: start;
+flex-direction: column;
 
-  input[type="file"] {
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-  }
 
-  &::before {
-    content: '+';
-    font-size: 36px;
-    color: #ccc;
-    text-align: center;
-    position: absolute;
-  }
+    #group_title {
+        width: 370px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid gray;
+        margin-right: 20px;
+        border-radius: 4px;
 
-  &:hover {
-    border-color: #999;
-  }
+    }
+
+    #bank {
+        width: 60px;
+        margin-right: 10px;
+        height: 27px;
+        padding: 5px;
+        border: 1px solid gray;
+        border-radius: 2px;
+    }
+
+    #account {
+        width: 200px;
+        margin-right: 10px;
+        height: 27px;
+        padding: 5px;
+        border: 1px solid gray;
+        border-radius: 2px;
+    }
+
+    #holder {
+        width: 90px;
+        height: 27px;
+        padding: 5px;
+        border: 1px solid gray;
+        border-radius: 2px;
+    }
+
+    #kakaolink {
+        width: 370px;
+        height: 30px;
+        padding: 5px;
+        border: 1px solid gray;
+        margin-right: 20px;
+        border-radius: 4px;
+        margin-top: 10px;
+    }
+
+    .kakao_img {
+            position: absolute;
+            left: 10px; /* 이미지를 인풋 필드 안으로 이동 */
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none; /* 이미지를 클릭할 수 없게 함 */
+    }
+    
 `;
-function MainView({ openSection, toggleSection, previewUrl, setPreviewUrl }) {
 
-
-    const handleImageChange = (e) => {
-        if (e.target.files && e.target.files[0]) {
-            const selectedFile = e.target.files[0];
-            setPreviewUrl(URL.createObjectURL(selectedFile)); // 이미지 미리보기 URL 생성
-        }
-    };
-
-    // console.log(previewUrl);
-
+function AccountSection({ openSection, toggleSection, }) {
 
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection === 'off' ? '▲ 대표 사진' : '▼ 대표 사진'}</p>
+                <p>{openSection === 'off' ? '▲ 계좌번호' : '▼ 계좌번호'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>
-                <div>
-                    <p>사진</p>
-                    <ImageUploadWrapper>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImageChange}
-                        />
-                    </ImageUploadWrapper>
+                <div className='inputbox'>
+                    <p>제목</p>
+                    <input
+                        type='text'
+                        id='title_box'
+                    />
                 </div>
+
+                <div className='inputbox'>
+                    <p>내용</p>
+                    <textarea
+                        type='text'
+                        id='content_box'
+
+                    />
+                </div>
+
+                <div className='dottedline'></div>
+
+                <AccountBox>
+
+                    <div className='inputbox'>
+                        <p>그룹명</p>
+                        <input
+                            type='text'
+                            placeholder='신랑측 계좌번호'
+                            id='group_title'
+                        />
+                    </div>
+
+
+                    <div className='inputbox'>
+                        <p>신랑</p>
+
+                        <div>
+                            <div>
+                                <input
+                                    type='text'
+                                    placeholder='은행'
+                                    id='bank'
+                                />
+                                <input
+                                    type='text'
+                                    placeholder='계좌'
+                                    id='account'
+                                />
+                                <input
+                                    type='text'
+                                    placeholder='예금주'
+                                    id='holder'
+                                />
+                            </div>
+
+                            <div>
+                                <input
+                                    type='text'
+                                    placeholder='카카오페이 송금 링크'
+                                    id='kakaolink'
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='inputbox'>
+                        <p>신랑 아버지</p>
+
+                        <div>
+                            <div>
+                                <input
+                                    type='text'
+                                    placeholder='은행'
+                                    id='bank'
+                                />
+                                <input
+                                    type='text'
+                                    placeholder='계좌'
+                                    id='account'
+                                />
+                                <input
+                                    type='text'
+                                    placeholder='예금주'
+                                    id='holder'
+                                />
+                            </div>
+
+                            <div>
+                                {/* <img className='kakao_img' src={process.env.PUBLIC_URL + `/img/kakao_btn.png`} /> */}
+                                <input
+                                    type='text'
+                                    placeholder='카카오페이 송금 링크'
+                                    id='kakaolink'
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='inputbox'>
+                        <p>신랑 어머님</p>
+
+                        <div>
+                            <div>
+                                <input
+                                    type='text'
+                                    placeholder='은행'
+                                    id='bank'
+                                />
+                                <input
+                                    type='text'
+                                    placeholder='계좌'
+                                    id='account'
+                                />
+                                <input
+                                    type='text'
+                                    placeholder='예금주'
+                                    id='holder'
+                                />
+                            </div>
+
+                            <div>
+                                <input
+                                    type='text'
+                                    placeholder='카카오페이 송금 링크'
+                                    id='kakaolink'
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+
+                </AccountBox>
+
+                <div className='dottedline'></div>
+
+
             </DetailItem>
         </div>
     );
@@ -109,25 +286,4 @@ function MainView({ openSection, toggleSection, previewUrl, setPreviewUrl }) {
 
 
 
-export default MainView;
-
-
-// async function Imgupload(file) {
-//     let filename = encodeURIComponent(file.name);
-//     let res = await axios.get(`http://localhost:8080/api/post/image?file=${filename}`); // 절대 경로 사용
-//     const url = res.data;
-//     const formData = new FormData();
-
-//     Object.keys(url.fields).forEach(key => {
-//         formData.append(key, url.fields[key]);
-//     });
-//     formData.append('file', file);
-
-//     await axios.post(url.url, formData, {
-//         headers: {
-//             'Content-Type': 'multipart/form-data'
-//         }
-//     });
-
-//     return url.url + '/' + url.fields.key;
-// }
+export default AccountSection;
