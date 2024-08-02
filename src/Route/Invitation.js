@@ -293,7 +293,7 @@ function Invitation() {
         date: 'off',
         location: 'off',
         tel: 'off',
-        account : 'off'
+        account: 'off'
     });
 
     const toggleSection = (section) => {
@@ -464,6 +464,66 @@ function Invitation() {
         }
     };
 
+    // 계좌번호
+    const [account, setAccount] = useState({
+
+        acc_title: '마음 전하실 곳',
+        acc_content: `참석이 어려우신 분들을 위해
+계좌번호를 기재하였습니다.
+너그러운 마음으로 양해 부탁드립니다.`,
+
+        groom: {
+            details: {
+                accountNumber: '',
+                bank: '',
+                accountName: '',
+                kakaoPay: '',
+                group: ''
+            }
+        },
+        groomFather: {
+            details: {
+                accountNumber: '',
+                bank: '',
+                accountName: '',
+                kakaoPay: ''
+            }
+        },
+        groomMother: {
+            details: {
+                accountNumber: '',
+                bank: '',
+                accountName: '',
+                kakaoPay: ''
+            }
+        },
+        bride: {
+            details: {
+                accountNumber: '',
+                bank: '',
+                accountName: '',
+                kakaoPay: '',
+                group: ''
+            }
+        },
+        brideFather: {
+            details: {
+                accountNumber: '',
+                bank: '',
+                accountName: '',
+                kakaoPay: ''
+            }
+        },
+        brideMother: {
+            details: {
+                accountNumber: '',
+                bank: '',
+                accountName: '',
+                kakaoPay: ''
+            }
+        }
+    });
+
 
     return (
         <>
@@ -629,9 +689,12 @@ function Invitation() {
                     <SampleTitle titlecolor={titlecolor}>
                         <p className='en_title'>A C C O U N T</p>
                         <br></br>
-                        <p className='kr_title'>마음 전하실곳</p>
+                        <p className='kr_title'>{account.acc_title}</p>
+                        <br></br>
                     </SampleTitle>
-
+                    <SampleContent>
+                        {account.acc_content}
+                    </SampleContent>
 
                 </Sample>
 
@@ -682,6 +745,7 @@ function Invitation() {
                     <br></br>
 
                     <AccountSection
+                        account={account} setAccount={setAccount}
                         openSection={openSections.account}
                         toggleSection={() => toggleSection('account')}
                     />

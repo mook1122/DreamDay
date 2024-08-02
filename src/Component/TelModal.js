@@ -72,9 +72,7 @@ font-size: 14px;
 
 function TelModal2({ man, woman, telModal, modalScroll, handleModal, telNumber }) {
 
-    console.log(document.getElementById('sample'));
-
-
+    // console.log(document.getElementById('sample'));
 
     return (
         <>
