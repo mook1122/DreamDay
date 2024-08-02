@@ -16,6 +16,7 @@ import Location from '../section/Location';
 import TelSection from '../section/TelNumber';
 import TelModal from '../Component/TelModal';
 import AccountSection from '../section/Account';
+import AccountBox from '../Component/AccountCompo';
 
 const GlobalStyle = createGlobalStyle`
 #root {
@@ -683,6 +684,8 @@ function Invitation() {
                         }
 
                         <MapContainer ref={mapContainer} show={showMap}></MapContainer>
+                        <br></br>
+                        <br></br>
                     </LocationContainer>
 
 
@@ -695,6 +698,9 @@ function Invitation() {
                     <SampleContent>
                         {account.acc_content}
                     </SampleContent>
+                    <br></br>
+                    <AccountBox account={account}/>
+                    <br></br>
 
                 </Sample>
 
