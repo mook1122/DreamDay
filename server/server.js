@@ -4,7 +4,12 @@ const { MongoClient } = require('mongodb')
 const aws = require('aws-sdk');
 require('dotenv').config();
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
 app.use(cors());
+app.use(bodyParser.json()); // JSON 형식의 요청 본문을 파싱
+app.use(bodyParser.urlencoded({ extended: true })); // URL-encoded 형식의 요청 본문을 파싱
+
 
 app.listen(8080, () => {
     console.log('http://localhost:8080 에서 서버 실행중')
@@ -55,4 +60,23 @@ app.get('/api/post/image', async (req, res) => {
         console.error('Error creating presigned URL:', error);
         res.status(500).json({ error: 'Error creating presigned URL' });
     }
+});
+
+app.post('/upload', (req, res) => {
+    const data = req.body;
+    console.log('Received data:', data);
+
+    if (!data) {
+        return res.status(400).send('No data received');
+    }
+
+    db.collection('uploads').insertOne(data, (err, result) => {
+        if (err) {
+            console.error('데이터 저장 실패:', err);
+            res.status(500).send('데이터 저장 실패');
+        } else {
+            console.log('데이터 저장 성공:', result.ops[0]);
+            res.status(200).send('데이터 저장 성공');
+        }
+    });
 });

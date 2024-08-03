@@ -97,7 +97,7 @@ function Location({ openSection, toggleSection, totallocation, setTotallocation,
                 setTotallocation(i => ({
                     ...i,
                     location: addr,
-                    address: addr
+                    address: addr,
                 }));
             }
         }).open();

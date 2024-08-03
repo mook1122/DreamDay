@@ -5,9 +5,13 @@ const AccountContainer = styled.div`
   width: 100%;
 
   #groom_section {
+  display: ${props => (props.showcontent === '' ? 'none' : 'flex')};
+
   }
 
   #bride_section {
+  display: ${props => (props.showcontent === '' ? 'none' : 'flex')};
+
   }
 `;
 
@@ -37,19 +41,19 @@ const ShowAccount = styled.div`
     top: 13px;
     font-size: 10px;
     transition: transform 0.5s; 
-    transform: ${props => (props.showContent === 'on' ? 'rotate(180deg)' : 'rotate(0deg)')};
+    transform: ${props => (props.showcontent === 'on' ? 'rotate(180deg)' : 'rotate(0deg)')};
   }
 
   .content {
     width: 80%;
     overflow: hidden;
-    max-height: ${props => (props.showContent === 'on' ? '500px' : '0')}; 
+    max-height: ${props => (props.showcontent === 'on' ? '500px' : '0')}; 
     transition: max-height 0.5s ease-out; 
   }
 `;
 
 const AccountInfoBox = styled.div`
-  display: ${props => (props.showContent === '' ? 'none' : 'flex')};
+  display: ${props => (props.showcontent === '' ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -87,7 +91,7 @@ const AccountInfoBox = styled.div`
 const KakaoBtn = styled.a`
   width: 55px;
   height: 25px;
-  display: ${props => (props.showContent === '' ? 'none' : 'flex')};
+  display: ${props => (props.showcontent === '' ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
   background-image: url('https://i.namu.wiki/i/DRTBUHA314XYTx-pkzY4XSmQ0Job0j10vQhiETotjLCGUULQemriSC67Yh9UCsYq7Dw7WyvK0GkP9f3jP8r8gA.svg');
@@ -98,121 +102,121 @@ const KakaoBtn = styled.a`
 `;
 
 function AccountBox({ account }) {
-  const [showGroomContent, setShowGroomContent] = useState('off');
-  const [showBrideContent, setShowBrideContent] = useState('off');
+    const [showGroomContent, setShowGroomContent] = useState('off');
+    const [showBrideContent, setShowBrideContent] = useState('off');
 
-  const toggleGroomContent = () => {
-    setShowGroomContent(showGroomContent === 'off' ? 'on' : 'off');
-  };
+    const toggleGroomContent = () => {
+        setShowGroomContent(showGroomContent === 'off' ? 'on' : 'off');
+    };
 
-  const toggleBrideContent = () => {
-    setShowBrideContent(showBrideContent === 'off' ? 'on' : 'off');
-  };
+    const toggleBrideContent = () => {
+        setShowBrideContent(showBrideContent === 'off' ? 'on' : 'off');
+    };
 
-  return (
-    <>
-      <AccountContainer>
-        <ShowAccount showContent={showGroomContent} id='groom_section'>
-          <div className="title" onClick={toggleGroomContent}>
-            {account.groom.details.group}
-            <span className="arrow">▼</span>
-          </div>
-          <div className="content">
-            <AccountInfoBox showContent={account.groom.details.accountNumber}>
-              <div className='acc1'>
-                <span>{account.groom.details.bank}</span>
-                <span>{account.groom.details.accountNumber}</span>
-                <span className='copy_btn'>복사하기</span>
-              </div>
-              <div className='acc1'>
-                <span>{account.groom.details.accountName}</span>
-                <KakaoBtn
-                  showContent={account.groom.details.kakaoPay}
-                  href={account.groom.details.kakaoPay} target="_blank"></KakaoBtn>
-              </div>
-            </AccountInfoBox>
-            <AccountInfoBox showContent={account.groomFather.details.accountNumber}>
-              <div className='acc1'>
-                <span>{account.groomFather.details.bank}</span>
-                <span>{account.groomFather.details.accountNumber}</span>
-                <span className='copy_btn'>복사하기</span>
-              </div>
-              <div className='acc1'>
-                <span>{account.groomFather.details.accountName}</span>
-                <KakaoBtn
-                  showContent={account.groomFather.details.kakaoPay}
-                  href={account.groomFather.details.kakaoPay} target="_blank"></KakaoBtn>
-              </div>
-            </AccountInfoBox>
-            <AccountInfoBox showContent={account.groomMother.details.accountNumber}>
-              <div className='acc1'>
-                <span>{account.groomMother.details.bank}</span>
-                <span>{account.groomMother.details.accountNumber}</span>
-                <span className='copy_btn'>복사하기</span>
-              </div>
-              <div className='acc1'>
-                <span>{account.groomMother.details.accountName}</span>
-                <KakaoBtn
-                  showContent={account.groomMother.details.kakaoPay}
-                  href={account.groomMother.details.kakaoPay} target="_blank"></KakaoBtn>
-              </div>
-            </AccountInfoBox>
-          </div>
-        </ShowAccount>
+    return (
+        <>
+            <AccountContainer>
+                <ShowAccount showcontent={showGroomContent} id='groom_section'>
+                    <div className="title" onClick={toggleGroomContent}>
+                        {account.groom.details.group}
+                        <span className="arrow">▲</span>
+                    </div>
+                    <div className="content">
+                        <AccountInfoBox showcontent={account.groom.details.accountNumber}>
+                            <div className='acc1'>
+                                <span>{account.groom.details.bank}</span>
+                                <span>{account.groom.details.accountNumber}</span>
+                                <span className='copy_btn'>복사하기</span>
+                            </div>
+                            <div className='acc1'>
+                                <span>{account.groom.details.accountName}</span>
+                                <KakaoBtn
+                                    showcontent={account.groom.details.kakaoPay}
+                                    href={account.groom.details.kakaoPay} target="_blank"></KakaoBtn>
+                            </div>
+                        </AccountInfoBox>
+                        <AccountInfoBox showcontent={account.groomFather.details.accountNumber}>
+                            <div className='acc1'>
+                                <span>{account.groomFather.details.bank}</span>
+                                <span>{account.groomFather.details.accountNumber}</span>
+                                <span className='copy_btn'>복사하기</span>
+                            </div>
+                            <div className='acc1'>
+                                <span>{account.groomFather.details.accountName}</span>
+                                <KakaoBtn
+                                    showcontent={account.groomFather.details.kakaoPay}
+                                    href={account.groomFather.details.kakaoPay} target="_blank"></KakaoBtn>
+                            </div>
+                        </AccountInfoBox>
+                        <AccountInfoBox showcontent={account.groomMother.details.accountNumber}>
+                            <div className='acc1'>
+                                <span>{account.groomMother.details.bank}</span>
+                                <span>{account.groomMother.details.accountNumber}</span>
+                                <span className='copy_btn'>복사하기</span>
+                            </div>
+                            <div className='acc1'>
+                                <span>{account.groomMother.details.accountName}</span>
+                                <KakaoBtn
+                                    showcontent={account.groomMother.details.kakaoPay}
+                                    href={account.groomMother.details.kakaoPay} target="_blank"></KakaoBtn>
+                            </div>
+                        </AccountInfoBox>
+                    </div>
+                </ShowAccount>
 
-        <br></br>
+                <br></br>
 
-        <ShowAccount showContent={showBrideContent} id='bride_section'>
-          <div className="title" onClick={toggleBrideContent}>
-            {account.bride.details.group}
-            <span className="arrow">▼</span>
-          </div>
-          <div className="content">
-            <AccountInfoBox showContent={account.bride.details.accountNumber}>
-              <div className='acc1'>
-                <span>{account.bride.details.bank}</span>
-                <span>{account.bride.details.accountNumber}</span>
-                <span className='copy_btn'>복사하기</span>
-              </div>
-              <div className='acc1'>
-                <span>{account.bride.details.accountName}</span>
-                <KakaoBtn
-                  showContent={account.bride.details.kakaoPay}
-                  href={account.bride.details.kakaoPay} target="_blank"></KakaoBtn>
-              </div>
-            </AccountInfoBox>
-            <AccountInfoBox showContent={account.brideFather.details.accountNumber}>
-              <div className='acc1'>
-                <span>{account.brideFather.details.bank}</span>
-                <span>{account.brideFather.details.accountNumber}</span>
-                <span className='copy_btn'>복사하기</span>
-              </div>
-              <div className='acc1'>
-                <span>{account.brideFather.details.accountName}</span>
-                <KakaoBtn
-                  showContent={account.brideFather.details.kakaoPay}
-                  href={account.brideFather.details.kakaoPay} target="_blank"></KakaoBtn>
-              </div>
-            </AccountInfoBox>
-            <AccountInfoBox showContent={account.brideMother.details.accountNumber}>
-              <div className='acc1'>
-                <span>{account.brideMother.details.bank}</span>
-                <span>{account.brideMother.details.accountNumber}</span>
-                <span className='copy_btn'>복사하기</span>
-              </div>
-              <div className='acc1'>
-                <span>{account.brideMother.details.accountName}</span>
-                <KakaoBtn
-                  showContent={account.brideMother.details.kakaoPay}
-                  href={account.brideMother.details.kakaoPay} target="_blank"></KakaoBtn>
-              </div>
-            </AccountInfoBox>
-          </div>
-        </ShowAccount>
-        <br></br>
-      </AccountContainer>
-    </>
-  );
+                <ShowAccount showcontent={showBrideContent} id='bride_section'>
+                    <div className="title" onClick={toggleBrideContent}>
+                        {account.bride.details.group}
+                        <span className="arrow">▲</span>
+                    </div>
+                    <div className="content">
+                        <AccountInfoBox showcontent={account.bride.details.accountNumber}>
+                            <div className='acc1'>
+                                <span>{account.bride.details.bank}</span>
+                                <span>{account.bride.details.accountNumber}</span>
+                                <span className='copy_btn'>복사하기</span>
+                            </div>
+                            <div className='acc1'>
+                                <span>{account.bride.details.accountName}</span>
+                                <KakaoBtn
+                                    showcontent={account.bride.details.kakaoPay}
+                                    href={account.bride.details.kakaoPay} target="_blank"></KakaoBtn>
+                            </div>
+                        </AccountInfoBox>
+                        <AccountInfoBox showcontent={account.brideFather.details.accountNumber}>
+                            <div className='acc1'>
+                                <span>{account.brideFather.details.bank}</span>
+                                <span>{account.brideFather.details.accountNumber}</span>
+                                <span className='copy_btn'>복사하기</span>
+                            </div>
+                            <div className='acc1'>
+                                <span>{account.brideFather.details.accountName}</span>
+                                <KakaoBtn
+                                    showcontent={account.brideFather.details.kakaoPay}
+                                    href={account.brideFather.details.kakaoPay} target="_blank"></KakaoBtn>
+                            </div>
+                        </AccountInfoBox>
+                        <AccountInfoBox showcontent={account.brideMother.details.accountNumber}>
+                            <div className='acc1'>
+                                <span>{account.brideMother.details.bank}</span>
+                                <span>{account.brideMother.details.accountNumber}</span>
+                                <span className='copy_btn'>복사하기</span>
+                            </div>
+                            <div className='acc1'>
+                                <span>{account.brideMother.details.accountName}</span>
+                                <KakaoBtn
+                                    showcontent={account.brideMother.details.kakaoPay}
+                                    href={account.brideMother.details.kakaoPay} target="_blank"></KakaoBtn>
+                            </div>
+                        </AccountInfoBox>
+                    </div>
+                </ShowAccount>
+                <br></br>
+            </AccountContainer>
+        </>
+    );
 }
 
 export default AccountBox;

@@ -1,6 +1,7 @@
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import { createGlobalStyle } from 'styled-components'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
@@ -392,7 +393,7 @@ function Invitation() {
             dDay: dayDiff
         }));
 
-        console.log(totalDate);
+        // console.log(totalDate);
     };
 
     // 예식 장소
@@ -403,7 +404,8 @@ function Invitation() {
         hall_name: '',
         hall: '',
         tel: '',
-        x: ''
+        x: '',
+        y: '',
     })
 
     const [showMap, setShowMap] = useState('off');
@@ -430,11 +432,21 @@ function Invitation() {
                     map.setCenter(coords);
                     marker.setPosition(coords);
 
+                    setTotallocation(i => ({
+                        ...i,
+                        x: result.road_address.x,
+                        y: result.road_address.y
+                    }));
+
+                    // console.log(result.road_address.x);
+                    // console.log(result.road_address.y);
+                    // console.log(result);
+
                 }
             });
         }
         // console.log(totallocation);
-    }, [totallocation]);
+    }, [totallocation.address]);
 
 
     // 연락처
@@ -479,7 +491,7 @@ function Invitation() {
                 bank: '',
                 accountName: '',
                 kakaoPay: '',
-                group: ''
+                group: '신랑측 계좌번호'
             }
         },
         groomFather: {
@@ -504,7 +516,7 @@ function Invitation() {
                 bank: '',
                 accountName: '',
                 kakaoPay: '',
-                group: ''
+                group: '신부측 계좌번호'
             }
         },
         brideFather: {
@@ -525,6 +537,64 @@ function Invitation() {
         }
     });
 
+
+    // 저장된 이미지 s3업로드
+    const getPresignedUrl = async (fileName) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/post/image?file=${fileName}`);
+            return response.data;
+        } catch (error) {
+            console.error('Presigned URL 요청 실패:', error);
+            return null;
+        }
+    };
+
+    // 모든 데이터DB 저장
+
+    const Upload = async () => {
+        const selectedFile = document.querySelector('input[type="file"]').files[0];
+        const presignedUrlData = await getPresignedUrl(selectedFile.name);
+
+        if (!presignedUrlData) {
+            alert('Presigned URL을 가져오는 데 실패했습니다.');
+            return;
+        }
+
+        const formData = new FormData();
+        Object.keys(presignedUrlData.fields).forEach(key => {
+            formData.append(key, presignedUrlData.fields[key]);
+        });
+        formData.append('file', selectedFile);
+
+        try {
+            await axios.post(presignedUrlData.url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('이미지 업로드 성공');
+
+            const data = {
+                bg,
+                titlecolor,
+                introtitle,
+                introcontent,
+                previewUrl: presignedUrlData.url + '/' + presignedUrlData.fields.key, // S3 이미지 URL
+                man,
+                woman,
+                totalDate,
+                totallocation,
+                telNumber,
+                account
+            };
+
+            await axios.post('http://localhost:8080/upload', data);
+            alert('저장 성공');
+        } catch (error) {
+            console.error('이미지 업로드 실패:', error);
+            alert('이미지 업로드에 실패했습니다.');
+        }
+    };
 
     return (
         <>
@@ -699,7 +769,7 @@ function Invitation() {
                         {account.acc_content}
                     </SampleContent>
                     <br></br>
-                    <AccountBox account={account}/>
+                    <AccountBox account={account} />
                     <br></br>
 
                 </Sample>
@@ -759,7 +829,7 @@ function Invitation() {
                 </Selector>
 
 
-                {/* <button onClick={() => { Upload() }}>테스트 저장</button> */}
+                <button onClick={() => { Upload() }}>테스트 저장</button>
             </Container>
         </>
     );
