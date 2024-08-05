@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
-const { MongoClient } = require('mongodb')
+const { MongoClient , ObjectId} = require('mongodb')
 const aws = require('aws-sdk');
 require('dotenv').config();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
 app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json()); // JSON 형식의 요청 본문을 파싱
 app.use(bodyParser.urlencoded({ extended: true })); // URL-encoded 형식의 요청 본문을 파싱
 
@@ -87,16 +88,17 @@ app.post('/upload', async (req, res) => {
 // id를 기반으로 데이터를 검색하는 API 엔드포인트
 app.get('/view/:id', async (req, res) => {
     const id = req.params.id;
-
     try {
-        const data = await db.collection('upload').findOne({ _id: new ObjectId(id) });
+        const data = await db.collection('uploads').findOne({ _id: new ObjectId(id) }); 
         if (data) {
-            res.json(data);
+            console.log('데이터 조회 성공');
+            
+            res.status(200).json(data);
         } else {
-            res.status(404).json({ message: '데이터를 찾을 수 없습니다.' });
+            res.status(404).send('데이터를 찾을 수 없습니다.');
         }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: '서버 오류' });
+    } catch (error) {
+        console.error('데이터 조회 실패:', error);
+        res.status(500).send('데이터 조회 실패');
     }
 });
