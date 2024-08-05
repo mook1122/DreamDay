@@ -5,17 +5,17 @@ const AccountContainer = styled.div`
   width: 100%;
 
   #groom_section {
-  display: ${props => (props.showcontent === '' ? 'none' : 'flex')};
 
   }
 
   #bride_section {
-  display: ${props => (props.showcontent === '' ? 'none' : 'flex')};
 
   }
 `;
 
-const ShowAccount = styled.div`
+const ShowAccount = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['showcontent'].includes(prop),
+})`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,7 +52,9 @@ const ShowAccount = styled.div`
   }
 `;
 
-const AccountInfoBox = styled.div`
+const AccountInfoBox = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['showcontent'].includes(prop),
+})`
   display: ${props => (props.showcontent === '' ? 'none' : 'flex')};
   justify-content: center;
   align-items: center;
@@ -88,7 +90,9 @@ const AccountInfoBox = styled.div`
   }
 `;
 
-const KakaoBtn = styled.a`
+const KakaoBtn = styled.a.withConfig({
+    shouldForwardProp: (prop) => !['showcontent'].includes(prop),
+})`
   width: 55px;
   height: 25px;
   display: ${props => (props.showcontent === '' ? 'none' : 'flex')};

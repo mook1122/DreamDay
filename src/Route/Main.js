@@ -111,8 +111,9 @@ const BannerItem = styled.div`
 
 `;
 
-const Btn = styled.button`
-
+const Btn = styled.button.withConfig({
+  shouldForwardProp: (prop) => !['color', 'bg'].includes(prop),
+})`
 padding: 15px 20px 15px 20px;
 color: ${props => props.color};
 background-color: ${props => props.bg};
@@ -130,8 +131,9 @@ svg {
 
 `;
 
-const LargeFont = styled.p`
-
+const LargeFont = styled.p.withConfig({
+  shouldForwardProp: (prop) => !['weight','color'].includes(prop),
+})`
 font-size: 35px;
 font-weight: ${props => props.weight};
 color: ${props => props.color};

@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Footer, Header } from './Route/Layout'
 import {Main} from './Route/Main'
 import {Invitation} from './Route/Invitation'
+import InvitationView from './Route/InvitationView';
 
 function App() {
   const location = useLocation();
@@ -12,16 +13,17 @@ function App() {
   return (
     <div>
 
-      <Header></Header>
+      {location.pathname == '/' && <Header />}
 
       <Routes>
 
         <Route path='/' element={ <Main></Main> } />
         <Route path='/invitation' element={ <Invitation></Invitation>} />
+        <Route path='/view' element={ <InvitationView></InvitationView>} />
 
       </Routes>
 
-      {location.pathname !== '/invitation' && <Footer />}
+      {location.pathname == '/' && <Footer />}
 
 
     </div>

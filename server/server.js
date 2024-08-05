@@ -62,6 +62,7 @@ app.get('/api/post/image', async (req, res) => {
     }
 });
 
+
 app.post('/upload', (req, res) => {
     const data = req.body;
     console.log('Received data:', data);
@@ -79,4 +80,21 @@ app.post('/upload', (req, res) => {
             res.status(200).send('데이터 저장 성공');
         }
     });
+});
+
+// id를 기반으로 데이터를 검색하는 API 엔드포인트
+app.get('/view/:id', async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        const data = await db.collection('upload').findOne({ _id: new ObjectId(id) });
+        if (data) {
+            res.json(data);
+        } else {
+            res.status(404).json({ message: '데이터를 찾을 수 없습니다.' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: '서버 오류' });
+    }
 });

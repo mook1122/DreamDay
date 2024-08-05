@@ -5,7 +5,9 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 
 
-const TelModal = styled.div`
+const TelModal = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['show'].includes(prop),
+})`
   width: 100%;
   height: 100%;
   top: ${props => (props.top + 'px')};
@@ -56,7 +58,9 @@ const Telinfo = styled.div`
 
 `;
 
-const Telwrap = styled.div`
+const Telwrap = styled.div.withConfig({
+    shouldForwardProp: (prop) => !['show'].includes(prop),
+})`
 
 display: ${props => (props.show === '' ? 'none' : 'flex')};
 justify-content: space-between;

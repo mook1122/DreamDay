@@ -82,6 +82,42 @@ function Header() {
   );
 }
 
+const SaveBtn = styled.div`
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+  }
+`;
+
+function InvitationHeader({ Upload }) {
+
+  let navigate = useNavigate()
+
+  return (
+    <HeaderNav>
+      <div>
+
+        <Title onClick={() => { navigate('/') }}>
+          <img src={process.env.PUBLIC_URL + `/img/logo.png`}></img>
+          드림데이
+        </Title>
+
+        <Menu>
+          <ul>
+            <SaveBtn onClick={() => { Upload() }}>저장하기</SaveBtn>
+          </ul>
+        </Menu>
+      </div>
+    </HeaderNav>
+  );
+}
+
 
 let Foot = styled.footer`
 
@@ -102,4 +138,4 @@ function Footer() {
   );
 }
 
-export { Footer, Header };
+export { Footer, Header, InvitationHeader };
