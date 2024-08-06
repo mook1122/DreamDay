@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
-
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from 'react-router-dom';
 
 
 const TelModal = styled.div.withConfig({
@@ -72,11 +72,33 @@ font-size: 14px;
     width: 65px;
 }
 
+.tel_btn {
+    margin-right:15px;
+    cursor: pointer;
+}
+
+.message_btn {
+    margin-right:10px;
+    cursor: pointer;
+}
+
 `;
 
 function TelModal2({ man, woman, telModal, modalScroll, handleModal, telNumber }) {
 
-    // console.log(document.getElementById('sample'));
+    const location = useLocation();
+
+    const handleCall = (e) => {
+        const number = e.currentTarget.getAttribute('data-number');
+        window.location.href = `tel:${number}`;
+    };
+
+    const handleMessage = (e) => {
+        const number = e.currentTarget.getAttribute('data-number');
+        window.location.href = `sms:${number}`;
+    };
+
+    const isViewPage = location.pathname.startsWith('/view/');
 
     return (
         <>
@@ -95,21 +117,30 @@ function TelModal2({ man, woman, telModal, modalScroll, handleModal, telNumber }
                     <div className='tel_flex_box'>
                         <Telwrap show={telNumber.groom}>
                             <span>신랑</span>
-                            <span>{man.me}</span>
-                            <span><FontAwesomeIcon icon={faPhone} /></span>
+                            <span className='tel_num' data-number={telNumber.groom}>{man.me}</span>
+                            <div>
+                                <span className='tel_btn' onClick={handleCall}><FontAwesomeIcon icon={faPhone} /></span>
+                                <span className='message_btn' onClick={handleMessage}><FontAwesomeIcon icon={faEnvelope} /></span>
+                            </div>
                         </Telwrap>
                         <br></br>
                         <Telwrap show={telNumber.groomFather}>
                             <span>신랑 아버지</span>
-                            <span>{man.father}</span>
-                            <span><FontAwesomeIcon icon={faPhone} /></span>
+                            <span className='tel_num' data-number={telNumber.groomFather}>{man.father}</span>
+                            <div>
+                                <span className='tel_btn' onClick={handleCall}><FontAwesomeIcon icon={faPhone} /></span>
+                                <span className='message_btn' onClick={handleMessage}><FontAwesomeIcon icon={faEnvelope} /></span>
+                            </div>
                         </Telwrap>
                         <br></br>
 
                         <Telwrap show={telNumber.groomMother}>
                             <span>신랑 어머니</span>
-                            <span>{man.mom}</span>
-                            <span><FontAwesomeIcon icon={faPhone} /></span>
+                            <span className='tel_num' data-number={telNumber.groomMother}>{man.mom}</span>
+                            <div>
+                                <span className='tel_btn' onClick={handleCall}><FontAwesomeIcon icon={faPhone} /></span>
+                                <span className='message_btn' onClick={handleMessage}><FontAwesomeIcon icon={faEnvelope} /></span>
+                            </div>
                         </Telwrap>
                     </div>
 
@@ -122,21 +153,30 @@ function TelModal2({ man, woman, telModal, modalScroll, handleModal, telNumber }
                     <div className='tel_flex_box'>
                         <Telwrap show={telNumber.bride}>
                             <span>신부</span>
-                            <span>{woman.me}</span>
-                            <span><FontAwesomeIcon icon={faPhone} /></span>
+                            <span className='tel_num' data-number={telNumber.bride}>{woman.me}</span>
+                            <div>
+                                <span className='tel_btn' onClick={handleCall}><FontAwesomeIcon icon={faPhone} /></span>
+                                <span className='message_btn' onClick={handleMessage}><FontAwesomeIcon icon={faEnvelope} /></span>
+                            </div>
                         </Telwrap>
                         <br></br>
                         <Telwrap show={telNumber.brideFather}>
                             <span>신부 아버지</span>
-                            <span>{woman.father}</span>
-                            <span><FontAwesomeIcon icon={faPhone} /></span>
+                            <span className='tel_num' data-number={telNumber.brideFather}>{woman.father}</span>
+                            <div>
+                                <span className='tel_btn' onClick={handleCall}><FontAwesomeIcon icon={faPhone} /></span>
+                                <span className='message_btn' onClick={handleMessage}><FontAwesomeIcon icon={faEnvelope} /></span>
+                            </div>
                         </Telwrap>
                         <br></br>
 
                         <Telwrap show={telNumber.brideMother}>
                             <span>신부 어머니</span>
-                            <span>{woman.mom}</span>
-                            <span><FontAwesomeIcon icon={faPhone} /></span>
+                            <span className='tel_num' data-number={telNumber.brideMother}>{woman.mom}</span>
+                            <div>
+                                <span className='tel_btn' onClick={handleCall}><FontAwesomeIcon icon={faPhone} /></span>
+                                <span className='message_btn' onClick={handleMessage}><FontAwesomeIcon icon={faEnvelope} /></span>
+                            </div>
                         </Telwrap>
                     </div>
 

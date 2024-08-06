@@ -262,3 +262,10 @@ position: absolute;
 }
 
 `;
+
+export const Copyright = styled.p`
+
+font-size: 10px;
+color: black;
+
+`;
