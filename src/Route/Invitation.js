@@ -12,7 +12,7 @@ import BasicInfoSection from '../section/Info';
 import MainView from '../section/MainView'
 import IntroMent from '../section/IntroMent'
 import DateSection from '../section/Date'
-import CalendarCompo from '../section/Calendar';
+import {CalendarCompo} from '../section/Calendar';
 import Location from '../section/Location';
 import TelSection from '../section/TelNumber';
 import TelModal from '../Component/TelModal';
@@ -220,6 +220,8 @@ function Invitation() {
     const [modalScroll, setModalScroll] = useState('0')
     const handleModal = () => {
         const scrollElement = document.getElementById('sample').scrollTop;
+        console.log(123);
+        
 
         if (telModal === 'off') {
             setTelModal('on');
