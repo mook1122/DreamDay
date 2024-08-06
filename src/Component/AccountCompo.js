@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Copyright } from '../styles/MainCard';
 
 const AccountContainer = styled.div`
   width: 100%;
@@ -117,6 +118,41 @@ function AccountBox({ account }) {
         setShowBrideContent(showBrideContent === 'off' ? 'on' : 'off');
     };
 
+
+    const handleCopy = (e) => {
+        console.log(account.groom.details.accountNumber);
+        const number = e.target.getAttribute('data-number');
+        console.log(number);
+        
+        if (navigator.clipboard && window.isSecureContext) {
+            // navigator.clipboard 사용 가능
+            navigator.clipboard.writeText(number).then(() => {
+                alert('전화번호가 복사되었습니다.');
+            }).catch((err) => {
+                console.error('전화번호 복사 실패:', err);
+            });
+        } else {
+            // navigator.clipboard 사용 불가 (비HTTPS 환경 등)
+            const textArea = document.createElement("textarea");
+            textArea.value = number;
+            // Avoid scrolling to bottom
+            textArea.style.position = "fixed";
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert('전화번호가 복사되었습니다.');
+            } catch (err) {
+                console.error('전화번호 복사 실패:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    };
+
     return (
         <>
             <AccountContainer>
@@ -130,7 +166,7 @@ function AccountBox({ account }) {
                             <div className='acc1'>
                                 <span>{account.groom.details.bank}</span>
                                 <span>{account.groom.details.accountNumber}</span>
-                                <span className='copy_btn'>복사하기</span>
+                                <span data-number={account.groom.details.accountNumber} className='copy_btn' onClick={handleCopy}>복사하기</span>
                             </div>
                             <div className='acc1'>
                                 <span>{account.groom.details.accountName}</span>
@@ -142,8 +178,8 @@ function AccountBox({ account }) {
                         <AccountInfoBox showcontent={account.groomFather.details.accountNumber}>
                             <div className='acc1'>
                                 <span>{account.groomFather.details.bank}</span>
-                                <span>{account.groomFather.details.accountNumber}</span>
-                                <span className='copy_btn'>복사하기</span>
+                                <span >{account.groomFather.details.accountNumber}</span>
+                                <span  className='copy_btn' data-number={account.groomFather.details.accountNumber} onClick={handleCopy}>복사하기</span>
                             </div>
                             <div className='acc1'>
                                 <span>{account.groomFather.details.accountName}</span>
@@ -155,8 +191,8 @@ function AccountBox({ account }) {
                         <AccountInfoBox showcontent={account.groomMother.details.accountNumber}>
                             <div className='acc1'>
                                 <span>{account.groomMother.details.bank}</span>
-                                <span>{account.groomMother.details.accountNumber}</span>
-                                <span className='copy_btn'>복사하기</span>
+                                <span >{account.groomMother.details.accountNumber}</span>
+                                <span className='copy_btn' data-number={account.groomMother.details.accountNumber} onClick={handleCopy}>복사하기</span>
                             </div>
                             <div className='acc1'>
                                 <span>{account.groomMother.details.accountName}</span>
@@ -179,8 +215,8 @@ function AccountBox({ account }) {
                         <AccountInfoBox showcontent={account.bride.details.accountNumber}>
                             <div className='acc1'>
                                 <span>{account.bride.details.bank}</span>
-                                <span>{account.bride.details.accountNumber}</span>
-                                <span className='copy_btn'>복사하기</span>
+                                <span >{account.bride.details.accountNumber}</span>
+                                <span className='copy_btn' data-number={account.bride.details.accountNumber} onClick={handleCopy}>복사하기</span>
                             </div>
                             <div className='acc1'>
                                 <span>{account.bride.details.accountName}</span>
@@ -192,8 +228,8 @@ function AccountBox({ account }) {
                         <AccountInfoBox showcontent={account.brideFather.details.accountNumber}>
                             <div className='acc1'>
                                 <span>{account.brideFather.details.bank}</span>
-                                <span>{account.brideFather.details.accountNumber}</span>
-                                <span className='copy_btn'>복사하기</span>
+                                <span >{account.brideFather.details.accountNumber}</span>
+                                <span className='copy_btn' data-number={account.brideFather.details.accountNumber} onClick={handleCopy}>복사하기</span>
                             </div>
                             <div className='acc1'>
                                 <span>{account.brideFather.details.accountName}</span>
@@ -205,8 +241,8 @@ function AccountBox({ account }) {
                         <AccountInfoBox showcontent={account.brideMother.details.accountNumber}>
                             <div className='acc1'>
                                 <span>{account.brideMother.details.bank}</span>
-                                <span>{account.brideMother.details.accountNumber}</span>
-                                <span className='copy_btn'>복사하기</span>
+                                <span >{account.brideMother.details.accountNumber}</span>
+                                <span className='copy_btn' data-number={account.brideMother.details.accountNumber} onClick={handleCopy}>복사하기</span>
                             </div>
                             <div className='acc1'>
                                 <span>{account.brideMother.details.accountName}</span>

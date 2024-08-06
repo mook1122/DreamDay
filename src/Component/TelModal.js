@@ -2,7 +2,6 @@ import styled from 'styled-components'
 import { useState, useRef, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from 'react-router-dom';
 
 
 const TelModal = styled.div.withConfig({
@@ -86,8 +85,6 @@ font-size: 14px;
 
 function TelModal2({ man, woman, telModal, modalScroll, handleModal, telNumber }) {
 
-    const location = useLocation();
-
     const handleCall = (e) => {
         const number = e.currentTarget.getAttribute('data-number');
         window.location.href = `tel:${number}`;
@@ -98,7 +95,6 @@ function TelModal2({ man, woman, telModal, modalScroll, handleModal, telNumber }
         window.location.href = `sms:${number}`;
     };
 
-    const isViewPage = location.pathname.startsWith('/view/');
 
     return (
         <>
