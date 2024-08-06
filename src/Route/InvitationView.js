@@ -8,11 +8,13 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 import {
     Sample, SampleHeader, SampleTitle,
-    TelBox, FamilyBox, UnderBar, MapContainer, CalendarDate, CalendarTime,
-    SampleContent, MainImgBox, LocationContainer, Selector, HeaderDate, HeaderInfo
+    TelBox, FamilyBox, UnderBar, CalendarDate, CalendarTime,
+    SampleContent, MainImgBox, LocationContainer, HeaderDate, HeaderInfo , Copyright
 } from '../styles/MainCard';
 import TelModal from '../Component/TelModal';
 import { CalendarCompoView } from '../section/Calendar'
+import AccountBox from '../Component/AccountCompo';
+import ViewMap from '../Component/ViewMap'
 import Invitation from './Invitation';
 
 const GlobalStyle = createGlobalStyle`
@@ -86,6 +88,9 @@ function InvitationView({ }) {
         return <div>데이터가 없습니다.</div>;
     }
 
+    if (!dbData.totallocation) {
+        return <div>위치 데이터가 없습니다.</div>;
+    }
     console.log(dbData);
 
 
@@ -244,11 +249,31 @@ function InvitationView({ }) {
                                     Tel. {dbData.totallocation.tel}
                                 </p>
                         }
+                        <ViewMap x={dbData.totallocation.x} y={dbData.totallocation.y} />
 
                         {/* <MapContainer ref={mapContainer} show={showMap}></MapContainer> */}
                         <br></br>
                         <br></br>
                     </LocationContainer>
+
+                    <SampleTitle titlecolor={dbData.titlecolor}>
+                        <p className='en_title'>A C C O U N T</p>
+                        <br></br>
+                        <p className='kr_title'>{dbData.account.acc_title}</p>
+                        <br></br>
+                    </SampleTitle>
+                    <SampleContent>
+                        {dbData.account.acc_content}
+                    </SampleContent>
+                    <br></br>
+                    <AccountBox account={dbData.account} />
+                    <br></br>
+                    <br></br>
+
+                    <Copyright>
+                        Copyrightⓒ2024. DreamDay All rights reserved.
+                    </Copyright>
+
 
                 </Sample>
             </Container>

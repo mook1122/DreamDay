@@ -12,7 +12,7 @@ import BasicInfoSection from '../section/Info';
 import MainView from '../section/MainView'
 import IntroMent from '../section/IntroMent'
 import DateSection from '../section/Date'
-import {CalendarCompo} from '../section/Calendar';
+import { CalendarCompo } from '../section/Calendar';
 import Location from '../section/Location';
 import TelSection from '../section/TelNumber';
 import TelModal from '../Component/TelModal';
@@ -21,8 +21,8 @@ import AccountBox from '../Component/AccountCompo';
 
 import {
     Container, Sample, SampleHeader, SampleTitle,
-    TelBox, FamilyBox, UnderBar, MapContainer, CalendarDate, CalendarTime, 
-    SampleContent, MainImgBox, LocationContainer, Selector, HeaderDate, HeaderInfo
+    TelBox, FamilyBox, UnderBar, MapContainer, CalendarDate, CalendarTime,
+    SampleContent, MainImgBox, LocationContainer, Selector, HeaderDate, HeaderInfo, Copyright
 } from '../styles/MainCard';
 
 const GlobalStyle = createGlobalStyle`
@@ -221,7 +221,7 @@ function Invitation() {
     const handleModal = () => {
         const scrollElement = document.getElementById('sample').scrollTop;
         console.log(123);
-        
+
 
         if (telModal === 'off') {
             setTelModal('on');
@@ -313,12 +313,12 @@ function Invitation() {
         try {
             const selectedFile = document.querySelector('input[type="file"]').files[0];
             const presignedUrlData = await getPresignedUrl(selectedFile.name);
-    
+
             if (!presignedUrlData) {
                 alert('Presigned URL을 가져오는 데 실패했습니다.');
                 return;
             }
-    
+
             const formData = new FormData();
             for (const key in presignedUrlData.fields) {
                 if (presignedUrlData.fields.hasOwnProperty(key)) {
@@ -326,16 +326,16 @@ function Invitation() {
                 }
             }
             formData.append('file', selectedFile);
-    
+
             await axios.post(presignedUrlData.url, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
             console.log('이미지 업로드 태스트 콘솔');
-    
+
             const data = {
-                bg, 
+                bg,
                 titlecolor,
                 introtitle,
                 introcontent,
@@ -347,12 +347,12 @@ function Invitation() {
                 telNumber,
                 account
             };
-    
+
             const response = await axios.post('http://localhost:8080/upload', data);
             console.log('서버 응답:', response);
             if (response.status === 200) {
                 console.log('데이터 저장 성공:', response.data);
-                
+
                 // 로컬스토리지에서 기존 배열 가져오기
                 let uploadedIds = JSON.parse(localStorage.getItem('uploadedDataIds')) || [];
                 console.log('기존 로컬스토리지 데이터:', uploadedIds); // 로컬스토리지 데이터 로그 추가
@@ -361,7 +361,7 @@ function Invitation() {
                 // 배열을 로컬스토리지에 저장
                 localStorage.setItem('uploadedDataIds', JSON.stringify(uploadedIds));
                 console.log('새로운 로컬스토리지 데이터:', JSON.parse(localStorage.getItem('uploadedDataIds'))); // 로컬스토리지 데이터 확인 로그 추가
-                
+
                 alert('청첩장이 생성 되었습니다. 마이페이지에서 확인 해보세요!');
             } else {
                 throw new Error('데이터 저장 실패');
@@ -371,8 +371,8 @@ function Invitation() {
             alert('업로드에 실패했습니다: ' + error.message);
         }
     };
-    
-    
+
+
 
     return (
         <>
@@ -550,6 +550,11 @@ function Invitation() {
                     <br></br>
                     <AccountBox account={account} />
                     <br></br>
+                    <br></br>
+
+                    <Copyright>
+                        Copyrightⓒ2024. DreamDay All rights reserved.
+                    </Copyright>
 
                 </Sample>
 
