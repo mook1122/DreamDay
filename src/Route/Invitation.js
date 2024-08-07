@@ -20,7 +20,7 @@ import AccountSection from '../section/Account';
 import AccountBox from '../Component/AccountCompo';
 
 import {
-    Container, Sample, SampleHeader, SampleTitle,
+    Container, SampleModalBox, Sample, SampleHeader, SampleTitle,
     TelBox, FamilyBox, UnderBar, MapContainer, CalendarDate, CalendarTime,
     SampleContent, MainImgBox, LocationContainer, Selector, HeaderDate, HeaderInfo, Copyright
 } from '../styles/MainCard';
@@ -373,190 +373,204 @@ function Invitation() {
     };
 
 
+    const [previewModal , setPreviewModal] = useState('off')
+
+    const handlePreviewModal = () =>{
+        if(previewModal === 'off') {
+            setPreviewModal('on')
+        } else {
+            setPreviewModal('off')
+        }
+    }
 
     return (
         <>
 
-            <InvitationHeader Upload={Upload}></InvitationHeader>
+            <InvitationHeader Upload={Upload} handlePreviewModal={handlePreviewModal}></InvitationHeader>
             <GlobalStyle></GlobalStyle>
 
             <Container>
-                <Sample bg={bg} id='sample'>
-                    {/* 샘플 컴포넌트 내용 */}
+                <SampleModalBox preview={previewModal}>
+                    <div className='close_sample_modal' onClick={handlePreviewModal}>x</div>
 
-                    <SampleHeader>
+                    <Sample bg={bg} id='sample'>
+                        {/* 샘플 컴포넌트 내용 */}
 
-                        <SampleTitle titlecolor={titlecolor}>
-                            <p className='kr_title'>THE MARRIAGE</p>
-                        </SampleTitle>
-                        <br></br>
+                        <SampleHeader>
 
-                        <HeaderDate>
-                            {totalDate.year} / {totalDate.month} / {totalDate.day}
-                        </HeaderDate>
+                            <SampleTitle titlecolor={titlecolor}>
+                                <p className='kr_title'>THE MARRIAGE</p>
+                            </SampleTitle>
+                            <br></br>
 
-                        {/* <p>{totalDate.weekdays}</p> */}
+                            <HeaderDate>
+                                {totalDate.year} / {totalDate.month} / {totalDate.day}
+                            </HeaderDate>
 
-                        <br></br>
-                        <br></br>
-
-                        <MainImgBox >
-                            {
-                                previewUrl === ''
-                                    ?
-                                    <div>
-                                        <p>대표 이미지</p>
-                                    </div>
-                                    :
-                                    <img src={previewUrl} ></img>
-                            }
-                        </MainImgBox>
-
-                        <br></br>
-                        <br></br>
-
-                        <HeaderInfo>
-                            <p className='header_info_name'>{man.me}&nbsp;&nbsp;·&nbsp;&nbsp;{woman.me}</p>
+                            {/* <p>{totalDate.weekdays}</p> */}
 
                             <br></br>
-                            <p
-                                className='header_info_location'
-                            >{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}시 {totalDate.minute}분
+                            <br></br>
+
+                            <MainImgBox >
+                                {
+                                    previewUrl === ''
+                                        ?
+                                        <div>
+                                            <p>대표 이미지</p>
+                                        </div>
+                                        :
+                                        <img src={previewUrl} ></img>
+                                }
+                            </MainImgBox>
+
+                            <br></br>
+                            <br></br>
+
+                            <HeaderInfo>
+                                <p className='header_info_name'>{man.me}&nbsp;&nbsp;·&nbsp;&nbsp;{woman.me}</p>
+
                                 <br></br>
-                                {totallocation.hall_name} {totallocation.hall}
+                                <p
+                                    className='header_info_location'
+                                >{totalDate.year}년 {totalDate.month}월 {totalDate.day}일 {totalDate.Kr_weekdays}, {totalDate.midday} {totalDate.hour}시 {totalDate.minute}분
+                                    <br></br>
+                                    {totallocation.hall_name} {totallocation.hall}
+                                </p>
+                            </HeaderInfo>
+                        </SampleHeader>
+
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+
+                        <SampleTitle titlecolor={titlecolor}>
+                            <p className='en_title'>I N V I T A T I O N</p>
+                            <br></br>
+                            <p className='kr_title'>{introtitle}</p>
+                            <br></br>
+                            <br></br>
+
+                        </SampleTitle>
+
+                        <SampleContent>
+                            {introcontent}
+                        </SampleContent>
+
+                        <UnderBar>
+                            <div></div>
+                        </UnderBar>
+
+                        <br></br>
+                        <br></br>
+
+
+                        <FamilyBox>
+                            <p>
+                                <span className='family_name'>
+                                    {man.fatherDeceased + man.father} {man.momDeceased + man.mom}</span> 의 아들 <span className='family_name'>{man.me}
+                                </span>
                             </p>
-                        </HeaderInfo>
-                    </SampleHeader>
+                            <p>
+                                <span className='family_name'>
+                                    {woman.fatherDeceased + woman.father} {woman.momDeceased + woman.mom}</span> 의 &nbsp;&nbsp;딸&nbsp;&nbsp; <span className='family_name'>{woman.me}
+                                </span>
+                            </p>
+                        </FamilyBox>
 
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
 
-                    <SampleTitle titlecolor={titlecolor}>
-                        <p className='en_title'>I N V I T A T I O N</p>
-                        <br></br>
-                        <p className='kr_title'>{introtitle}</p>
                         <br></br>
                         <br></br>
 
-                    </SampleTitle>
-
-                    <SampleContent>
-                        {introcontent}
-                    </SampleContent>
-
-                    <UnderBar>
-                        <div></div>
-                    </UnderBar>
-
-                    <br></br>
-                    <br></br>
-
-
-                    <FamilyBox>
-                        <p>
-                            <span className='family_name'>
-                                {man.fatherDeceased + man.father} {man.momDeceased + man.mom}</span> 의 아들 <span className='family_name'>{man.me}
-                            </span>
-                        </p>
-                        <p>
-                            <span className='family_name'>
-                                {woman.fatherDeceased + woman.father} {woman.momDeceased + woman.mom}</span> 의 &nbsp;&nbsp;딸&nbsp;&nbsp; <span className='family_name'>{woman.me}
-                            </span>
-                        </p>
-                    </FamilyBox>
-
-
-                    <br></br>
-                    <br></br>
-
-                    {
-                        telNumber.groom === '' ?
-                            <TelBox></TelBox>
-                            :
-                            <TelBox>
-                                <div onClick={handleModal}>
-                                    <FontAwesomeIcon icon={faPhone} /> &nbsp; 연락하기
-                                </div>
-                            </TelBox>
-                    }
-
-                    <TelModal
-                        man={man} telModal={telModal} modalScroll={modalScroll} telNumber={telNumber} woman={woman}
-                        handleModal={handleModal}
-                    />
-
-                    <br></br>
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-
-                    <CalendarDate>
-                        {totalDate.year}.{totalDate.month}.{totalDate.day}
-                    </CalendarDate>
-
-                    <CalendarTime>
-                        {totalDate.Kr_weekdays} {totalDate.midday} {totalDate.hour}시 {totalDate.minute}분
-                    </CalendarTime>
-                    <CalendarCompo selectedDate={selectedDate} />
-                    <br></br>
-
-                    <p>{man.me + ',' + woman.me + '의 결혼식이' + totalDate.dDay}일 남았습니다.</p>
-
-                    <br></br>
-                    <br></br>
-                    <br></br>
-
-                    <SampleTitle titlecolor={titlecolor}>
-                        <p className='en_title'>L O C A T I O N</p>
-                        <br></br>
-                        <p className='kr_title'>{totallocation.title}</p>
-                    </SampleTitle>
-
-                    <LocationContainer>
-
-                        <br></br>
-                        <p className='location_hall' >{totallocation.hall_name} {totallocation.hall}</p>
-                        <p>{totallocation.location}</p>
-                        <br></br>
                         {
-                            totallocation.tel === ''
-                                ?
-                                <p>
-                                </p>
+                            telNumber.groom === '' ?
+                                <TelBox></TelBox>
                                 :
-                                <p className='location_tel' >
-                                    Tel. {totallocation.tel}
-                                </p>
+                                <TelBox>
+                                    <div onClick={handleModal}>
+                                        <FontAwesomeIcon icon={faPhone} /> &nbsp; 연락하기
+                                    </div>
+                                </TelBox>
                         }
 
-                        <MapContainer ref={mapContainer} show={showMap}></MapContainer>
+                        <TelModal
+                            man={man} telModal={telModal} modalScroll={modalScroll} telNumber={telNumber} woman={woman}
+                            handleModal={handleModal}
+                        />
+
                         <br></br>
                         <br></br>
-                    </LocationContainer>
-
-
-                    <SampleTitle titlecolor={titlecolor}>
-                        <p className='en_title'>A C C O U N T</p>
                         <br></br>
-                        <p className='kr_title'>{account.acc_title}</p>
                         <br></br>
-                    </SampleTitle>
-                    <SampleContent>
-                        {account.acc_content}
-                    </SampleContent>
-                    <br></br>
-                    <AccountBox account={account} />
-                    <br></br>
-                    <br></br>
 
-                    <Copyright>
-                        Copyrightⓒ2024. DreamDay All rights reserved.
-                    </Copyright>
 
-                </Sample>
+                        <CalendarDate>
+                            {totalDate.year}.{totalDate.month}.{totalDate.day}
+                        </CalendarDate>
+
+                        <CalendarTime>
+                            {totalDate.Kr_weekdays} {totalDate.midday} {totalDate.hour}시 {totalDate.minute}분
+                        </CalendarTime>
+                        <CalendarCompo selectedDate={selectedDate} />
+                        <br></br>
+
+                        <p>{man.me + ',' + woman.me + '의 결혼식이' + totalDate.dDay}일 남았습니다.</p>
+
+                        <br></br>
+                        <br></br>
+                        <br></br>
+
+                        <SampleTitle titlecolor={titlecolor}>
+                            <p className='en_title'>L O C A T I O N</p>
+                            <br></br>
+                            <p className='kr_title'>{totallocation.title}</p>
+                        </SampleTitle>
+
+                        <LocationContainer>
+
+                            <br></br>
+                            <p className='location_hall' >{totallocation.hall_name} {totallocation.hall}</p>
+                            <p>{totallocation.location}</p>
+                            <br></br>
+                            {
+                                totallocation.tel === ''
+                                    ?
+                                    <p>
+                                    </p>
+                                    :
+                                    <p className='location_tel' >
+                                        Tel. {totallocation.tel}
+                                    </p>
+                            }
+
+                            <MapContainer ref={mapContainer} show={showMap}></MapContainer>
+                            <br></br>
+                            <br></br>
+                        </LocationContainer>
+
+
+                        <SampleTitle titlecolor={titlecolor}>
+                            <p className='en_title'>A C C O U N T</p>
+                            <br></br>
+                            <p className='kr_title'>{account.acc_title}</p>
+                            <br></br>
+                        </SampleTitle>
+                        <SampleContent>
+                            {account.acc_content}
+                        </SampleContent>
+                        <br></br>
+                        <AccountBox account={account} />
+                        <br></br>
+                        <br></br>
+
+                        <Copyright>
+                            Copyrightⓒ2024. DreamDay All rights reserved.
+                        </Copyright>
+
+                    </Sample>
+                </SampleModalBox>
+
 
                 <Selector>
                     <ThemeSection bg={bg} setBg={setBg}

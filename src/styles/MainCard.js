@@ -16,10 +16,51 @@ margin-top: 15px;
 
 `;
 
+export const SampleModalBox = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['preview'].includes(prop),
+})`
+height: 100%;
+
+.close_sample_modal {
+  position: absolute;
+  color: white;
+  top: 10px;
+  right: 25px;
+  font-size: 25px;
+  /* display: none; */
+}
+
+
+
+@media(max-width:1100px) {
+
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(56, 44, 48, .84); 
+  transition: .5s opacity;
+
+  padding: 20px;
+
+  display: ${props => (props.preview === 'on' ? 'flex' : 'none')};
+  /* display: none; */
+  justify-content: center;
+  align-items: center;
+
+  
+
+
+}
+
+`;
+
 export const Sample = styled.div.withConfig({
   shouldForwardProp: (prop) => !['bg'].includes(prop),
 })`
-margin: 20px;
+/* margin: 20px; */
 height: 100%;
 width: 450px;
 border-radius: 10px;

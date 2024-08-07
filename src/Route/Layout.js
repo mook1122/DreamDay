@@ -132,7 +132,7 @@ align-items: center;
   }
 `;
 
-function InvitationHeader({ Upload }) {
+function InvitationHeader({ Upload , handlePreviewModal}) {
   let navigate = useNavigate();
 
   return (
@@ -145,7 +145,7 @@ function InvitationHeader({ Upload }) {
 
         <InvitationMenu>
           <ul>
-            <PreviewBtn className='preview'>미리보기</PreviewBtn>
+            <PreviewBtn className='preview' onClick={()=>{handlePreviewModal()}}>미리보기</PreviewBtn>
             <SaveBtn onClick={() => { Upload() }}>저장하기</SaveBtn>
           </ul>
         </InvitationMenu>
@@ -156,21 +156,56 @@ function InvitationHeader({ Upload }) {
 
 
 
-let Foot = styled.footer`
+const Foot = styled.footer`
 
 background-color: #2C2C2C;
 width: 100%;
-height: 50px;
+height: 80px;
 
 position: relative;
 transform: (translateY(0%));
 
+color: white;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-size: 12px;
+
 `;
+
+const FooterGit = styled.p`
+cursor: pointer;
+
+:hover {
+  color: yellow;
+}
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+> img {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  margin-right: 5px;
+}
+`
 
 function Footer() {
   return (
     <Foot>
-
+      <p>
+        Copyrightⓒ2024. DreamDay All rights reserved.
+      </p>
+      <br></br>
+      <FooterGit>
+        {/* <img src={`${process.env.PUBLIC_URL}/img/git.png`} alt='github'></img> */}
+        <a>
+          GitHub Link
+        </a>
+      </FooterGit>
     </Foot>
   );
 }
