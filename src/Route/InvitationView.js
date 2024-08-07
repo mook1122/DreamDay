@@ -1,6 +1,7 @@
 import { Routes, Route, Link, useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { useState, useRef, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { createGlobalStyle } from 'styled-components'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +10,7 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import {
     Sample, SampleHeader, SampleTitle,
     TelBox, FamilyBox, UnderBar, CalendarDate, CalendarTime,
-    SampleContent, MainImgBox, LocationContainer, HeaderDate, HeaderInfo , Copyright
+    SampleContent, MainImgBox, LocationContainer, HeaderDate, HeaderInfo, Copyright
 } from '../styles/MainCard';
 import TelModal from '../Component/TelModal';
 import { CalendarCompoView } from '../section/Calendar'
@@ -98,6 +99,15 @@ function InvitationView({ }) {
 
     return (
         <>
+
+            <Helmet>
+                <meta property="og:url" content={``} />
+                <meta property="og:title" content="저희 결혼 합니다." />
+                <meta property="og:type" content="website" />
+                <meta property="og:image" content={dbData.previewUrl} />
+                <meta property="og:description" content="결혼합니다." />
+            </Helmet>
+
             <GlobalStyle />
 
             <Container>

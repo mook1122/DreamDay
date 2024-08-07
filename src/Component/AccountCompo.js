@@ -123,7 +123,7 @@ function AccountBox({ account }) {
         console.log(account.groom.details.accountNumber);
         const number = e.target.getAttribute('data-number');
         console.log(number);
-        
+
         if (navigator.clipboard && window.isSecureContext) {
             // navigator.clipboard 사용 가능
             navigator.clipboard.writeText(number).then(() => {
@@ -179,7 +179,7 @@ function AccountBox({ account }) {
                             <div className='acc1'>
                                 <span>{account.groomFather.details.bank}</span>
                                 <span >{account.groomFather.details.accountNumber}</span>
-                                <span  className='copy_btn' data-number={account.groomFather.details.accountNumber} onClick={handleCopy}>복사하기</span>
+                                <span className='copy_btn' data-number={account.groomFather.details.accountNumber} onClick={handleCopy}>복사하기</span>
                             </div>
                             <div className='acc1'>
                                 <span>{account.groomFather.details.accountName}</span>

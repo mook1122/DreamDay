@@ -42,6 +42,8 @@ overflow: scroll;
   @media(max-width:1100px) {
 
     /* display:none; */
+    /* position:absolute; */
+    z-index:1000;
     margin:0px;
 
 }

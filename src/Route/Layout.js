@@ -54,7 +54,7 @@ const Menu = styled.nav`
   }
 
   @media (max-width:650px) {
-    display: none;
+      display: none;
   }
 `;
 
@@ -67,14 +67,15 @@ function Header() {
       <div>
 
         <Title onClick={() => { navigate('/') }}>
-          <img src={process.env.PUBLIC_URL + `/img/logo.png`}></img>
+          <img src={process.env.PUBLIC_URL + `/img/main-logo.png`}></img>
           드림데이
         </Title>
-        <Menu>
+        <Menu className='main_header_menu'>
           <ul>
             <li onClick={() => { navigate('/invitation') }}>모바일 청첩장</li>
-            <li onClick={() => { navigate('/thanks-card') }}>감사장</li>
+            {/* <li onClick={() => { navigate('/thanks-card') }}>감사장</li> */}
             <li onClick={() => { navigate('/sample') }}>샘플</li>
+            <li onClick={() => { navigate('/mypage') }}>마이페이지</li>
           </ul>
         </Menu>
       </div>
@@ -82,12 +83,25 @@ function Header() {
   );
 }
 
-const SaveBtn = styled.div`
+const InvitationMenu = styled.nav`
+  ul {
+    list-style: none;
+    display: flex;
+  }
+`;
+
+const SaveBtn = styled.span`
+width: 80px;
+height: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
   border: 1px solid black;
   border-radius: 8px;
   cursor: pointer;
   background-color: white;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-right: 10px;
 
   &:hover {
     background-color: #f0f0f0;
@@ -95,28 +109,51 @@ const SaveBtn = styled.div`
   }
 `;
 
-function InvitationHeader({ Upload }) {
+const PreviewBtn = styled.span`
+width: 80px;
+height: 30px;
+display: flex;
+justify-content: center;
+align-items: center;
+  border: 1px solid black;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-right: 10px;
 
-  let navigate = useNavigate()
+  &:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+  }
+
+  @media (min-width: 1100px) {
+    display: none;
+  }
+`;
+
+function InvitationHeader({ Upload }) {
+  let navigate = useNavigate();
 
   return (
     <HeaderNav>
       <div>
-
         <Title onClick={() => { navigate('/') }}>
-          <img src={process.env.PUBLIC_URL + `/img/logo.png`}></img>
+          <img src={`${process.env.PUBLIC_URL}/img/main-logo.png`} alt="로고" />
           드림데이
         </Title>
 
-        <Menu>
+        <InvitationMenu>
           <ul>
+            <PreviewBtn className='preview'>미리보기</PreviewBtn>
             <SaveBtn onClick={() => { Upload() }}>저장하기</SaveBtn>
           </ul>
-        </Menu>
+        </InvitationMenu>
       </div>
     </HeaderNav>
   );
 }
+
 
 
 let Foot = styled.footer`
