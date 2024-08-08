@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { useState, useRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import axios from 'axios';
+// import dotenv from "dotenv";
+// dotenv.config();
 import { createGlobalStyle } from 'styled-components'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
@@ -100,13 +102,12 @@ function InvitationView({ }) {
     return (
         <>
 
-            <Helmet>
-                <meta property="og:url" content={``} />
+            {/* <Helmet>
                 <meta property="og:title" content="저희 결혼 합니다." />
                 <meta property="og:type" content="website" />
                 <meta property="og:image" content={dbData.previewUrl} />
                 <meta property="og:description" content="결혼합니다." />
-            </Helmet>
+            </Helmet> */}
 
             <GlobalStyle />
 

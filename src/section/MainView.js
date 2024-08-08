@@ -79,6 +79,8 @@ function MainView({ openSection, toggleSection, previewUrl, setPreviewUrl }) {
         if (e.target.files && e.target.files[0]) {
             const selectedFile = e.target.files[0];
             setPreviewUrl(URL.createObjectURL(selectedFile)); // 이미지 미리보기 URL 생성
+            console.log(URL.createObjectURL(selectedFile));
+            
         }
     };
 
@@ -110,24 +112,3 @@ function MainView({ openSection, toggleSection, previewUrl, setPreviewUrl }) {
 
 
 export default MainView;
-
-
-// async function Imgupload(file) {
-//     let filename = encodeURIComponent(file.name);
-//     let res = await axios.get(`http://localhost:8080/api/post/image?file=${filename}`); // 절대 경로 사용
-//     const url = res.data;
-//     const formData = new FormData();
-
-//     Object.keys(url.fields).forEach(key => {
-//         formData.append(key, url.fields[key]);
-//     });
-//     formData.append('file', file);
-
-//     await axios.post(url.url, formData, {
-//         headers: {
-//             'Content-Type': 'multipart/form-data'
-//         }
-//     });
-
-//     return url.url + '/' + url.fields.key;
-// }

@@ -299,7 +299,7 @@ function Invitation() {
     // 저장된 이미지 s3업로드
     const getPresignedUrl = async (fileName) => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/post/image?file=${fileName}`);
+            const response = await axios.get(`/api/post/image?file=${fileName}`);
             return response.data;
         } catch (error) {
             console.error('Presigned URL 요청 실패:', error);

@@ -121,7 +121,9 @@ export const Selector = styled.div`
     @media(max-width:1100px) {
 
       width: 100%;
-
+}
+    @media(max-width:650px) {
+      margin: 20px 5px 20px 5px;
 }
 
 
@@ -253,7 +255,9 @@ export const CalendarTime = styled.p`
     
 `;
 
-export const MapContainer = styled.div`
+export const MapContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['show'].includes(prop),
+})`
 width: 100%;
     height: 300px;
     margin-top: 10px;

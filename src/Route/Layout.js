@@ -74,7 +74,7 @@ function Header() {
           <ul>
             <li onClick={() => { navigate('/invitation') }}>모바일 청첩장</li>
             {/* <li onClick={() => { navigate('/thanks-card') }}>감사장</li> */}
-            <li onClick={() => { navigate('/sample') }}>샘플</li>
+            <li onClick={() => { navigate('/view/66b0374c7c87fd56e559e9c1') }}>샘플</li>
             <li onClick={() => { navigate('/mypage') }}>마이페이지</li>
           </ul>
         </Menu>
@@ -202,7 +202,7 @@ function Footer() {
       <br></br>
       <FooterGit>
         {/* <img src={`${process.env.PUBLIC_URL}/img/git.png`} alt='github'></img> */}
-        <a>
+        <a href='https://github.com/mook1122/DreamDay'>
           GitHub Link
         </a>
       </FooterGit>

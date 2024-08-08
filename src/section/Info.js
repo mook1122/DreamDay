@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
+// import { ToggleBar,DetailItem } from '../styles/SectionStyle';
 
 const ToggleBar = styled.div`
     background-color: white;

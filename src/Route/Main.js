@@ -226,7 +226,7 @@ function Main() {
                 지금 바로 제작하기
               </Btn>
 
-              <Btn bg='#C0C0C0'>
+              <Btn bg='#C0C0C0' onClick={() => { navigate('/view/66b0374c7c87fd56e559e9c1') }}>
                 <FontAwesomeIcon icon={faLink} />
                 샘플보기
               </Btn>
