@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
+#root {
+    height: 100%;
+}
+html {
+    height: 100%;
+}
+  body {
+    height: 100%;
+}
+`
 
 
 const MyPageContainer = styled.div`
@@ -17,6 +30,14 @@ display: flex;
 align-items: center;
 flex-direction: column;
 width: 100%;
+margin: 10px;
+`;
+
+const MyPageTitle = styled.p`
+
+font-size: 30px;
+font-weight: bold;
+
 `;
 
 const Bar = styled.div`
@@ -37,6 +58,7 @@ max-width: 600px;
 display: flex;
 justify-content: space-between;
 
+
 .mycard-wrap-1 {
     display: flex;
     justify-content: center;
@@ -45,6 +67,22 @@ justify-content: space-between;
     img {
         width: 70px;
         margin: 0 10px 0 10px;
+    }
+
+    @media(max-width:1100px) {
+    img {
+        width: 60px;
+    }
+    }
+    @media(max-width:650px) {
+        img {
+            width: 50px;
+        }
+
+        .move_btn,
+        .share_btn {
+            font-size: 12px;
+        }
     }
 
     .move_btn {
@@ -98,10 +136,11 @@ function MyPage() {
 
     return (
         <>
+
+            <GlobalStyle></GlobalStyle>
             <MyPageContainer>
                 <MyPageContent>
-                    <h1>마이페이지</h1>
-
+                    <MyPageTitle>마이페이지</MyPageTitle>
 
                     <br></br>
                     <Bar></Bar>

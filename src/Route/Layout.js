@@ -1,5 +1,8 @@
-import styled from 'styled-components'
+import { useState } from 'react';
+import { styled, keyframes } from 'styled-components'
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 
 const HeaderNav = styled.header`
@@ -7,6 +10,7 @@ const HeaderNav = styled.header`
   background-color: white;
   z-index: 100;
   position: sticky;
+  /* position: absolute; */
   top: 0;
   left: 0;
 
@@ -14,7 +18,7 @@ const HeaderNav = styled.header`
   justify-content: center;
   align-items: center;
 
-  div {
+  > div {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,21 +26,49 @@ const HeaderNav = styled.header`
     max-width: 1200px;
     width: 100%;
   }
+
+  @media(max-width:650px) {
+    > div {
+      padding: 10px 15px;
+    }
+  }
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   margin: 0;
   display : flex;
-
-  font-family: "Gugi", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 30px;
   cursor: pointer;
 
   img {
     width:40px;
     margin-right:10px;
+  }
+
+  > p {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-family: "Gugi", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  }
+
+  @media(max-width:1100px) {
+    > p {
+      font-size: 25px;
+    } 
+  }
+
+  @media(max-width:650px) {
+    > p {
+      font-size: 20px;
+    } 
+
+    img {
+    width:30px;
+    margin-right:10px;
+  }
   }
 `;
 
@@ -58,26 +90,99 @@ const Menu = styled.nav`
   }
 `;
 
-function Header() {
 
-  let navigate = useNavigate()
+const MobileMenuIcon = styled.div`
+  display: none;
+  cursor: pointer;
+
+  @media (max-width:650px) {
+    display: block;
+  }
+`;
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+`;
+
+const slideOut = keyframes`
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+`;
+
+const MobileMenuContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['isopen'].includes(prop),
+})`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background-color: white;
+  box-shadow: ${props => props.isopen === 'on' ? '-2px 0 5px rgba(0,0,0,0.5)' : 'none'};
+  transform: translateX(100%);
+  animation: ${props => props.isopen === 'on' ? slideIn : slideOut} 0.3s forwards;
+  z-index: 200;
+
+  ul {
+    list-style: none;
+    padding: 20px;
+
+    li {
+      padding: 15px 0;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+`;
+
+const CloseButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  cursor: pointer;
+`;
+
+function Header() {
+  let navigate = useNavigate();
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState('off');
 
   return (
     <HeaderNav>
       <div>
-
         <Title onClick={() => { navigate('/') }}>
-          <img src={process.env.PUBLIC_URL + `/img/main-logo.png`}></img>
-          드림데이
+          <img src={process.env.PUBLIC_URL + `/img/main-logo.png`} alt="logo" />
+          <p>드림데이</p>
         </Title>
         <Menu className='main_header_menu'>
           <ul>
             <li onClick={() => { navigate('/invitation') }}>모바일 청첩장</li>
-            {/* <li onClick={() => { navigate('/thanks-card') }}>감사장</li> */}
             <li onClick={() => { navigate('/view/66b0374c7c87fd56e559e9c1') }}>샘플</li>
             <li onClick={() => { navigate('/mypage') }}>마이페이지</li>
           </ul>
         </Menu>
+        <MobileMenuIcon onClick={() => setMobileMenuOpen('on')}>
+          <FontAwesomeIcon icon={faBars} />
+        </MobileMenuIcon>
+        <MobileMenuContainer isopen={isMobileMenuOpen}>
+          <CloseButton onClick={() => setMobileMenuOpen('off')}>
+            <FontAwesomeIcon icon={faTimes} size="lg" />
+          </CloseButton>
+          <ul>
+            <li onClick={() => { navigate('/invitation'); setMobileMenuOpen('off'); }}>모바일 청첩장</li>
+            <li onClick={() => { navigate('/view/66b0374c7c87fd56e559e9c1'); setMobileMenuOpen('off'); }}>샘플</li>
+            <li onClick={() => { navigate('/mypage'); setMobileMenuOpen('off'); }}>마이페이지</li>
+          </ul>
+        </MobileMenuContainer>
       </div>
     </HeaderNav>
   );
@@ -96,16 +201,24 @@ height: 30px;
 display: flex;
 justify-content: center;
 align-items: center;
-  border: 1px solid black;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: white;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-right: 10px;
+border: 1px solid #000;
+padding: 5px;
+cursor: pointer;
+transition: all 0.3s ease;
+border-radius: 5px;
+margin-right: 10px;
+background-color: #fff;
+
 
   &:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.05);
+    background-color: #000;
+    color: #fff;
+  }
+
+  @media(max-width:650px) {
+    font-size: 14px;
+    width: 65px;
+    margin-right: 5px;
   }
 `;
 
@@ -115,24 +228,32 @@ height: 30px;
 display: flex;
 justify-content: center;
 align-items: center;
-  border: 1px solid black;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: white;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-right: 10px;
+
+      border: 1px solid #000;
+      padding: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 5px;
+      margin-right: 10px;
+      background-color: #fff;
 
   &:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.05);
+    background-color: #000;
+    color: #fff;
   }
 
   @media (min-width: 1100px) {
     display: none;
   }
+
+  @media(max-width:650px) {
+    font-size: 14px;
+    width: 65px;
+    margin-right: 5px;
+  }
 `;
 
-function InvitationHeader({ Upload , handlePreviewModal}) {
+function InvitationHeader({ Upload, handlePreviewModal }) {
   let navigate = useNavigate();
 
   return (
@@ -140,12 +261,12 @@ function InvitationHeader({ Upload , handlePreviewModal}) {
       <div>
         <Title onClick={() => { navigate('/') }}>
           <img src={`${process.env.PUBLIC_URL}/img/main-logo.png`} alt="로고" />
-          드림데이
+          <p>드림데이</p>
         </Title>
 
         <InvitationMenu>
           <ul>
-            <PreviewBtn className='preview' onClick={()=>{handlePreviewModal()}}>미리보기</PreviewBtn>
+            <PreviewBtn className='preview' onClick={() => { handlePreviewModal() }}>미리보기</PreviewBtn>
             <SaveBtn onClick={() => { Upload() }}>저장하기</SaveBtn>
           </ul>
         </InvitationMenu>
@@ -163,7 +284,8 @@ width: 100%;
 height: 80px;
 
 position: relative;
-transform: (translateY(0%));
+/* position: absolute; */
+/* transform: translateY(-100%); */
 
 color: white;
 display: flex;
