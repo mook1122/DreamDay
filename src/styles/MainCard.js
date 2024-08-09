@@ -29,6 +29,10 @@ height: 100%;
   font-size: 25px;
   /* display: none; */
   color:black;
+
+  @media(min-width:1100px) {
+    display:none;
+  }
 }
 
 
@@ -315,5 +319,25 @@ export const Copyright = styled.p`
 
 font-size: 10px;
 color: black;
+
+`;
+
+export const CautionFont = styled.span`
+
+width: 100%;
+
+font-size: 11px;
+color: gray;
+margin: 10px;
+
+display: flex;
+justify-content: start;
+align-items: center;
+
+img {
+  margin-right: 5px;
+  width: 15px;
+}
+
 
 `;

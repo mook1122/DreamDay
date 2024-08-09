@@ -68,7 +68,7 @@ function InvitationView({ }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/view/${id}`);
+                const response = await axios.get(`https://dreamday.co.kr/view/${id}`);
                 setDbData(response.data);
             } catch (error) {
                 console.error('데이터 조회 실패:', error);
@@ -128,9 +128,7 @@ function InvitationView({ }) {
                             {
                                 dbData.previewUrl === ''
                                     ?
-                                    <div>
-                                        {/* <p>대표 이미지</p> */}
-                                    </div>
+                                    <img src={'https://mooks3.s3.ap-northeast-2.amazonaws.com/banner.jpg'} ></img>
                                     :
                                     <img src={dbData.previewUrl} ></img>
                             }

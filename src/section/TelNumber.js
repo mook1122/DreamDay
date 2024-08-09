@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios'
+import { CautionFont } from '../styles/MainCard';
 
 const ToggleBar = styled.div`
     background-color: white;
@@ -90,7 +91,10 @@ function TelSection({ openSection, toggleSection, setTelNumber }) {
 
             <DetailItem show={openSection}>
 
-                {/* <span>* 연락처를 입력하지 않으면 자동으로 나타나지 않습니다.</span> */}
+                <CautionFont>
+                    <img src={`${process.env.PUBLIC_URL}/img/caution.png`}></img>
+                    연락처를 입력하지 않으면 자동으로 나타나지 않습니다.
+                </CautionFont>
 
                 <DottedLine></DottedLine>
 

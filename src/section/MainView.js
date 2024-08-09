@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios'
+import { CautionFont } from '../styles/MainCard';
 
 const ToggleBar = styled.div`
     background-color: white;
@@ -94,6 +95,10 @@ function MainView({ openSection, toggleSection, previewUrl, setPreviewUrl }) {
             </ToggleBar>
 
             <DetailItem show={openSection}>
+                <CautionFont>
+                    <img src={`${process.env.PUBLIC_URL}/img/caution.png`}></img>
+                    이미지 첨부를 하지 않을시 지정된 대표 이미지가 첨부 됩니다.
+                </CautionFont>
                 <div>
                     <p>사진</p>
                     <ImageUploadWrapper>

@@ -299,7 +299,7 @@ function Invitation() {
     const getPresignedUrl = async (fileName) => {
         try {
 
-            const response = await axios.get(`http://localhost:8080/api/post/image?file=${fileName}`);
+            const response = await axios.get(`https://dreamday.co.kr/api/post/image?file=${fileName}`);
             return response.data;
         } catch (error) {
             console.error('Presigned URL 요청 실패:', error);
@@ -358,7 +358,7 @@ function Invitation() {
                 account
             };
 
-            const response = await axios.post('http://localhost:8080/upload', data);
+            const response = await axios.post('https://dreamday.co.kr/upload', data);
             // console.log('서버 응답:', response);
             if (response.status === 200) {
                 // console.log('데이터 저장 성공:', response.data);
