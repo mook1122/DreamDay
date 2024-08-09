@@ -41,6 +41,8 @@ html {
 
 function Invitation() {
 
+    const navigate = useNavigate();
+
 
     // 아코디언 섹션
     const [openSections, setOpenSections] = useState({
@@ -220,15 +222,12 @@ function Invitation() {
     const [modalScroll, setModalScroll] = useState('0')
     const handleModal = () => {
         const scrollElement = document.getElementById('sample').scrollTop;
-        console.log(123);
 
 
         if (telModal === 'off') {
             setTelModal('on');
             setModalScroll(scrollElement);
             document.getElementById('sample').style.overflowY = 'hidden';
-            console.log(typeof scrollElement);
-            console.log(scrollElement);
         } else {
             setTelModal('off');
             document.getElementById('sample').style.overflowY = 'scroll';
@@ -299,7 +298,8 @@ function Invitation() {
     // 저장된 이미지 s3업로드
     const getPresignedUrl = async (fileName) => {
         try {
-            const response = await axios.get(`/api/post/image?file=${fileName}`);
+
+            const response = await axios.get(`http://localhost:8080/api/post/image?file=${fileName}`);
             return response.data;
         } catch (error) {
             console.error('Presigned URL 요청 실패:', error);
@@ -312,34 +312,44 @@ function Invitation() {
     const Upload = async () => {
         try {
             const selectedFile = document.querySelector('input[type="file"]').files[0];
-            const presignedUrlData = await getPresignedUrl(selectedFile.name);
+            console.log(selectedFile);
 
-            if (!presignedUrlData) {
-                alert('Presigned URL을 가져오는 데 실패했습니다.');
-                return;
-            }
+            let previewUrl = null;
 
-            const formData = new FormData();
-            for (const key in presignedUrlData.fields) {
-                if (presignedUrlData.fields.hasOwnProperty(key)) {
-                    formData.append(key, presignedUrlData.fields[key]);
+            if (selectedFile) {
+                const presignedUrlData = await getPresignedUrl(selectedFile.name);
+
+                if (!presignedUrlData) {
+                    alert('Presigned URL을 가져오는 데 실패했습니다.');
+                    return;
                 }
-            }
-            formData.append('file', selectedFile);
 
-            await axios.post(presignedUrlData.url, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
+                const formData = new FormData();
+                for (const key in presignedUrlData.fields) {
+                    if (presignedUrlData.fields.hasOwnProperty(key)) {
+                        formData.append(key, presignedUrlData.fields[key]);
+                    }
                 }
-            });
-            console.log('이미지 업로드 태스트 콘솔');
+                formData.append('file', selectedFile);
+
+                await axios.post(presignedUrlData.url, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log('이미지 업로드 완료');
+
+                previewUrl = presignedUrlData.url + '/' + presignedUrlData.fields.key;
+            } else {
+                console.log('선택된 파일이 없습니다. 이미지 업로드를 건너뜁니다.');
+            }
 
             const data = {
                 bg,
                 titlecolor,
                 introtitle,
                 introcontent,
-                previewUrl: presignedUrlData.url + '/' + presignedUrlData.fields.key, // S3 이미지 URL
+                previewUrl: previewUrl, // S3 이미지 URL 또는 null
                 man,
                 woman,
                 totalDate,
@@ -349,20 +359,24 @@ function Invitation() {
             };
 
             const response = await axios.post('http://localhost:8080/upload', data);
-            console.log('서버 응답:', response);
+            // console.log('서버 응답:', response);
             if (response.status === 200) {
-                console.log('데이터 저장 성공:', response.data);
+                // console.log('데이터 저장 성공:', response.data);
 
                 // 로컬스토리지에서 기존 배열 가져오기
                 let uploadedIds = JSON.parse(localStorage.getItem('uploadedDataIds')) || [];
-                console.log('기존 로컬스토리지 데이터:', uploadedIds); // 로컬스토리지 데이터 로그 추가
+
+                // console.log('기존 로컬스토리지 데이터:', uploadedIds);
                 // 새 _id 값을 배열에 추가
                 uploadedIds.push(response.data.id);
+
                 // 배열을 로컬스토리지에 저장
                 localStorage.setItem('uploadedDataIds', JSON.stringify(uploadedIds));
-                console.log('새로운 로컬스토리지 데이터:', JSON.parse(localStorage.getItem('uploadedDataIds'))); // 로컬스토리지 데이터 확인 로그 추가
+                // console.log('새로운 로컬스토리지 데이터:', JSON.parse(localStorage.getItem('uploadedDataIds')));
 
                 alert('청첩장이 생성 되었습니다. 마이페이지에서 확인 해보세요!');
+                navigate('/mypage');
+
             } else {
                 throw new Error('데이터 저장 실패');
             }
@@ -373,10 +387,12 @@ function Invitation() {
     };
 
 
-    const [previewModal , setPreviewModal] = useState('off')
 
-    const handlePreviewModal = () =>{
-        if(previewModal === 'off') {
+    // 모바일 미리보기
+    const [previewModal, setPreviewModal] = useState('off')
+
+    const handlePreviewModal = () => {
+        if (previewModal === 'off') {
             setPreviewModal('on')
         } else {
             setPreviewModal('off')
@@ -391,10 +407,10 @@ function Invitation() {
 
             <Container>
                 <SampleModalBox preview={previewModal}>
-                    <div className='close_sample_modal' onClick={handlePreviewModal}>x</div>
 
                     <Sample bg={bg} id='sample'>
                         {/* 샘플 컴포넌트 내용 */}
+                        <div className='close_sample_modal' onClick={handlePreviewModal}>x</div>
 
                         <SampleHeader>
 

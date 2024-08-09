@@ -38,7 +38,10 @@ app.get('/', (요청, 응답) => {
 
 
 app.get('/api/post/image', async (req, res) => {
+    console.log(req.query.file);
+
     try {
+        
         aws.config.update({
             accessKeyId: process.env.ACCESS_KEY,
             secretAccessKey: process.env.SECRET_KEY,

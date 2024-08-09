@@ -79,7 +79,7 @@ function MainView({ openSection, toggleSection, previewUrl, setPreviewUrl }) {
         if (e.target.files && e.target.files[0]) {
             const selectedFile = e.target.files[0];
             setPreviewUrl(URL.createObjectURL(selectedFile)); // 이미지 미리보기 URL 생성
-            console.log(URL.createObjectURL(selectedFile));
+            // console.log(URL.createObjectURL(selectedFile));
             
         }
     };

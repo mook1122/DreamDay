@@ -29,6 +29,11 @@ const DetailItem = styled.div.withConfig({
     .inputbox {
         display: flex;
         padding: 10px;
+
+        @media(max-width:650px) {
+            flex-direction:column;
+            align-items:start;
+        }
     }
 
     p {

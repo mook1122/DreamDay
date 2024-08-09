@@ -35,6 +35,11 @@ const DetailItem = styled.div.withConfig({
         p {
             width:80px;
         }
+
+        @media(max-width:650px) {
+            flex-direction:column;
+            align-items:start;
+        }
     }
 
     input {
@@ -44,18 +49,29 @@ const DetailItem = styled.div.withConfig({
         border: 1px solid gray;
         margin-right: 20px;
         border-radius: 4px;
+        margin-top:5px;
 
     }
 
     #address {
-        width:200px;
-        margin-right:10px
+        width:230px;
+
+        @media(max-width:650px) {
+            width:280px;
+        }
     }
+
 
     button {
         width:70px;
         height:30px;
         cursor: pointer;
+        margin-top:5px;
+    }
+
+    .address_input {
+        display:flex;
+        flex-direction:column;
     }
 
 `;
@@ -92,7 +108,7 @@ function Location({ openSection, toggleSection, totallocation, setTotallocation,
     const handleAddressSearch = () => {
         setShowMap('on');
         new window.daum.Postcode({
-            oncomplete: function(data) {
+            oncomplete: function (data) {
                 const addr = data.address;
                 setTotallocation(i => ({
                     ...i,
@@ -107,7 +123,7 @@ function Location({ openSection, toggleSection, totallocation, setTotallocation,
     return (
         <div>
             <ToggleBar onClick={toggleSection}>
-                <p>{openSection === 'off'? '▲ 예식 장소' : '▼ 예식 장소'}</p>
+                <p>{openSection === 'off' ? '▲ 예식 장소' : '▼ 예식 장소'}</p>
             </ToggleBar>
 
             <DetailItem show={openSection}>
@@ -120,16 +136,19 @@ function Location({ openSection, toggleSection, totallocation, setTotallocation,
                         onChange={handleLocationTitle}
                     />
                 </div>
+
                 <div>
                     <p>주소</p>
-                    <input
-                        type="text"
-                        placeholder="주소"
-                        id='address'
-                        value={totallocation.address}
-                        readOnly
-                    />
-                    <button onClick={handleAddressSearch}>주소 검색</button>
+                    <div className='address_input'>
+                        <input
+                            type="text"
+                            placeholder="주소"
+                            id='address'
+                            value={totallocation.address}
+                            readOnly
+                        />
+                        <button onClick={handleAddressSearch}>주소 검색</button>
+                    </div>
                 </div>
                 <div>
                     <p>예식장명</p>

@@ -178,6 +178,7 @@ function Header() {
             <FontAwesomeIcon icon={faTimes} size="lg" />
           </CloseButton>
           <ul>
+            <li onClick={() => { navigate('/'); setMobileMenuOpen('off'); }}>Home</li>
             <li onClick={() => { navigate('/invitation'); setMobileMenuOpen('off'); }}>모바일 청첩장</li>
             <li onClick={() => { navigate('/view/66b0374c7c87fd56e559e9c1'); setMobileMenuOpen('off'); }}>샘플</li>
             <li onClick={() => { navigate('/mypage'); setMobileMenuOpen('off'); }}>마이페이지</li>

@@ -52,15 +52,12 @@ function InvitationView({ }) {
     const [modalScroll, setModalScroll] = useState('0')
     const handleModal = () => {
         const scrollElement = document.getElementById('sample').scrollTop;
-        console.log(123);
 
 
         if (telModal === 'off') {
             setTelModal('on');
             setModalScroll(scrollElement);
             document.getElementById('sample').style.overflowY = 'hidden';
-            console.log(typeof scrollElement);
-            console.log(scrollElement);
         } else {
             setTelModal('off');
             document.getElementById('sample').style.overflowY = 'scroll';
@@ -94,7 +91,7 @@ function InvitationView({ }) {
     if (!dbData.totallocation) {
         return <div>위치 데이터가 없습니다.</div>;
     }
-    console.log(dbData);
+    // console.log(dbData);
 
 
 

@@ -28,6 +28,7 @@ height: 100%;
   right: 25px;
   font-size: 25px;
   /* display: none; */
+  color:black;
 }
 
 

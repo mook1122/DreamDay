@@ -22,7 +22,7 @@ const DetailItem = styled.div.withConfig({
     border-top: 1px solid #eee;
     background-color: white;
     width: 100%;
-    max-height: ${props => (props.show === 'on' ? '500px' : '0')};
+    max-height: ${props => (props.show === 'on' ? '1000px' : '0')};
     overflow: hidden;
     transition: max-height ${props => (props.show === 'on' ? '0.5s ease-in-out' : '0s ease-in-out')};
 
@@ -31,6 +31,10 @@ const DetailItem = styled.div.withConfig({
         align-items: center;
         padding: 10px;
 
+        @media(max-width:650px) {
+            flex-direction:column;
+            align-items:start;
+        }
     }
 
     p {
@@ -45,6 +49,11 @@ const DetailItem = styled.div.withConfig({
         margin-right: 20px;
         border-radius: 4px;
         margin-left: 15px;
+
+        @media(max-width:650px) {
+            margin-left:0px;
+            margin-top:5px;
+        }
 
     }
 
@@ -67,7 +76,7 @@ function TelSection({ openSection, toggleSection, setTelNumber }) {
 
         setTelNumber(i => ({
             ...i,
-            [inputId] : e.target.value
+            [inputId]: e.target.value
         }))
 
     }
@@ -91,7 +100,7 @@ function TelSection({ openSection, toggleSection, setTelNumber }) {
                         placeholder='010-0000-0000'
                         id='groom'
                         type='text'
-                    onChange={handleTelNumber}
+                        onChange={handleTelNumber}
                     />
                 </div>
                 <div>
@@ -100,7 +109,7 @@ function TelSection({ openSection, toggleSection, setTelNumber }) {
                         placeholder='010-0000-0000'
                         type='text'
                         id='groomFather'
-                    onChange={handleTelNumber}
+                        onChange={handleTelNumber}
                     />
                 </div>
                 <div>
@@ -109,7 +118,7 @@ function TelSection({ openSection, toggleSection, setTelNumber }) {
                         placeholder='010-0000-0000'
                         type='text'
                         id='groomMother'
-                    onChange={handleTelNumber}
+                        onChange={handleTelNumber}
                     />
                 </div>
 
@@ -121,7 +130,7 @@ function TelSection({ openSection, toggleSection, setTelNumber }) {
                         placeholder='010-0000-0000'
                         type='text'
                         id='bride'
-                    onChange={handleTelNumber}
+                        onChange={handleTelNumber}
                     />
                 </div>
                 <div>
@@ -130,7 +139,7 @@ function TelSection({ openSection, toggleSection, setTelNumber }) {
                         placeholder='010-0000-0000'
                         type='text'
                         id='brideFather'
-                    onChange={handleTelNumber}
+                        onChange={handleTelNumber}
                     />
                 </div>
                 <div>
@@ -139,7 +148,7 @@ function TelSection({ openSection, toggleSection, setTelNumber }) {
                         placeholder='010-0000-0000'
                         type='text'
                         id='brideMother'
-                    onChange={handleTelNumber}
+                        onChange={handleTelNumber}
                     />
                 </div>
 

@@ -112,7 +112,7 @@ justify-content: space-between;
 function MyPage() {
 
 
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const [myinvitation, setMyinvitation] = useState([]);
 
@@ -123,7 +123,7 @@ function MyPage() {
         }
     }, []);
 
-    console.log(myinvitation[0]);
+    // console.log(myinvitation[0]);
 
     const handleCopyLink = (link) => {
         navigator.clipboard.writeText(link).then(() => {
