@@ -68,7 +68,7 @@ function InvitationView({ }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://dreamday.co.kr/view/${id}`);
+                const response = await axios.get(`https://mookserver.shop/view/${id}`);
                 setDbData(response.data);
             } catch (error) {
                 console.error('데이터 조회 실패:', error);

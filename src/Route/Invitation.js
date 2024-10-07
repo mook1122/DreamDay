@@ -35,6 +35,7 @@ html {
   body {
     height: 100%;
     background-color: #EFEFEF;
+
 }
 `
 
@@ -299,7 +300,7 @@ function Invitation() {
     const getPresignedUrl = async (fileName) => {
         try {
 
-            const response = await axios.get(`https://dreamday.co.kr/api/post/image?file=${fileName}`);
+            const response = await axios.get(`https://mookserver.shop/api/post/image?file=${fileName}`);
             return response.data;
         } catch (error) {
             console.error('Presigned URL 요청 실패:', error);
@@ -358,7 +359,7 @@ function Invitation() {
                 account
             };
 
-            const response = await axios.post('https://dreamday.co.kr/upload', data);
+            const response = await axios.post('https://mookserver.shop/upload', data);
             // console.log('서버 응답:', response);
             if (response.status === 200) {
                 // console.log('데이터 저장 성공:', response.data);
@@ -433,7 +434,9 @@ function Invitation() {
                                     previewUrl === ''
                                         ?
                                         <div>
-                                            <p>대표 이미지</p>
+                                            <p>예시 이미지 입니다.</p>
+                                            <img src={process.env.PUBLIC_URL + `/img/banner.jpg`}></img>
+
                                         </div>
                                         :
                                         <img src={previewUrl} ></img>
