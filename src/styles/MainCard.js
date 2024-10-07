@@ -150,14 +150,20 @@ export const MainImgBox = styled.div`
 
   div {
     width: 100%;
-    height: 300px;
+    height: 450px;
     border: 1px solid black;
-    background-color: #eee;
-    opacity: 0.5;
+    /* background-color: #eee; */
+    /* opacity: 0.5; */
 
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  p {
+    position: absolute;
+    font-weight: bold;
+    color: white;
   }
 `;
 
