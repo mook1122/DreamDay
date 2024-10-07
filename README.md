@@ -4,7 +4,7 @@
 
 🕸 **배포 주소**: [dreamday.co.kr](https://dreamday.co.kr/)
 
-![dreamday1](https://github.com/mook1122/DreamDay/issues/1#issue-2551199735)
+![dreamday1](https://github.com/user-attachments/assets/bf67b4eb-64cb-4e66-96d3-aaa54716c254)
 
 <br>
 
@@ -34,10 +34,15 @@ AWS S3를 통해 이미지 정보를 저장하여 대표 이미지 설정도 가
 - 🌈 **실시간 미리보기**: 입력한 내용을 실시간으로 미리 확인하고 수정할 수 있습니다.
 - 📸 **이미지 저장 및 적용**: AWS S3를 통해 이미지 정보를 저장하여 대표 이미지 설정이 가능합니다.
 
+<br>
+<br>
+
+
 <div style="display: flex; justify-content: space-between;">
   <img src="https://github.com/user-attachments/assets/e70cddf3-73c2-4736-a698-4cc523e5c706" alt="dreamday1" style="width: 49%;"/>
   <img src="https://github.com/user-attachments/assets/4a84ff3d-5c6d-4ab0-b2ce-d9cf14da72c7" alt="dreamday2" style="width: 49%;"/>
 </div>
+
 <br>
 
 ## 🛠 사용 기술 및 이유
