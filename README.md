@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# 💌 DreamDay
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**DreamDay**는 결혼을 준비하는 예비 부부를 위한 모바일 청첩장 제작 서비스입니다. 간단한 인터페이스를 통해 다양한 템플릿과 정보를 입력하고 초대장을 제작할 수 있습니다. 디자인과 내용을 직접 꾸밀 수 있어 더욱 특별한 모바일 청첩장을 만들 수 있습니다.
 
-## Available Scripts
+🕸 **배포 주소**: [dreamday.co.kr](https://dreamday.co.kr/)
 
-In the project directory, you can run:
+![dreamday1](https://github.com/mook1122/DreamDay/issues/1#issue-2551199735)
 
-### `npm start`
+<br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📋 목차
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [프로젝트 소개](#프로젝트-소개)
+- [주요 기능](#주요-기능)
+- [사용 기술 및 이유](#사용-기술-및-이유)
+- [프로젝트를 통해 배운 점](#프로젝트를-통해-배운-점)
 
-### `npm test`
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 📌 프로젝트 소개
 
-### `npm run build`
+**DreamDay**는 사용자가 원하는 색상 테마를 선택해 초대장을 꾸밀 수 있고, 날짜와 장소, 초대 문구를 직접 입력하여 개인화할 수 있습니다. 또한, 은행 계좌 정보를 간단히 추가해 축의금 송금이 편리하며, 모든 설정을 실시간 미리보기로 확인하고 수정할 수 있습니다. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+AWS S3를 통해 이미지 정보를 저장하여 대표 이미지 설정도 가능하며, AWS Elastic Beanstalk를 이용해 배포하고 HTTPS를 적용했습니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## 🌟 주요 기능
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- ✏️ **초대장 작성 및 편집**: 결혼식 날짜, 장소, 인사말 등을 입력하고 디자인 테마를 설정하여 나만의 초대장을 만들 수 있습니다.
+- 📆 **날짜 및 시간 설정**: 결혼식 일정과 시간을 입력하면 초대장에 자동으로 반영됩니다.
+- 🏦 **계좌 정보 설정**: 결혼 관련 금융 정보를 안전하고 간편하게 공유할 수 있습니다.
+- 🌈 **실시간 미리보기**: 입력한 내용을 실시간으로 미리 확인하고 수정할 수 있습니다.
+- 📸 **이미지 저장 및 적용**: AWS S3를 통해 이미지 정보를 저장하여 대표 이미지 설정이 가능합니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<div style="display: flex; justify-content: space-between;">
+  <img src="https://github.com/user-attachments/assets/e70cddf3-73c2-4736-a698-4cc523e5c706" alt="dreamday1" style="width: 49%;"/>
+  <img src="https://github.com/user-attachments/assets/4a84ff3d-5c6d-4ab0-b2ce-d9cf14da72c7" alt="dreamday2" style="width: 49%;"/>
+</div>
+<br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🛠 사용 기술 및 이유
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **프론트엔드**:
+  - **React**: 컴포넌트 기반의 UI를 효율적으로 개발하기 위해 사용하였으며, 상태 관리와 컴포넌트 재사용을 통해 코드를 간결하고 유지 보수 가능하게 만들었습니다.
+  - **Styled-Components**: 각 컴포넌트의 스타일을 모듈화하여 유지 보수를 용이하게 했으며, 사용자가 선택한 테마에 따라 유연한 스타일 변경이 가능하도록 구현하였습니다.
 
-## Learn More
+- **백엔드**:
+  - **Node.js**: 서버 사이드 로직 구현과 API 요청 처리를 담당하였습니다.
+  - **MongoDB**: 사용자 데이터와 초대장 정보를 저장하기 위해 사용하였습니다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **배포**: AWS Elastic Beanstalk를 이용해 배포하였으며, Route 53 및 ACM을 통해 HTTPS 인증서를 발급받아 HTTPS 적용을 완료하였습니다.
+- **에디터**: **VSCode**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br>
 
-### Code Splitting
+## 📚 프로젝트를 통해 배운 점
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **⚛️ 컴포넌트 기반 설계**: 다양한 기능을 컴포넌트로 분리하여 개발함으로써 재사용 가능한 코드를 작성하는 법을 배웠습니다. 예를 들어, 날짜 및 장소 입력, 계좌 정보 입력 등 다양한 기능들을 별도의 컴포넌트로 구성하여 유지 보수 및 확장성을 높였습니다.
+- **🗃️ 상태 관리**: 복잡한 상태를 관리하기 위해 React의 `useState`와 `useEffect`를 적절히 활용하였습니다. 특히, 사용자의 입력에 따른 실시간 미리보기 기능을 구현하면서 상태 관리를 효율적으로 하는 방법을 익혔습니다.
+- **🌐 개발부터 배포까지의 흐름**: 실제 배포 환경에서의 프로젝트 운영을 경험해봄으로써 AWS를 통한 웹 서비스 배포 및 관리에 대한 이해도를 높였습니다. 도메인 구매부터 HTTPS 적용까지의 전 과정을 수행하면서 웹 서비스 배포의 중요성과 방법을 익혔습니다.
